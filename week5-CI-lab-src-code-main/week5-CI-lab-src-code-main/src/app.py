@@ -5,5 +5,5 @@ app = flask.Flask(__name__)
 
 @app.route("/")
 def index():
-    print("test!")
+    print("test! pls found")
     return "Welcome!!! ",time.localtime
