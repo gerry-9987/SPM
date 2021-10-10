@@ -1,18 +1,18 @@
 <?php
 
-class ConnectionManager {
+// class ConnectionManager {
 
-  public function getConnection() {
-    $servername = 'localhost';
-    $dbname = 'spm_proj';
-    $username = 'root';
-    $password = '';
-    $port = 3306;
-    $url  = "mysql:host=$servername;dbname=$dbname;port=$port";
+//   public function getConnection() {
+//     $servername = 'localhost';
+//     $dbname = 'spm_proj';
+//     $username = 'root';
+//     $password = '';
+//     $port = 3306;
+//     $url  = "mysql:host=$servername;dbname=$dbname;port=$port";
 
-    return new PDO($url, $username, $password);
-  }
+//     return new PDO($url, $username, $password);
+//   }
 
-}
+// }
 
 ?>
