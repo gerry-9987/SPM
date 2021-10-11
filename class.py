@@ -65,7 +65,6 @@ class Class(db.Model):
 @app.route("/class")
 def get_all():
 
-
     class_list = Class.query.all()
     if len(class_list):
         return jsonify(
