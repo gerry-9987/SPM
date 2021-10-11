@@ -1,7 +1,5 @@
-import os
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from os import environ
 from flask_cors import CORS
 from datetime import datetime
 import time
@@ -35,10 +33,10 @@ class Class(db.Model):
     startDate = db.Column(db.DateTime, nullable=False, default=datetime.now)
     endDate = db.Column(db.DateTime, nullable=False, default=datetime.now)
     startTime = db.Column(db.DateTime, nullable=False, default=datetime.now)
-    endTime = db.Column(db.DateTime, nullable=False, default=datetime.now)    
+    endTime = db.Column(db.DateTime, nullable=False, default=datetime.now)
     classSize = db.Column(db.Integer(), nullable=False)
     trainerName = db.Column(db.VARCHAR(255), nullable=False)
-    staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'),nullable=False)
+    staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), nullable=False)
 
 
     __table_args__ = (
@@ -46,7 +44,6 @@ class Class(db.Model):
         courseID, classID,
         ),
     )
-
 
 
     def __init__(self, classID, courseID, startDate, endDate, startTime, endTime, classSize,  trainerName, staffID):
@@ -61,11 +58,23 @@ class Class(db.Model):
         self.staffID = staffID
 
     def json(self):
-        return {"classID": self.classID, "courseID": self.courseID, "startDate": self.startDate, "endDate": self.endDate, "startTime": self.startTime, "endTime": self.endTime, "classSize": self.classSize, "trainerName": self.trainerName, "staffID": self.staffID}
+        return {
+            "classID":self.classID,
+            "courseID": self.courseID,
+            "startDate": self.startDate,
+            "endDate": self.endDate,
+            "startTime": self.startTime,
+            "endTime": self.endTime,
+            "classSize": self.classSize,
+            "trainerName": self.trainerName,
+            "staffID": self.staffID
+        }
 
-#get the list of all classes
+# get the list of all classes
 @app.route("/class")
 def get_all():
+    
+    
     class_list = Class.query.all()
     if len(class_list):
         return jsonify(
@@ -83,9 +92,11 @@ def get_all():
         }
     ), 404
 
-#get specific class
+# get specific class
 @app.route("/course/<string:classID>")
 def get_class(classID):
+    
+    
     a_class = Class.query.filter_by(classID=classID).first()
     if a_class:
         return jsonify(
@@ -117,7 +128,17 @@ def create_class():
     trainerName = request.json.get("trainerName")
     staffID = request.json.get("staffID")
     
-    a_class = Class(classID = classID, courseID =courseID, startDate=startDate, endDate=endDate, startTime=startTime, endTime=endTime, classSize=classSize, trainerName=trainerName, staffID=staffID)
+    a_class = Class(
+        classID=classID,
+        courseID=courseID,
+        startDate=startDate,
+        endDate=endDate,
+        startTime=startTime,
+        endTime=endTime,
+        classSize=classSize,
+        trainerName=trainerName,
+        staffID=staffID
+    )
 
     print(a_class.json())
     
@@ -140,7 +161,8 @@ def create_class():
             "data": a_class.json()
         }
     ), 201
-    
+
+
 if __name__ == '__main__':
     app.run(port=5003, debug=True)
     # app.run(host='0.0.0.0', port=5000, debug=True)

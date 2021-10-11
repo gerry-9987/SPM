@@ -15,9 +15,9 @@ db = SQLAlchemy(app)
 CORS(app)
 
 class Course(db.Model):
+    
+    
     __tablename__ = 'course'
-
-
     courseID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
     courseName = db.Column(db.VARCHAR(255), nullable=False)
     courseCategory = db.Column(db.VARCHAR(255), nullable=False)
@@ -31,9 +31,9 @@ class Course(db.Model):
 
     def json(self):
         return {
-            "courseID": self.courseID, 
-            "courseName": self.courseName, 
-            "courseCategory": self.courseCategory, 
+            "courseID": self.courseID,
+            "courseName": self.courseName,
+            "courseCategory": self.courseCategory,
             "noOfClasses": self.noOfClasses
         }
 
@@ -81,7 +81,8 @@ def get_course(courseID):
 # add new course
 @app.route("/course", methods=['POST'])
 def create_course():
-    
+
+
     courseID = request.json.get("courseID")
     courseName = request.json.get("courseName")
     courseCategory = request.json.get("courseCategory")
@@ -94,7 +95,7 @@ def create_course():
     try:
         db.session.add(course)
         db.session.commit()
-    except error as e:
+    except error:
         return jsonify(
             {
                 "code": 500,
