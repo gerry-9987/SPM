@@ -1,9 +1,7 @@
-import os
+from os import error
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from os import environ
 from flask_cors import CORS
-from datetime import datetime
 
 app = Flask(__name__)
 
@@ -19,6 +17,7 @@ CORS(app)
 class Course(db.Model):
     __tablename__ = 'course'
 
+
     courseID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
     courseName = db.Column(db.VARCHAR(255), nullable=False)
     courseCategory = db.Column(db.VARCHAR(255), nullable=False)
@@ -31,9 +30,15 @@ class Course(db.Model):
         self.noOfClasses = noOfClasses
 
     def json(self):
-        return {"courseID": self.courseID, "courseName": self.courseName, "courseCategory": self.courseCategory, "noOfClasses": self.noOfClasses}
+        return {
+            "courseID": self.courseID, 
+            "courseName": self.courseName, 
+            "courseCategory": self.courseCategory, 
+            "noOfClasses": self.noOfClasses
+        }
 
-#get the list of all courses
+
+# get the list of all courses
 @app.route("/course")
 def get_all():
     course_list = Course.query.all()
@@ -53,7 +58,8 @@ def get_all():
         }
     ), 404
 
-#get specific course
+
+# get specific course
 @app.route("/course/<string:courseID>")
 def get_course(courseID):
     course = Course.query.filter_by(courseID=courseID).first()
@@ -71,7 +77,8 @@ def get_course(courseID):
         }
     ), 404
 
-# add new course 
+
+# add new course
 @app.route("/course", methods=['POST'])
 def create_course():
     
@@ -80,14 +87,14 @@ def create_course():
     courseCategory = request.json.get("courseCategory")
     noOfClasses = request.json.get("noOfClasses")
 
-    course = Course(courseID =courseID , courseName = courseName, courseCategory=courseCategory, noOfClasses=noOfClasses)
+    course = Course(courseID=courseID, courseName=courseName, courseCategory=courseCategory, noOfClasses=noOfClasses)
 
     print(course.json())
-    
+
     try:
         db.session.add(course)
         db.session.commit()
-    except:
+    except error as e:
         return jsonify(
             {
                 "code": 500,
@@ -103,7 +110,8 @@ def create_course():
             "data": course.json()
         }
     ), 201
-    
+
+
 if __name__ == '__main__':
     # app.run(port=5001, debug=True)
     app.run(port=5000, debug=True)
