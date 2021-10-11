@@ -73,7 +73,6 @@ class Class():
 @app.route("/class")
 def get_all():
 
-
     class_list = Class.query.all()
     if len(class_list):
         return jsonify(
@@ -113,7 +112,7 @@ def get_class(classID):
     ), 404
 
 
-# add new class 
+# add new class
 @app.route("/class", methods=['POST'])
 def create_class():
 
