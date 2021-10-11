@@ -1,9 +1,10 @@
+from os import error
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from datetime import datetime
-import time
-import json
+# import time
+# import json
 
 app = Flask(__name__)
 
@@ -17,7 +18,7 @@ db = SQLAlchemy(app)
 CORS(app)
 
 
-class Class(db.Model):
+class Class():
     __tablename__ = 'class'
 
     def defaultconverter(o):
@@ -38,13 +39,11 @@ class Class(db.Model):
     trainerName = db.Column(db.VARCHAR(255), nullable=False)
     staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), nullable=False)
 
-
     __table_args__ = (
-    db.PrimaryKeyConstraint(
-        courseID, classID,
-        ),
+        db.PrimaryKeyConstraint(
+            courseID, classID,
+            ),
     )
-
 
     def __init__(self, classID, courseID, startDate, endDate, startTime, endTime, classSize,  trainerName, staffID):
         self.classID = classID
@@ -59,7 +58,7 @@ class Class(db.Model):
 
     def json(self):
         return {
-            "classID":self.classID,
+            "classID": self.classID,
             "courseID": self.courseID,
             "startDate": self.startDate,
             "endDate": self.endDate,
@@ -73,8 +72,8 @@ class Class(db.Model):
 # get the list of all classes
 @app.route("/class")
 def get_all():
-    
-    
+
+
     class_list = Class.query.all()
     if len(class_list):
         return jsonify(
@@ -92,11 +91,12 @@ def get_all():
         }
     ), 404
 
+
 # get specific class
 @app.route("/course/<string:classID>")
 def get_class(classID):
-    
-    
+
+
     a_class = Class.query.filter_by(classID=classID).first()
     if a_class:
         return jsonify(
@@ -112,12 +112,12 @@ def get_class(classID):
         }
     ), 404
 
+
 # add new class 
 @app.route("/class", methods=['POST'])
 def create_class():
 
-    # classID, courseID, startDate, endDate, startTime, endTime, classSize,  trainerName, staffID
-    
+# classID, courseID, startDate, endDate, startTime, endTime, classSize,  trainerName, staffID
     classID = request.json.get("classID")
     courseID = request.json.get("courseID")
     startDate = request.json.get("startDate")
@@ -127,7 +127,7 @@ def create_class():
     classSize = request.json.get("classSize")
     trainerName = request.json.get("trainerName")
     staffID = request.json.get("staffID")
-    
+
     a_class = Class(
         classID=classID,
         courseID=courseID,
@@ -141,11 +141,11 @@ def create_class():
     )
 
     print(a_class.json())
-    
+
     try:
         db.session.add(a_class)
         db.session.commit()
-    except:
+    except error:
         return jsonify(
             {
                 "code": 500,
