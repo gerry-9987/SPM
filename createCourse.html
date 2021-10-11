@@ -1,42 +1,51 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="styles.css" />
 
     <title>LMS</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <!-- navbar -->
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand">Course Management System</a>
+            <a class="navbar-brand">Course Management System</a>
         </div>
     </nav>
     <!-- Tools box -->
-    <div class="container-fluid mt-3">
+    <div class="container-fluid mt-3" id="section-wrapper">
         <h2>Tools for Administrators</h2>
-        <div class="border border-grey rounded" >
+        <div class="border border-grey rounded">
             <div class="row m-4">
                 <!-- tool 1-->
                 <div class="col-md-3">
-                    <div class="card" >
-                        <img src="./images/Rectangle 13.jpg" class="card-img-top" alt="...">
+                    <div class="card">
+                        <img src="./images/Rectangle 13.jpg" class="card-img-top" alt="..." />
                         <div class="card-body">
-                            <p class="card-text text-center "><a href="createCourse.html">Create Course</a></p>
+                            <<<<<<< Updated upstream <p class="card-text text-center "><a href="createCourse.html">Create Course</a></p>
+                                =======
+                                <p class="card-text text-center">Create Course</p>
+                                >>>>>>> Stashed changes
                         </div>
                     </div>
                 </div>
                 <!-- tool 2-->
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="./images/Rectangle 13.jpg" class="card-img-top" alt="...">
+                        <img src="./images/Rectangle 13.jpg" class="card-img-top" alt="..." />
                         <div class="card-body">
-                            <p class="card-text text-center"><a href="manageCourse.html">Manage Course</a></p>
+                            <<<<<<< Updated upstream <p class="card-text text-center"><a href="manageCourse.html">Manage Course</a></p>
+                                =======
+                                <p class="card-text text-center">Manage Course</p>
+                                >>>>>>> Stashed changes
                         </div>
                     </div>
                 </div>
@@ -45,98 +54,91 @@
         </div>
     </div>
     <!-- Manage Course -->
-    <div class="container-fluid mt-3">
+    <div class="container-fluid mt-3" id="section-wrapper">
         <div class="d-flex justify-content-between">
             <h2>Create Course</h2>
-            <button type="submit" class="btn btn-success px-5">Create</button>
         </div>
         <!-- start of form -->
-        <form class="mt-3">
+        <form class="mt-3" id='app'>
             <!-- 1st row Course Name and Number of Classes-->
             <div class="form-row">
                 <div class="form-group col-6">
-                    <label for="course-name">Course Name</label>
-                    <input type="text" class="form-control" id="course-name" placeholder="Example input">
+                    <label for="courseName">Course Name</label>
+                    <input type="text" class="form-control" id="courseName" placeholder="Course name goes here" />
                 </div>
 
                 <div class="form-group col-6">
-                    <label for="number-of-classes">Number of Classes</label>
-                    <select class="form-control" id="number-of-classes">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
+                    <label for="numberOfClasses">Number of Classes</label>
+                    <select class="form-control" id="numberOfClasses">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
                     </select>
-                  </div>
+                </div>
             </div>
             <!-- 2nd row Course Category and Class Capacity-->
             <div class="form-row">
                 <div class="form-group col-6">
-
-                    <label for="course-category">Course Category</label>
-                    <select class="form-control" id="course-category">
-
-                      <option>Roving Engineers</option>
-                      <option>2</option>
-                      <option>3</option>
+                    <label for="courseCategory">Course Category</label>
+                    <select class="form-control" id="courseCategory">
+                        <option v-for="course_category in course_categories">
+                            {{ course_category }}
+                        </option>
                     </select>
-                  </div>
-                  <div class="form-group col-6">
-                    <label for="class-capacity">Class Capacity</label>
-                    <select class="form-control" id="class-capacity">
-
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
+                </div>
+                <div class="form-group col-6">
+                    <label for="classCapacity">Class Capacity</label>
+                    <select class="form-control" id="classCapacity">
+                        <option v-for='num in [1,2,3,4,5]'> {{ num }} </option>
                     </select>
-                  </div>
+                    <!-- <input class="form-check-input me-1" id="classCapacity" type="number" value="" aria-label="..." /> -->
+                </div>
             </div>
             <!-- Assign learners-->
             <h2>Assign Trainers</h2>
             <div>
-                <ul class="container list-group infinite-scroll m-0" id="basic-example" style="max-height: 261px; overflow-y: scroll;">
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..."> Trainer 1 
+                <ul class="container list-group infinite-scroll m-0" id="basic-example" style="max-height: 261px; overflow-y: scroll">
+                    <li class="list-group-item" v-for='trainer in trainers'>
+                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." /> {{ trainer }}
                     </li>
-                    <li class="list-group-item">
-
-                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..."> Trainer 2 
-                    </li>
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..."> Trainer 3 
-                    </li>
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..."> Trainer 4 
-                    </li>
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..."> Trainer 5 
-                    </li>
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..."> Trainer 6 
-                    </li>
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..."> Trainer 7 
-                    </li>
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..."> Trainer 8 
-                    </li>
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..."> Trainer 9 
-
-                    </li>
-                    
-                  </ul>
+                </ul>
             </div>
+            <button type="submit" class="btn btn-success px-5" @click='submit_new_course()'>Create</button>
         </form>
     </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js " integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN " crossorigin="anonymous ">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js " integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q " crossorigin="anonymous ">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js " integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl " crossorigin="anonymous ">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
+    <style>
+        #section-wrapper {
+            padding: 45px;
+        }
+    </style>
+    <script>
+        var app = new Vue({
+            el: "#app ",
+            computed: {},
+            data: {
+                course_categories: [
+                    "Mechanical Engineer ",
+                    "Computer Engineer ",
+                    "Chemical Engineer ",
+                ],
+                trainers: [
+                    'Wesley', 'Jewel', 'Gerry', 'HaoYue', 'LY'
+                ]
+            },
+        });
+    </script>
+</body>
+
 </html>
