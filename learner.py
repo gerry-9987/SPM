@@ -17,7 +17,7 @@ CORS(app)
 class Learner(db.Model):
 
     __tablename__ = 'learner'
-    staffID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
+    staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), primary_key=True, autoincrement=False)
     numberOfClassesPassed = db.Column(db.Integer(), nullable=False)
 
     def __init__(self, staffID, numberOfClassesPassed):
