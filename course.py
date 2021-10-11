@@ -7,7 +7,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/course'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/spm_proj'
 # app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle': 299}
@@ -105,5 +105,5 @@ def create_course():
     ), 201
     
 if __name__ == '__main__':
-    # app.run(port=5001, debug=True)
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(port=5002, debug=True)
+    # app.run(host='0.0.0.0', port=5000, debug=True)
