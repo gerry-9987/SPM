@@ -105,7 +105,7 @@ def get_class(classID):
     ), 404
 
 
-# add new class 
+# add new class
 @app.route("/class", methods=['POST'])
 def create_class():
 

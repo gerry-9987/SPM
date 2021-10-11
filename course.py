@@ -15,8 +15,8 @@ db = SQLAlchemy(app)
 CORS(app)
 
 class Course(db.Model):
-    
-    
+
+
     __tablename__ = 'course'
     courseID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
     courseName = db.Column(db.VARCHAR(255), nullable=False)
