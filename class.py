@@ -18,23 +18,15 @@ db = SQLAlchemy(app)
 CORS(app)
 
 
-class Class():
+class Class(db.Model):
     __tablename__ = 'class'
-
-    def defaultconverter(o):
-        if isinstance(o, datetime.datetime):
-            return o.__str__()
 
     classID = db.Column(db.Integer(), primary_key=True, nullable=False)
     courseID = db.Column(db.Integer(), db.ForeignKey('course.courseID'), primary_key=True, nullable=False)
-    # startDate = db.Column(db.DateTime, nullable=False, default=defaultconverter)
-    # endDate = db.Column(db.DateTime, nullable=False, default=defaultconverter)
-    # startTime = db.Column(db.DateTime, nullable=False, default=defaultconverter)
-    # endTime = db.Column(db.DateTime, nullable=False, default=defaultconverter)
-    startDate = db.Column(db.DateTime, nullable=False, default=datetime.now)
-    endDate = db.Column(db.DateTime, nullable=False, default=datetime.now)
-    startTime = db.Column(db.DateTime, nullable=False, default=datetime.now)
-    endTime = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    startDate = str(db.Column(db.DateTime, nullable=False))
+    endDate = str(db.Column(db.DateTime, nullable=False))
+    startTime = str(db.Column(db.DateTime, nullable=False))
+    endTime = str(db.Column(db.DateTime, nullable=False))
     classSize = db.Column(db.Integer(), nullable=False)
     trainerName = db.Column(db.VARCHAR(255), nullable=False)
     staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), nullable=False)
