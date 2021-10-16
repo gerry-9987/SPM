@@ -63,6 +63,7 @@ CREATE TABLE CHAPTER
 (
     chapterID int(11) NOT NULL AUTO_INCREMENT,
     chapterName varchar(255) NOT NULL,
+    chapterDetails varchar(255) NOT NULL,
     quizID int(11) NOT NULL,
     CONSTRAINT chapter_pk PRIMARY KEY (chapterID),
     CONSTRAINT chapter_fk FOREIGN KEY (quizID) REFERENCES QUIZ(quizID)
@@ -246,24 +247,24 @@ INSERT INTO QUESTION VALUES
 (18, 'GGG', 'G');
 
 INSERT INTO CHAPTER VALUES
-(1, 'CAT', 1),
-(2, 'DOG', 2),
-(3, 'TURTLE', 3),
-(4, 'LIFE', 4),
-(5, 'foetus', 5),
-(6, 'baby', 6),
-(7, 'diluc', 7),
-(8, 'zhongli', 8),
-(9, 'cutest', 9),
-(10, 'cuter', 10),
-(11, 'AAA', 11),
-(12, 'BBB', 12),
-(13, 'BBV', 13),
-(14, 'CCC', 14),
-(15, 'DDD', 15),
-(16, 'EEE', 16),
-(17, 'FFF', 17),
-(18, 'GGG', 18);
+(1, 'CAT', 'A cat is running away', 1),
+(2, 'DOG', 'A dog is running away',2),
+(3, 'TURTLE', 'A turtle is running away', 3),
+(4, 'LIFE', 'My life is great', 4),
+(5, 'foetus', 'A foetus is growing', 5),
+(6, 'baby', 'A baby is crawling away', 6),
+(7, 'diluc', 'yay diluc', 7),
+(8, 'zhongli', 'yay zhongli', 8),
+(9, 'cutest', 'yay cutest', 9),
+(10, 'cuter', 'yay cuter', 10),
+(11, 'AAA', 'AAA yummy', 11),
+(12, 'BBB', 'BBB happy', 12),
+(13, 'BBV', 'BBV bumble bee', 13),
+(14, 'CCC', 'CCC bumble bee', 14),
+(15, 'DDD', 'DDD bumble bee', 15),
+(16, 'EEE', 'EEE bumble bee', 16),
+(17, 'FFF', 'FFF bumble bee', 17),
+(18, 'GGG', 'GGG bumble bee', 18);
 
 INSERT INTO GRADEDQUIZ VALUES
 (1, 50),
