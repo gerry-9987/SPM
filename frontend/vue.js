@@ -20,6 +20,40 @@ var app = new Vue({
         submit_new_course: function() {
             console.log('I am clicked')
             console.log(this.form_course_name, this.form_course_category, this.form_number_of_classes, this.form_course_capacity, this.form_course_trainers)
+
+            let jsonData = JSON.stringify({
+                form_course_name: this.form_course_name,
+                form_course_category: this.form_course_category,
+                form_number_of_classes: this.form_number_of_classes,
+                form_course_capacity: this.form_course_capacity,
+                form_course_trainers: this.form_course_trainers
+            });
+
+            fetch(`${URL}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: jsonData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    result = data.data;
+                    console.log(result);
+                    // 3 cases
+                    switch (data.code) {
+                        case 201:
+                            console.log('success')
+                            break;
+                        case 400:
+                        case 500:
+                            console.log('failure')
+                            break;
+                        default:
+                            throw `${data.code}: ${data.message}`;
+                    }
+                })
         }
     }
 });

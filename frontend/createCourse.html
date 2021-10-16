@@ -21,7 +21,7 @@
         </div>
     </nav>
     <!-- Tools box -->
-    <div class="container-fluid" id="section-wrapper">
+    <div class="container-fluid" id-unique="section-wrapper">
         <h2>Tools for Administrators</h2>
         <div class="border border-grey rounded">
             <div class="row m-4">
@@ -58,12 +58,12 @@
             <div class="form-row">
                 <div class="form-group col-6">
                     <label for="course-name">Course Name</label>
-                    <input v-model='form_course_name' type="text" class="form-control" id="course-name" placeholder="Course name goes here" />
+                    <input v-model="form_course_name" type="text" class="form-control" id="course-name" placeholder="Course name goes here" />
                 </div>
 
                 <div class="form-group col-6">
                     <label for="number-of-classes">Number of Classes</label>
-                    <select class="form-control" id="number-of-classes" v-model='form_number_of_classes'>
+                    <select class="form-control" id="number-of-classes" v-model="form_number_of_classes">
                         <option v-for="num in [1,2,3,4,5]" > {{ num }} </option>
                     </select>
                 </div>
@@ -72,7 +72,7 @@
             <div class="form-row">
                 <div class="form-group col-6">
                     <label for="course-category">Course Category</label>
-                    <select class="form-control" id="course-category" v-model='form_course_category'>
+                    <select class="form-control" id="course-category" v-model="form_course_category">
                         <option v-for="course_category in course_categories">
                             {{ course_category }}
                         </option>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="form-group col-6">
                     <label for="class-capacity">Class Capacity</label>
-                    <select class="form-control" id="class-capacity" v-model='form_course_capacity'>
+                    <select class="form-control" id="class-capacity" v-model="form_course_capacity">
                         <option v-for="num in [1,2,3,4,5]" > {{ num }} </option>
                     </select>
                 </div>
@@ -89,12 +89,12 @@
             <h2>Assign Trainers</h2>
             <div>
                 <ul class="container list-group infinite-scroll m-0" id="basic-example" style="max-height: 261px; overflow-y: scroll">
-                    <li style='margin-left: 15px;' class="list-group-item" v-for="trainer in trainers">
-                        <input :id='trainer' class="form-check-input me-1" type="checkbox" :value="trainer" aria-label="..." v-model='form_course_trainers'> {{ trainer }}
+                    <li style="margin-left: 15px;" class="list-group-item" v-for="trainer in trainers">
+                        <input :id="trainer" class="form-check-input me-1" type="checkbox" :value="trainer" aria-label="..." v-model="form_course_trainers"> {{ trainer }}
                     </li>
                 </ul>
             </div>
-            <input type='button' @click="submit_new_course()" class='btn btn-primary' value='Create' style="margin: 10px;">
+            <input type="button" @click="submit_new_course()" class="btn btn-primary" value="Create" style="margin: 10px;">
         </form>
     </div>
 
@@ -107,7 +107,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js " integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl " crossorigin="anonymous ">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
-    <script src='vue.js'></script>
+    <script src="vue.js"></script>
 </body>
 
 </html>
