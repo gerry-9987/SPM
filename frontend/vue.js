@@ -1,5 +1,19 @@
 var URL = 'localhost:5003'
 
+// Define a new component called button-counter
+Vue.component('nav-bar', {
+    data: function() {
+        return {
+            count: 0
+        }
+    },
+    template: '<nav class="navbar navbar-light bg-light"><div class = "container-fluid" ><a class = "navbar-brand" > Course Management System </a></div ></nav >'
+})
+
+var vm = new Vue({
+    el: '#nav-bar'
+});
+
 var app = new Vue({
     el: "#app ",
     computed: {},

@@ -8,21 +8,36 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
+    <!-- navbar -->
+    <div id='nav-bar'>
+        <nav-bar></nav-bar>
+    </div>
+
+    <!-- Container -->
     <div class='container' id='section-wrapper'>
         <div class='col-6'>
-            <div class='col'>
-                Trainers
-            </div>
-            <div class='col'>
-                Prerequisites
+            <div class='row'>
+                <div class='col-6'>
+                    Trainers
+                </div>
+                <div class='col-6'>
+                    Prerequisites
+                </div>
             </div>
         </div>
+        <div class='col-6'></div>
     </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
     <script src="productPage.vue" async defer></script>
+    <script src="vue.js" async defer></script>
 </body>
 
 </html>
