@@ -1,3 +1,5 @@
+var URL = 'localhost:5003'
+
 var app = new Vue({
     el: "#app ",
     computed: {},
@@ -29,7 +31,7 @@ var app = new Vue({
                 form_course_trainers: this.form_course_trainers
             });
 
-            fetch(`${URL}`, {
+            fetch(`${'URL'}`, {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"
