@@ -19,7 +19,7 @@
         <nav-bar></nav-bar>
     </div>
     <!-- Tools box -->
-    <div class="container-fluid" id-unique="section-wrapper">
+    <div class="container-fluid section-wrapper">
         <h2>Tools for Administrators</h2>
         <div class="border border-grey rounded">
             <div class="row m-4">
@@ -42,11 +42,21 @@
                     </div>
                 </div>
                 <!-- end of tools-->
+                <!-- tool 3-->
+                <div class="col-md-3">
+                    <div class="card">
+                        <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <p class="card-text text-center"><a href="assignLearners.html">Assign Learners</a></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- end of tools-->
             </div>
         </div>
     </div>
     <!-- Create Courses -->
-    <div class="container-fluid" id="section-wrapper">
+    <div class="container-fluid section-wrapper">
         <div class="d-flex justify-content-between">
             <h2>Create Course</h2>
         </div>
@@ -87,7 +97,7 @@
             <h2>Assign Trainers</h2>
             <div>
                 <ul class="container list-group infinite-scroll m-0" id="basic-example" style="max-height: 261px; overflow-y: scroll">
-                    <li style="margin-left: 15px;" class="list-group-item" v-for="trainer in trainers">
+                    <li class="list-group-item" v-for="trainer in trainers">
                         <input :id="trainer" class="form-check-input me-1" type="checkbox" :value="trainer" aria-label="..." v-model="form_course_trainers"> {{ trainer }}
                     </li>
                 </ul>
