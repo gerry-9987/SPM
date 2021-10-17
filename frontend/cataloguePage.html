@@ -121,32 +121,54 @@
         }
     </style>
     <script>
+      var get_course_url = "http://127.0.0.1:5003/course"
       var app = new Vue({
-          el: "#app ",
-          computed: {},
-          data: {
-              enrolled: [
-                  "Python Course",
-                  "C++ Course",
-              ],
-              cat1:[
-                "Database Course",
-                "HTML Course",
-                "CSS Course",
-                "Javascript Course",
-                "Java Course"
-              ],
-              cat2:[
-                "Computer",
-                "Service",
-                "Product"
-              ],
-              cat3:[
-                "Leadership",
-                "Time management"
-              ]
-
-          }
+        el: "#app ",
+        computed: {},
+        data: {
+            enrolled: [
+                "Python Course",
+                "C++ Course",
+            ],
+            cat1:[
+              "Database Course",
+              "HTML Course",
+              "CSS Course",
+              "Javascript Course",
+              "Java Course"
+            ],
+            cat2:[
+              "Computer",
+              "Service",
+              "Product"
+            ],
+            cat3:[
+              "Leadership",
+              "Time management"
+            ],
+            message: "",
+            courses: []
+        },
+        methods:{
+          getAllCourse: function () {
+            const response =
+                fetch(get_course_url)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.code === 404) {
+                            this.message = data.message;
+                        } else {
+                            this.courses = data.data.courses;
+                            console.log(this.courses)
+                        }
+                    })
+                    .catch(error => {
+                        // Errors when calling the service; such as network error, 
+                        // service offline, etc
+                        console.log(this.message + error);
+                    });
+            }
+        }
       });
   </script>
   </body>
