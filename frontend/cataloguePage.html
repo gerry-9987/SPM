@@ -40,21 +40,70 @@
       <!-- Course Catalogue -->
       <div class="container-fluid section-wrapper">
         <h2>Course Catalogue</h2>
-        <div class="row">
-          <!-- start of enrolled courses col -->
-          <div class="col-md-3" v-for="course in catalogue">
-            <div class="card" >
-              <img src="../images/course.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h7 class="card-text font-weight-bold">{{course}}</h7>
-                <br>2 Jan 2022 - 17 Mar 2022
-                <h7 class="font-weight-bold">Prerequisites</h7>
-                <br>Requirements
-                <button type="submit" class="btn btn-success px-5 mt-3 btn-block">View Product</button>
+        <nav class="nav nav-pills flex-column flex-md-row mb-2">
+          <a class="nav-link active" href="#one" data-toggle="tab">Repair</a>
+          <a class="nav-link" href="#two" data-toggle="tab">Roving Service</a>
+          <a class="nav-link" href="#three" data-toggle="tab">General</a>
+        </nav>
+        
+        <div class="tab-content">
+          <!-- Cat 1 -->
+          <div class="tab-pane active" id="one">
+            <!-- START -->
+            <div class="row">
+              <div class="col-md-3" v-for="course in cat1">
+                <div class="card" >
+                  <img src="../images/course.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h7 class="card-text font-weight-bold">{{course}}</h7>
+                    <br>2 Jan 2022 - 17 Mar 2022
+                    <h7 class="font-weight-bold">Prerequisites</h7>
+                    <br>Requirements
+                    <button type="submit" class="btn btn-success px-5 mt-3 btn-block">View Product</button>
+                  </div>
+                </div>
               </div>
             </div>
+            <!-- END -->
           </div>
-          <!-- end col-->
+          <!-- Cat 2 -->
+          <div class="tab-pane" id="two">
+            <!-- START -->
+            <div class="row">
+              <div class="col-md-3" v-for="course in cat2">
+                <div class="card" >
+                  <img src="../images/course.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h7 class="card-text font-weight-bold">{{course}}</h7>
+                    <br>2 Jan 2022 - 17 Mar 2022
+                    <h7 class="font-weight-bold">Prerequisites</h7>
+                    <br>Requirements
+                    <button type="submit" class="btn btn-success px-5 mt-3 btn-block">View Product</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END -->
+          </div>
+          <!-- Cat 3 -->
+          <div class="tab-pane" id="three">
+            <!-- START -->
+            <div class="row">
+              <div class="col-md-3" v-for="course in cat3">
+                <div class="card" >
+                  <img src="../images/course.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h7 class="card-text font-weight-bold">{{course}}</h7>
+                    <br>2 Jan 2022 - 17 Mar 2022
+                    <h7 class="font-weight-bold">Prerequisites</h7>
+                    <br>Requirements
+                    <button type="submit" class="btn btn-success px-5 mt-3 btn-block">View Product</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END -->
+          </div>
         </div>
       </div>
       <!-- end -->
@@ -80,12 +129,21 @@
                   "Python Course",
                   "C++ Course",
               ],
-              catalogue:[
+              cat1:[
                 "Database Course",
                 "HTML Course",
                 "CSS Course",
                 "Javascript Course",
                 "Java Course"
+              ],
+              cat2:[
+                "Computer",
+                "Service",
+                "Product"
+              ],
+              cat3:[
+                "Leadership",
+                "Time management"
               ]
 
           }
