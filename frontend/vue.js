@@ -10,6 +10,8 @@ Vue.component('nav-bar', {
     template: '<nav class="navbar navbar-light bg-light"><div class = "container-fluid" ><a class = "navbar-brand" > Course Management System </a></div ></nav >'
 })
 
+
+
 var vm = new Vue({
     el: '#nav-bar'
 });

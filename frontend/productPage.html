@@ -3,14 +3,12 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title></title>
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
@@ -19,19 +17,53 @@
         <nav-bar></nav-bar>
     </div>
 
-    <!-- Container -->
-    <div class='container' id='section-wrapper'>
-        <div class='col-6'>
-            <div class='row'>
-                <div class='col-6'>
-                    Trainers
-                </div>
-                <div class='col-6'>
-                    Prerequisites
-                </div>
-            </div>
+    <!-- Banner -->
+    <div class="jumbotron">
+        <h1 class="display-4">Something Something course</h1>
+        <p class="lead">This course is about stuffs</p>
+        <hr class="my-4">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita facilis magnam ab debitis officia eaque officiis illum cupiditate, harum quaerat vitae vero consequuntur corporis excepturi ducimus minima voluptatem molestias eveniet.</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Go somewhere</a>
+        </p>
+    </div>
+
+    <!-- Course info -->
+    <div class='container ' id='section-wrapper '>
+        <div class="table-responsive">
+            <table class="table table-sm table-borderless mb-0">
+                <tbody>
+                    <tr>
+                        <th class="pl-0 w-25" scope="row"><strong>Model</strong></th>
+                        <td>Shirt 5407X</td>
+                    </tr>
+                    <tr>
+                        <th class="pl-0 w-25" scope="row"><strong>Color</strong></th>
+                        <td>Black</td>
+                    </tr>
+                    <tr>
+                        <th class="pl-0 w-25" scope="row"><strong>Delivery</strong></th>
+                        <td>USA, Europe</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class='col-6'></div>
+    </div>
+
+    <!-- Accordion -->
+    <button class="accordion show">Section 1</button>
+    <div class="panel">
+        <p>Lorem ipsum...</p>
+    </div>
+
+    <button class="accordion">Section 2</button>
+    <div class="panel">
+        <p>Lorem ipsum...</p>
+    </div>
+
+    <button class="accordion">Section 3</button>
+    <div class="panel">
+        <p>Lorem ipsum...</p>
     </div>
 
     <!-- Scripts -->
