@@ -19,6 +19,7 @@ CREATE TABLE COURSE
     courseID int(11) NOT NULL AUTO_INCREMENT,
     courseName varchar(255) NOT NULL,
     courseCategory varchar(255) NOT NULL,
+    prereqCourse varchar(255) NOT NULL,
     noOfClasses int(11) NOT NULL,
     CONSTRAINT course_pk PRIMARY KEY (courseID)
 );
@@ -177,14 +178,14 @@ INSERT INTO STAFF VALUES
 (10, 'EEE', 'EEEEEE', 'Administrator');
 
 INSERT INTO COURSE VALUES
-(1, 'IBM 101', 'IBM', 2),
-(2, 'IBM 102', 'IBM', 4),
-(3, 'HP 101', 'HP', 1),
-(4, 'HP 102', 'HP', 3),
-(5, 'Xerox 101', 'Xerox', 2),
-(6, 'Xerox 102', 'Xerox', 2),
-(7, 'Canon 101', 'Canon', 3),
-(8, 'Canon 102', 'Canon', 1);
+(1, 'IBM 101', 'IBM', 'None', 2),
+(2, 'IBM 102', 'IBM', 'IBM 101', 4),
+(3, 'HP 101', 'HP', 'None', 1),
+(4, 'HP 102', 'HP', 'HP 101', 3),
+(5, 'Xerox 101', 'Xerox', 'None', 2),
+(6, 'Xerox 102', 'Xerox', 'Xerox 101', 2),
+(7, 'Canon 101', 'Canon', 'None', 3),
+(8, 'Canon 102', 'Canon', 'Canon 101', 1);
 
 INSERT INTO CLASS VALUES
 (1, 1, '2021-01-01', '2021-01-03', '22:30:00', '23:30:00', 4, 'Haoyue', 3),
