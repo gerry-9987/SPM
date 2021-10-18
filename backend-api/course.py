@@ -21,19 +21,23 @@ class Course(db.Model):
     courseName = db.Column(db.VARCHAR(255), nullable=False)
     courseCategory = db.Column(db.VARCHAR(255), nullable=False)
     noOfClasses = db.Column(db.Integer(), nullable=False)
+    students = db.Column(db.VARCHAR(255), nullable=False)
 
-    def __init__(self, courseID, courseName, courseCategory, noOfClasses):
+
+    def __init__(self, courseID, courseName, courseCategory, noOfClasses, students):
         self.courseID = courseID
         self.courseName = courseName
         self.courseCategory = courseCategory
         self.noOfClasses = noOfClasses
+        self.students = students
 
     def json(self):
         return {
             "courseID": self.courseID,
             "courseName": self.courseName,
             "courseCategory": self.courseCategory,
-            "noOfClasses": self.noOfClasses
+            "noOfClasses": self.noOfClasses,
+            "students": self.students
         }
 
 
@@ -80,7 +84,6 @@ def get_course(courseID):
 # add new course
 @app.route("/course", methods=['POST'])
 def create_course():
-
 
     courseID = request.json.get("courseID")
     courseName = request.json.get("courseName")

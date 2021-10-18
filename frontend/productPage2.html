@@ -54,7 +54,7 @@
                             <h5>Grading Breakdown</h5> {{ungraded}} quizzes, 1 Final Quiz
                         </p>
                         <p>
-                            <h5>Trainers</h5> {{trainers}}
+                            <h5>Trainers</h5> {{trainers.join(', ')}}
                         </p>
                     </div>    
                     <div class="col-4">
@@ -64,7 +64,7 @@
                                 <input class="form-check-input" type="radio" name="class" id="classid1" value="option1">
                                 <label class="form-check-label" for="inlineRadio1">Class {{section}}</label>
                             </div>
-                            <button type="submit" class="btn btn-success px-5 mt-3 btn-block">Self-Enroll</button>
+                            <button @click='signUpCourse()' type="submit" class="btn btn-success px-5 mt-3 btn-block">Self-Enroll</button>
                             <button type="submit" class="btn btn-success px-5 mt-3 btn-block disabled">Withdraw</button>
                         </p>
                     </div> 
@@ -78,13 +78,13 @@
                 <div class="card" v-for="num in chapter">
                   <div class="card-header" id="num">
                     <h5 class="mb-0">
-                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOn">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" :data-target="'#chapter'+num" aria-expanded="false" aria-controls="collapseOn">
                         Chapter {{num}}
                       </button>
                     </h5>
                   </div>
               
-                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div :id="'chapter'+num" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
                       {{chapter_details[num-1]}}
                     </div>

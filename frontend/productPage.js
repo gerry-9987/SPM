@@ -17,6 +17,9 @@ for (i = 0; i < acc.length; i++) {
 var courseID = 2
 var classDetailsURL = `http://127.0.0.1:5002/class/${courseID}`
 var courseDetailsURL = `http://127.0.0.1:5003/course/${courseID}`
+// # TODO: Add this function
+var signUpCourseURL = ''
+var studentID = 001
 
 console.log(courseDetailsURL)
 var app = new Vue({
@@ -36,6 +39,37 @@ var app = new Vue({
         this.getClassDetails()
     },
     methods: {
+        signUpCourse: function(studentID, courseID) {
+            console.log('Sign up has been clicked')
+            let jsonData = JSON.stringify({
+                studentID: studentID,
+                courseID: courseID
+            });
+            fetch(`signUpCourseURL/{studentID}/{courseID}`,{
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: jsonData 
+                })
+                .then(response => response.json())
+                .then(data => {
+                    result = data.data;
+                    console.log(result);
+                    // 3 cases
+                    switch (data.code) {
+                        case 200:
+                            console.log('success')
+                            break;
+                        case 400:
+                        case 500:
+                            console.log('failure')
+                            break;
+                        default:
+                            throw `${data.code}: ${data.message}`;
+                    }
+                })
+        },
         getCourseDetails: function() {
             console.log('I am clicked')
             fetch(courseDetailsURL)
