@@ -29,21 +29,33 @@
     </div>
 
     <!-- Course info -->
-    <div class='container ' id='section-wrapper '>
+    <div class='container' id='section-wrapper'>
         <div class="table-responsive">
             <table class="table table-sm table-borderless mb-0">
                 <tbody>
                     <tr>
-                        <th class="pl-0 w-25" scope="row"><strong>Model</strong></th>
-                        <td>Shirt 5407X</td>
+                        <th class="pl-0 w-25" scope="row"><strong>Trainer Name</strong></th>
+                        <td>{{ courseTrainer }}</td>
                     </tr>
                     <tr>
-                        <th class="pl-0 w-25" scope="row"><strong>Color</strong></th>
-                        <td>Black</td>
+                        <th class="pl-0 w-25" scope="row"><strong>Course Size</strong></th>
+                        <td>{{ courseSize }}</td>
                     </tr>
                     <tr>
-                        <th class="pl-0 w-25" scope="row"><strong>Delivery</strong></th>
-                        <td>USA, Europe</td>
+                        <th class="pl-0 w-25" scope="row"><strong>Prerequisites</strong></th>
+                        <td>{{ coursePrerequisites }}</td>
+                    </tr>
+                    <tr>
+                        <th class="pl-0 w-25" scope="row"><strong>Grading Breakdown</strong></th>
+                        <td>{{ courseGradingBreakdown }} quizzes, 1 final quiz</td>
+                    </tr>
+                    <tr>
+                        <th class="pl-0 w-25" scope="row"><strong>Classes</strong></th>
+                        <td>Class ...</td>
+                    </tr>
+                    <tr>
+                        <th class="pl-0 w-25" scope="row"><strong>Number of Chapters</strong></th>
+                        <td>{{courseChapters}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -51,25 +63,25 @@
     </div>
 
     <!-- Accordion -->
-    <button class="accordion show">Section 1</button>
+    <button class="accordion show">Chapter 1</button>
+    <div class="panel">
+        <p>Functions, parameters...</p>
+    </div>
+
+    <button class="accordion">Chapter 2</button>
     <div class="panel">
         <p>Lorem ipsum...</p>
     </div>
 
-    <button class="accordion">Section 2</button>
-    <div class="panel">
-        <p>Lorem ipsum...</p>
-    </div>
-
-    <button class="accordion">Section 3</button>
+    <button class="accordion">Chapter 3</button>
     <div class="panel">
         <p>Lorem ipsum...</p>
     </div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
-    <script src="productPage.vue" async defer></script>
-    <script src="vue.js" async defer></script>
+    <script src="productPage.js" async defer></script>
+    <!-- <script src="vue.js" async defer></script> -->
 </body>
 
 </html>
