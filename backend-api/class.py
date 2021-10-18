@@ -88,26 +88,26 @@ def get_all():
 def get_classes(courseID):
 
 
-    class_rows = Class.query.filter_by(courseID=courseID)
-    if class_rows:
-        all_classes = [
+    classRows = Class.query.filter_by(courseID=courseID)
+    if classRows:
+        allClasses = [
             {
-            "classID": each_class.classID,
-            "courseID": each_class.courseID,
-            "startDate": str(each_class.startDate),
-            "endDate": str(each_class.endDate),
-            "startTime": each_class.startTime,
-            "endTime": each_class.endTime,
-            "classSize": each_class.classSize,
-            "trainerName": each_class.trainerName,
-            "staffID": each_class.staffID
+                "classID": eachClass.classID,
+                "courseID": eachClass.courseID,
+                "startDate": str(eachClass.startDate),
+                "endDate": str(eachClass.endDate),
+                "startTime": eachClass.startTime,
+                "endTime": eachClass.endTime,
+                "classSize": eachClass.classSize,
+                "trainerName": eachClass.trainerName,
+                "staffID": eachClass.staffID
             }
-        for each_class in class_rows]
+        for eachClass in classRows]
 
         return jsonify(
             {
                 "code": 200,
-                "data": all_classes
+                "data": allClasses
             }
         )
     return jsonify(
