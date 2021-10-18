@@ -62,15 +62,27 @@ def get_all():
     ), 404
 
 
-# get specific course
-@app.route("/course/<string:courseID>")
-def get_course(courseID):
-    course = Course.query.filter_by(courseID=courseID).first()
-    if course:
+# get specific course details
+@app.route("/course/<string:courseName>")
+def get_course_details(courseName):
+
+
+    courses = Course.query.filter_by(courseName=courseName)
+    if courses:
+        courseDetails = [
+            {
+                "courseID": eachCourse.courseID,
+                "courseName": eachCourse.courseName,
+                "courseCategory": eachCourse.courseCategory,
+                "prereqCourse": eachCourse.prereqCourse,
+                "noOfClasses": eachCourse.noOfClasses
+            }
+        for eachCourse in courses]
+
         return jsonify(
             {
                 "code": 200,
-                "data": course.json()
+                "data": courseDetails
             }
         )
     return jsonify(

@@ -92,15 +92,15 @@ def get_classes(courseID):
     if classRows:
         allClasses = [
             {
-                "classID": eachClass.classID,
-                "courseID": eachClass.courseID,
-                "startDate": str(eachClass.startDate),
-                "endDate": str(eachClass.endDate),
-                "startTime": eachClass.startTime,
-                "endTime": eachClass.endTime,
-                "classSize": eachClass.classSize,
-                "trainerName": eachClass.trainerName,
-                "staffID": eachClass.staffID
+            "classID": eachClass.classID,
+            "courseID": eachClass.courseID,
+            "startDate": str(eachClass.startDate),
+            "endDate": str(eachClass.endDate),
+            "startTime": eachClass.startTime,
+            "endTime": eachClass.endTime,
+            "classSize": eachClass.classSize,
+            "trainerName": eachClass.trainerName,
+            "staffID": eachClass.staffID
             }
         for eachClass in classRows]
 
