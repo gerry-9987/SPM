@@ -15,7 +15,7 @@ for (i = 0; i < acc.length; i++) {
 }
 
 var courseID = 2
-var classDetailsURL = `http://127.0.0.1:5002/class/${courseID}`
+var classDetailsURL = `http://127.0.0.1:5002/class/course/${courseID}`
 var courseDetailsURL = `http://127.0.0.1:5003/course/${courseID}`
 // # TODO: Add this function
 var signUpCourseURL = ''
@@ -83,13 +83,13 @@ var app = new Vue({
                             console.log('success')
                             var classList = ""
                             for (let i=0; i < result.noOfClasses; i++) {
-
                                 classList += "Class " + (i+1) + ", "
                                 console.log(classList)
                             }
                             classList = classList.slice(0, -2)
                             console.log(classList)
                             this.courseClasses = classList
+                            this.coursePrerequisites = result.prereqCourse
                             break;
                         case 400:
                         case 500:
