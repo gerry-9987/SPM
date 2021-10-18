@@ -83,13 +83,46 @@ def get_all():
     ), 404
 
 
-# get specific class
-@app.route("/course/<string:classID>")
+# get classes for specific course
+@app.route("/class/<string:courseID>")
+def get_classes(courseID):
+
+
+    class_rows = Class.query.filter_by(courseID=courseID)
+    if class_rows:
+        all_classes = [
+            {
+            "classID": each_class.classID,
+            "courseID": each_class.courseID,
+            "startDate": str(each_class.startDate),
+            "endDate": str(each_class.endDate),
+            "startTime": each_class.startTime,
+            "endTime": each_class.endTime,
+            "classSize": each_class.classSize,
+            "trainerName": each_class.trainerName,
+            "staffID": each_class.staffID
+            }
+        for each_class in class_rows]
+
+        return jsonify(
+            {
+                "code": 200,
+                "data": all_classes
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "There are no classes for this course."
+        }
+    ), 404
+
+
+@app.route("/class/<string:classID>")
 def get_class(classID):
 
-
-    a_class = Class.query.filter_by(classID=classID).first()
-    if a_class:
+    a_class = Class.query.filter(classID=classID)
+    if len(a_class):
         return jsonify(
             {
                 "code": 200,
@@ -99,10 +132,9 @@ def get_class(classID):
     return jsonify(
         {
             "code": 404,
-            "message": "Class not found."
+            "message": "There is no such class."
         }
     ), 404
-
 
 # add new class
 @app.route("/class", methods=['POST'])
