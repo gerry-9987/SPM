@@ -14,37 +14,82 @@ for (i = 0; i < acc.length; i++) {
     });
 }
 
+var courseID = 2
+var classDetailsURL = `http://127.0.0.1:5002/class/${courseID}`
+var courseDetailsURL = `http://127.0.0.1:5003/course/${courseID}`
+
+console.log(courseDetailsURL)
 var app = new Vue({
-    el: "#app ",
+    el: "#section-wrapper",
     computed: {},
     data: {
-        courseTrainer: 'Somebody',
+        courseID: "",
+        courseTrainers: "",
         courseSize: 100,
-        coursePrequisites: [],
-        courseGradingBreakdown: 'Like that lorh',
-        courseClasses: "I'm not sure about this yet",
+        coursePrerequisites: [],
+        courseGradingBreakdown: 3,
+        courseClasses: [],
         courseChapters: 0
+    },
+    mounted: function() {
+        this.getCourseDetails(),
+        this.getClassDetails()
     },
     methods: {
         getCourseDetails: function() {
             console.log('I am clicked')
-            fetch(`${'URL'}`, {
-                    method: "POST",
-                    headers: {
-                        "Content-type": "application/json"
-                    },
-                    body: jsonData
-                })
+            fetch(courseDetailsURL)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
                     result = data.data;
                     console.log(result);
                     // 3 cases
                     switch (data.code) {
-                        case 201:
+                        case 200:
                             console.log('success')
-                                // Upack the JSON object returned and assign to variables
+                            var classList = ""
+                            for (let i=0; i < result.noOfClasses; i++) {
+
+                                classList += "Class " + (i+1) + ", "
+                                console.log(classList)
+                            }
+                            classList = classList.slice(0, -2)
+                            console.log(classList)
+                            this.courseClasses = classList
+                            break;
+                        case 400:
+                        case 500:
+                            console.log('failure')
+                            break;
+                        default:
+                            throw `${data.code}: ${data.message}`;
+                    }
+                })
+        },
+        getClassDetails: function() {
+            console.log('I am clicked toooo')
+            fetch(classDetailsURL)
+                .then(response => response.json())
+                .then(data => {
+                    result = data.data;
+                    console.log(result);
+                    // 3 cases
+                    switch (data.code) {
+                        case 200:
+                            console.log('success')
+                            var trainersArray = []
+                            var courseSize = 0
+                            for (var eachClass of result) {
+                                console.log(eachClass)
+                                console.log(eachClass.trainerName)
+                                if (!trainersArray.find(trainer => trainer == eachClass.trainerName))
+                                trainersArray.push(eachClass.trainerName)
+                                courseSize += eachClass.classSize
+                            }
+                            console.log(trainersArray)
+                            console.log(courseSize)
+                            this.courseTrainers = trainersArray.join(", ")
+                            this.courseSize = courseSize
                             break;
                         case 400:
                         case 500:
