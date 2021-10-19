@@ -55,7 +55,7 @@ def get_all():
 
 # get specific learner
 @app.route("/learner/<string:staffID>")
-def get_trainer(staffID):
+def get_learner(staffID):
     learner = Learner.query.filter_by(staffID=staffID).first()
     if learner:
         return jsonify(
