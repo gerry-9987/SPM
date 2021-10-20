@@ -15,7 +15,7 @@ for (i = 0; i < acc.length; i++) {
 }
 
 var courseID = 2
-var classDetailsURL = `http://127.0.0.1:5002/class/course/${courseID}`
+var classDetailsURL = `http://127.0.0.1:5002/class/${courseID}`
 var courseDetailsURL = `http://127.0.0.1:5003/course/${courseID}`
 // # TODO: Add this function
 var signUpCourseURL = ''
