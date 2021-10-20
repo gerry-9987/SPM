@@ -26,10 +26,11 @@ class Course(db.Model):
     students = db.Column(db.VARCHAR(255), nullable=False)
 
 
-    def __init__(self, courseID, courseName, courseCategory, prereqCourses, noOfClasses, students):
+    def __init__(self, courseID, courseName, courseCategory, courseDetails, prereqCourses, noOfClasses, students):
         self.courseID = courseID
         self.courseName = courseName
         self.courseCategory = courseCategory
+        self.courseDetails = courseDetails
         self.prereqCourses = prereqCourses
         self.noOfClasses = noOfClasses
         self.students = students
