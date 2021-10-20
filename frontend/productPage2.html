@@ -20,11 +20,11 @@
     </nav>
     <div id="app">
         <!--Course title-->
-        <div class="container-fluid bg-dark text-white section-wrapper">
+        <div class="container-fluid bg-dark text-white section-wrapper" >
             <div class="row m-2">
                 <div class="col-10">
-                    <h4>{{title}}</h4>
-                    <br>{{description}}
+                    <h4>{{ courseName }}</h4>
+                    <br>{{ courseDetails }}
                 </div>
                 <div class="col-2">
                     <img src="../images/course.jpg" class="card-img-top" alt="...">
@@ -37,32 +37,36 @@
                 <div class="row m-4">
                     <div class="col-4">
                         <p>
-                            <h5>{{course}}</h5> {{date}}
+                            <h5>{{ courseName }}</h5>
+                            {{ courseStartDate }} to {{ courseEndDate }}
                         </p>
                         <p>
-                            <h5>Prerequisites</h5> {{prerequisites}}
+                            <h5>Prerequisites</h5>
+							{{coursePrerequisites}}
                         </p>
                         <p>
-                            <h5>Course Size</h5> {{size}}
+                            <h5>Course Size</h5>
+							{{courseSize}}
                         </p>
                     </div>
                     <div class="col-4">
                         <p>
-                            <h5>Chapters</h5> {{chapter}}
+                            <h5>Chapters</h5>
+                            {{courseChapters}}
                         </p>
                         <p>
-                            <h5>Grading Breakdown</h5> {{ungraded}} quizzes, 1 Final Quiz
+                            <h5>Grading Breakdown</h5> {{courseGradingBreakdown}} quizzes, 1 Final Quiz
                         </p>
                         <p>
-                            <h5>Trainers</h5> {{trainers.join(', ')}}
+                            <h5>Trainers</h5> {{ courseTrainers }}
                         </p>
-                    </div>    
+                    </div>
                     <div class="col-4">
                         <p>
-                            <h5>Class</h5> 
-                            <div class="form-check form-check-inline" v-for="section in sections">
+                            <h5>Class</h5>
+                            <div class="form-check form-check-inline" v-for="section in courseClassArray">
                                 <input class="form-check-input" type="radio" name="class" id="classid1" value="option1">
-                                <label class="form-check-label" for="inlineRadio1">Class {{section}}</label>
+                                <label class="form-check-label" for="inlineRadio1">{{section}}</label>
                             </div>
                             <button @click='signUpCourse()' type="submit" class="btn btn-success px-5 mt-3 btn-block">Self-Enroll</button>
                             <button type="submit" class="btn btn-success px-5 mt-3 btn-block disabled">Withdraw</button>
@@ -72,13 +76,15 @@
             </div>
         </div>
         <!-- Course Outline-->
-        <div class="container-fluid section-wrapper">
+        <!-- #TODO: fix chapter details -->
+        <!-- <div class="container-fluid section-wrapper">
             <h2>Course Outline</h2>
             <div id="accordion">
                 <div class="card" v-for="num in chapter">
                   <div class="card-header" id="num">
                     <h5 class="mb-0">
                       <button class="btn btn-link collapsed" data-toggle="collapse" :data-target="'#chapter'+num" aria-expanded="false" aria-controls="collapseOn">
+                        TO BE FILLED
                         Chapter {{num}}
                       </button>
                     </h5>
@@ -86,12 +92,13 @@
               
                   <div :id="'chapter'+num" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
+                        TO BE FILLED
                       {{chapter_details[num-1]}}
                     </div>
                   </div>
                 </div>
               </div>
-        </div>
+        </div> -->
         
     </div>
     
@@ -108,7 +115,12 @@
             padding: 10px 45px 10px 45px;
         }
     </style>
+
+    <script src="productPage.js" async defer></script>
+
     <script>
+
+        /*
         var app = new Vue({
             el: "#app ",
             computed: {},
@@ -137,6 +149,7 @@
 
             },
         });
+        */
     </script>
   </body>
 </html>
