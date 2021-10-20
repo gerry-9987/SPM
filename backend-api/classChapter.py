@@ -15,7 +15,7 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-class Chapter(db.Model):
+class ClassChapter(db.Model):
 
 
     __tablename__ = 'class_chapter'

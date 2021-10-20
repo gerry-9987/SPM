@@ -21,7 +21,7 @@ CORS(app)
 # CONSTRAINT take_class_fk FOREIGN KEY (staffID) REFERENCES STAFF(staffID),
 # CONSTRAINT take_class_fk2 FOREIGN KEY (courseID, classID) REFERENCES CLASS(courseID, classID)
 
-class Take_class(db.Model):
+class TakeClass(db.Model):
 
     __tablename__ = 'TAKE_CLASS'
     staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), primary_key=True, autoincrement=False)
