@@ -23,18 +23,22 @@ var studentID = 001
 
 console.log(courseDetailsURL)
 var app = new Vue({
-    el: "#section-wrapper",
+    el: "#app",
     computed: {},
     data: {
-        courseID: "",
-        courseTrainers: "",
-        courseSize: 100,
-        coursePrerequisites: [],
+        courseName: '',
+        courseDetails: '',
+        courseStartDate: '',
+        courseEndDate: '',
+        courseTrainers: '',
+        courseSize: 0,
+        coursePrerequisites: '',
         courseGradingBreakdown: 3,
-        courseClasses: [],
-        courseChapters: 0
+        courseClasses: '',
+        courseClassArray: [],
+        courseChapters: 2
     },
-    mounted: function() {
+    created: function() {
         this.getCourseDetails(),
         this.getClassDetails()
     },
@@ -50,7 +54,7 @@ var app = new Vue({
                     headers: {
                         "Content-type": "application/json"
                     },
-                    body: jsonData 
+                    body: jsonData
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -75,21 +79,26 @@ var app = new Vue({
             fetch(courseDetailsURL)
                 .then(response => response.json())
                 .then(data => {
-                    result = data.data;
+                    result = data.data[0];
                     console.log(result);
                     // 3 cases
                     switch (data.code) {
                         case 200:
                             console.log('success')
-                            var classList = ""
+                            this.courseName = result.courseName
+                            this.courseDetails = result.courseDetails
+                            this.coursePrerequisites = result.prereqCourses
+
+                            var classListNames = ""
+                            var classArray = []
                             for (let i=0; i < result.noOfClasses; i++) {
-                                classList += "Class " + (i+1) + ", "
-                                console.log(classList)
+                                classArray.push(i+1)
+                                classListNames += "Class " + (i+1) + ", "
+                                console.log(classListNames)
                             }
-                            classList = classList.slice(0, -2)
-                            console.log(classList)
-                            this.courseClasses = classList
-                            this.coursePrerequisites = result.prereqCourse
+                            classListNames = classListNames.slice(0, -2)
+                            this.courseClasses = classListNames
+                            this.courseClassArray = classArray
                             break;
                         case 400:
                         case 500:
@@ -120,8 +129,8 @@ var app = new Vue({
                                 trainersArray.push(eachClass.trainerName)
                                 courseSize += eachClass.classSize
                             }
-                            console.log(trainersArray)
-                            console.log(courseSize)
+                            this.courseStartDate = result[0].startDate
+                            this.courseEndDate = result[0].endDate
                             this.courseTrainers = trainersArray.join(", ")
                             this.courseSize = courseSize
                             break;
