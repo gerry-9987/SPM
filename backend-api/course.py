@@ -20,6 +20,7 @@ class Course(db.Model):
     courseID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
     courseName = db.Column(db.VARCHAR(255), nullable=False)
     courseCategory = db.Column(db.VARCHAR(255), nullable=False)
+    courseDetails = db.Column(db.VARCHAR(255), nullable=False)
     prereqCourses = db.Column(db.VARCHAR(255), nullable=False)
     noOfClasses = db.Column(db.Integer(), nullable=False)
     students = db.Column(db.VARCHAR(255), nullable=False)
@@ -38,6 +39,7 @@ class Course(db.Model):
             "courseID": self.courseID,
             "courseName": self.courseName,
             "courseCategory": self.courseCategory,
+            "courseDetails": self.courseDetails,
             "prereqCourses": self.prereqCourses,
             "noOfClasses": self.noOfClasses,
             "students": self.students
@@ -77,6 +79,7 @@ def get_course_details(courseID):
                 "courseID": eachCourse.courseID,
                 "courseName": eachCourse.courseName,
                 "courseCategory": eachCourse.courseCategory,
+                "courseDetails": eachCourse.courseDetails,
                 "prereqCourses": eachCourse.prereqCourses,
                 "noOfClasses": eachCourse.noOfClasses,
                 "students": eachCourse.students
@@ -104,6 +107,7 @@ def create_course():
     courseID = request.json.get("courseID")
     courseName = request.json.get("courseName")
     courseCategory = request.json.get("courseCategory")
+    courseDetails = request.json.get("courseDetails")
     prereqCourses = request.json.get("prereqCourses")
     noOfClasses = request.json.get("noOfClasses")
     students = request.json.get("students")
@@ -112,6 +116,7 @@ def create_course():
         courseID=courseID,
         courseName=courseName,
         courseCategory=courseCategory,
+        courseDetails=courseDetails,
         prereqCourses=prereqCourses,
         noOfClasses=noOfClasses,
         students=students)
