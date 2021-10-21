@@ -1,15 +1,16 @@
+// Extracting from URLSearchParams
 var courseID = 2
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 var courseID = urlParams.get('courseID')
-console.log('OIIIIIIIIIIIIIIIIIIIIIIIIIIII' * 5)
-console.log(courseID)
 
-var classDetailsURL = `http://127.0.0.1:5002/class/${courseID}`
+// API end points
+var classDetailsURL = `http://127.0.0.1:5002/class/`
 var courseDetailsURL = `http://127.0.0.1:5003/course/${courseID}`
 var courseURL = 'http://127.0.0.1:5003/'
 var studentID = 13
 
+// VUE JS
 console.log(courseDetailsURL)
 var app = new Vue({
     el: "#app",
@@ -128,7 +129,7 @@ var app = new Vue({
                 })
         },
         getClassDetails: function() {
-            console.log('I am clicked toooo')
+            console.log('Getting class details...')
             fetch(classDetailsURL)
                 .then(response => response.json())
                 .then(data => {

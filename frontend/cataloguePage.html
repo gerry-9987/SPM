@@ -35,21 +35,15 @@
                         </div>
                     </div>
                 </div>
-                <!-- end col-->
             </div>
         </div>
-        <!-- end -->
         <!-- Course Catalogue -->
         <div class="container-fluid section-wrapper">
             <h2>Course Catalogue</h2>
             <nav class="nav nav-pills flex-column flex-md-row mb-2">
                 <a class="nav-link" :href="'#'+courseCategories.slice(0,1)" data-toggle="tab"> {{ courseCategories[0] }} </a>
                 <a class="nav-link" :href="'#'+category" data-toggle="tab" v-for="category in courseCategories.slice(1)">{{category}}</a>
-                <!-- <a class="nav-link " href="#one" data-toggle="tab">Repair</a>
-                <a class="nav-link" href="#two" data-toggle="tab">Roving Service</a>
-                <a class="nav-link" href="#three" data-toggle="tab">General</a> -->
             </nav>
-
             <div class="tab-content">
                 <div class="tab-pane" :id="category" v-for='category in courseCategories'>
                     <!-- START -->
@@ -69,6 +63,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <!-- Optional JavaScript -->
