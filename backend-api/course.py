@@ -14,6 +14,7 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
+
 class Course(db.Model):
 
     __tablename__ = 'course'
@@ -24,7 +25,6 @@ class Course(db.Model):
     prereqCourses = db.Column(db.VARCHAR(255), nullable=False)
     noOfClasses = db.Column(db.Integer(), nullable=False)
     students = db.Column(db.VARCHAR(255), nullable=False)
-
 
     def __init__(self, courseID, courseName, courseCategory, courseDetails, prereqCourses, noOfClasses, students):
         self.courseID = courseID
@@ -45,6 +45,12 @@ class Course(db.Model):
             "noOfClasses": self.noOfClasses,
             "students": self.students
         }
+
+    def addStudent(self, studentID):
+        studentArray = self.students.split(",")
+
+        if studentID not in studentArray:
+            self.students = self.students + ',' + str(studentID)
 
 
 # get the list of all courses
@@ -84,7 +90,7 @@ def get_course_details(courseID):
                 "noOfClasses": eachCourse.noOfClasses,
                 "students": eachCourse.students
             }
-        for eachCourse in courses]
+            for eachCourse in courses]
 
         return jsonify(
             {
@@ -133,6 +139,41 @@ def create_course():
                 "data": {
                 },
                 "message": "An error occurred creating the course."
+            }
+        ), 500
+
+    return jsonify(
+        {
+            "code": 201,
+            "data": course.json()
+        }
+    ), 201
+
+# Sign up
+# TODO: Test this method
+
+
+@app.route("/signup", methods=['POST'])
+def signup(courseID, studentID):
+
+    # Get POST variables
+    courseID = request.json.get("courseID")
+    studentID = request.json.get("studentID")
+
+    # Update row in DB
+    course = Course.query.filter_by(courseID=courseID).first()
+    course.addStudent(studentID)
+
+    try:
+        db.session.update(course)
+        db.session.commit()
+    except error:
+        return jsonify(
+            {
+                "code": 500,
+                "data": {
+                },
+                "message": "An error occurred during sign up."
             }
         ), 500
 

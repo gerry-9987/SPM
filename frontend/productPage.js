@@ -19,7 +19,7 @@ var classDetailsURL = `http://127.0.0.1:5002/class/${courseID}`
 var courseDetailsURL = `http://127.0.0.1:5003/course/${courseID}`
     // # TODO: Add this function
 var signUpCourseURL = ''
-var studentID = 7
+var studentID = 1
 
 console.log(courseDetailsURL)
 var app = new Vue({
@@ -63,7 +63,7 @@ var app = new Vue({
                 studentID: studentID,
                 courseID: courseID
             });
-            fetch(`signUpCourseURL/{studentID}/{courseID}`, {
+            fetch(`signUpCourseURL/signup`, {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"

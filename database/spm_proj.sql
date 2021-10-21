@@ -180,14 +180,14 @@ INSERT INTO STAFF VALUES
 (10, 'EEE', 'EEEEEE', 'Administrator');
 
 INSERT INTO COURSE VALUES
-(1, 'IBM 101', 'IBM', 'Learn about introductory IBM terminologies', 'None', 2, '1, 2'),
-(2, 'IBM 102', 'IBM', 'Build up your IBM knowledge and skills', 'IBM 101', 4, '6, 7, 8, 9'),
+(1, 'IBM 101', 'IBM', 'Learn about introductory IBM terminologies', 'None', 2, '1,2'),
+(2, 'IBM 102', 'IBM', 'Build up your IBM knowledge and skills', 'IBM 101', 4, '6,7,8,9'),
 (3, 'HP 101', 'HP', 'Understand the basics of HP', 'None', 1, 'No students'),
-(4, 'HP 102', 'HP', 'Intermediate HP with building your own application', 'HP 101', 3, 'No students'),
-(5, 'Xerox 101', 'Xerox', 'Learn basic printing with Xerox', 'None', 2, 'No students'),
-(6, 'Xerox 102', 'Xerox', 'Learn deeper printing with Xerox and our different kinds of printers', 'Xerox 101', 2, 'No students'),
+(4, 'HP 102', 'HP', 'Intermediate HP with building your own application', 'HP 101', 3, ''),
+(5, 'Xerox 101', 'Xerox', 'Learn basic printing with Xerox', 'None', 2, ''),
+(6, 'Xerox 102', 'Xerox', 'Learn deeper printing with Xerox and our different kinds of printers', 'Xerox 101', 2, ''),
 (7, 'Canon 101', 'Canon', 'Canon printers and types', 'None', 3, 'No students'),
-(8, 'Canon 102', 'Canon', 'Advanced knowledge on Canon and creating your virtual printer', 'Canon 101', 1, 'No students');
+(8, 'Canon 102', 'Canon', 'Advanced knowledge on Canon and creating your virtual printer', 'Canon 101', 1, '');
 
 INSERT INTO CLASS VALUES
 (1, 1, '01 Jan 2021', '03 Feb 2021', '22:30:00', '23:30:00', 4, 'Haoyue', 3),
