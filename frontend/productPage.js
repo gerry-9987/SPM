@@ -18,8 +18,8 @@ var courseID = 2
 var classDetailsURL = `http://127.0.0.1:5002/class/${courseID}`
 var courseDetailsURL = `http://127.0.0.1:5003/course/${courseID}`
     // # TODO: Add this function
-var signUpCourseURL = ''
-var studentID = 1
+var courseURL = 'http://127.0.0.1:5003/'
+var studentID = 13
 
 console.log(courseDetailsURL)
 var app = new Vue({
@@ -50,20 +50,29 @@ var app = new Vue({
             if (this.courseStudents == 'No students') {
                 this.isEnrolled = false
                 console.log('student is not enrolled')
+                return false
             } else {
                 console.log(this.courseStudents)
                 courseStudentsArray = this.courseStudents.split(',')
                 this.isEnrolled = courseStudentsArray.includes(studentID.toString())
                 console.log('student is already enrolled')
+                return true
             }
         },
-        signUpCourse: function(studentID, courseID) {
+        signUpCourse: function() {
             console.log('Sign up has been clicked')
+
+            // Check if already enrolled
+            if (this.isEnrolled == true) {
+                alert('Already enrolled')
+                return
+            }
+
             let jsonData = JSON.stringify({
-                studentID: studentID,
-                courseID: courseID
+                'studentID': studentID,
+                'courseID': courseID
             });
-            fetch(`signUpCourseURL/signup`, {
+            fetch(`${courseURL}/signup`, {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"
@@ -78,6 +87,8 @@ var app = new Vue({
                     switch (data.code) {
                         case 200:
                             console.log('success')
+                            this.isEnrolled = true
+                            alert("Scuessfully Enrolled!");
                             break;
                         case 400:
                         case 500:

@@ -48,9 +48,12 @@ class Course(db.Model):
 
     def addStudent(self, studentID):
         studentArray = self.students.split(",")
+        print(studentID, studentArray)
 
-        if studentID not in studentArray:
+        if str(studentID) not in studentArray:
             self.students = self.students + ',' + str(studentID)
+        else:
+            return "Student is already enrolled in this course"
 
 
 # get the list of all courses
@@ -144,17 +147,17 @@ def create_course():
 
     return jsonify(
         {
-            "code": 201,
+            "code": 200,
             "data": course.json()
         }
-    ), 201
+    ), 200
 
 # Sign up
 # TODO: Test this method
 
 
 @app.route("/signup", methods=['POST'])
-def signup(courseID, studentID):
+def signup():
 
     # Get POST variables
     courseID = request.json.get("courseID")
@@ -165,7 +168,6 @@ def signup(courseID, studentID):
     course.addStudent(studentID)
 
     try:
-        db.session.update(course)
         db.session.commit()
     except error:
         return jsonify(
@@ -179,10 +181,10 @@ def signup(courseID, studentID):
 
     return jsonify(
         {
-            "code": 201,
+            "code": 200,
             "data": course.json()
         }
-    ), 201
+    ), 200
 
 
 if __name__ == '__main__':
