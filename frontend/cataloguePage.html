@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,104 +10,105 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>LMS</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <!-- navbar -->
     <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid" >
-          <a class="navbar-brand">Learning Management System</a>
-          <a href="">Home</a>
+        <div class="container-fluid">
+            <a class="navbar-brand">Learning Management System</a>
+            <a href="">Home</a>
         </div>
     </nav>
     <div id="app">
-      <!-- Enrolled courses -->
-      <div class="container-fluid section-wrapper" >
-        <h2>Enrolled Courses</h2>
-        <div class="row">
-          <!-- start of enrolled courses col -->
-          <div class="col-md-3" v-for="course in enrolled">
-            <div class="card" >
-              <img src="../images/course.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h7 class="card-text font-weight-bold">{{course}}</h7>
-                <button type="submit" class="btn btn-success px-5 mt-3 btn-block">View Course</button>
-              </div>
+        <!-- Enrolled courses -->
+        <div class="container-fluid section-wrapper">
+            <h2>Enrolled Courses</h2>
+            <div class="row">
+                <!-- start of enrolled courses col -->
+                <div class="col-md-3" v-for="course in enrolled">
+                    <div class="card">
+                        <img src="../images/course.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h7 class="card-text font-weight-bold">{{course}}</h7>
+                            <button type="submit" class="btn btn-success px-5 mt-3 btn-block">View Course</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- end col-->
             </div>
-          </div>
-          <!-- end col-->
         </div>
-      </div>
-      <!-- end -->
-      <!-- Course Catalogue -->
-      <div class="container-fluid section-wrapper">
-        <h2>Course Catalogue</h2>
-        <nav class="nav nav-pills flex-column flex-md-row mb-2">
-          <a class="nav-link active" href="#one" data-toggle="tab">Repair</a>
-          <a class="nav-link" href="#two" data-toggle="tab">Roving Service</a>
-          <a class="nav-link" href="#three" data-toggle="tab">General</a>
-        </nav>
-        
-        <div class="tab-content">
-          <!-- Cat 1 -->
-          <div class="tab-pane active" id="one">
-            <!-- START -->
-            <div class="row">
-              <div class="col-md-3" v-for="course in cat1">
-                <div class="card" >
-                  <img src="../images/course.jpg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h7 class="card-text font-weight-bold">{{course}}</h7>
-                    <br>2 Jan 2022 - 17 Mar 2022
-                    <h7 class="font-weight-bold">Prerequisites</h7>
-                    <br>Requirements
-                    <button type="submit" class="btn btn-success px-5 mt-3 btn-block">View Product</button>
-                  </div>
+        <!-- end -->
+        <!-- Course Catalogue -->
+        <div class="container-fluid section-wrapper">
+            <h2>Course Catalogue</h2>
+            <nav class="nav nav-pills flex-column flex-md-row mb-2">
+                <a class="nav-link active" href="#one" data-toggle="tab">Repair</a>
+                <a class="nav-link" href="#two" data-toggle="tab">Roving Service</a>
+                <a class="nav-link" href="#three" data-toggle="tab">General</a>
+            </nav>
+
+            <div class="tab-content">
+                <!-- Cat 1 -->
+                <div class="tab-pane active" id="one">
+                    <!-- START -->
+                    <div class="row">
+                        <div class="col-md-3" v-for="course in courses">
+                            <div class="card">
+                                <img src="../images/course.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h7 class="card-text font-weight-bold"> {{course.courseName}} </h7>
+                                    <br>
+                                    <h7 class="font-weight-bold">Prerequisites</h7>: {{ course.prereqCourses }}
+                                    <i> {{course.courseDetails}} </i>
+                                    <button @click='redirectProductPage(course.courseID)' class="btn btn-success px-5 mt-3 btn-block">View Product</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END -->
                 </div>
-              </div>
-            </div>
-            <!-- END -->
-          </div>
-          <!-- Cat 2 -->
-          <div class="tab-pane" id="two">
-            <!-- START -->
-            <div class="row">
-              <div class="col-md-3" v-for="course in cat2">
-                <div class="card" >
-                  <img src="../images/course.jpg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h7 class="card-text font-weight-bold">{{course}}</h7>
-                    <br>2 Jan 2022 - 17 Mar 2022
-                    <h7 class="font-weight-bold">Prerequisites</h7>
-                    <br>Requirements
-                    <button type="submit" class="btn btn-success px-5 mt-3 btn-block">View Product</button>
-                  </div>
+                <!-- Cat 2 -->
+                <div class="tab-pane" id="two">
+                    <!-- START -->
+                    <div class="row">
+                        <div class="col-md-3" v-for="course in cat2">
+                            <div class="card">
+                                <img src="../images/course.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h7 class="card-text font-weight-bold">{{course}}</h7>
+                                    <br>2 Jan 2022 - 17 Mar 2022
+                                    <h7 class="font-weight-bold">Prerequisites</h7>
+                                    <br>Requirements
+                                    <button type="submit" class="btn btn-success px-5 mt-3 btn-block">View Product</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END -->
                 </div>
-              </div>
-            </div>
-            <!-- END -->
-          </div>
-          <!-- Cat 3 -->
-          <div class="tab-pane" id="three">
-            <!-- START -->
-            <div class="row">
-              <div class="col-md-3" v-for="course in cat3">
-                <div class="card" >
-                  <img src="../images/course.jpg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h7 class="card-text font-weight-bold">{{course}}</h7>
-                    <br>2 Jan 2022 - 17 Mar 2022
-                    <h7 class="font-weight-bold">Prerequisites</h7>
-                    <br>Requirements
-                    <button type="submit" class="btn btn-success px-5 mt-3 btn-block">View Product</button>
-                  </div>
+                <!-- Cat 3 -->
+                <div class="tab-pane" id="three">
+                    <!-- START -->
+                    <div class="row">
+                        <div class="col-md-3" v-for="course in cat3">
+                            <div class="card">
+                                <img src="../images/course.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h7 class="card-text font-weight-bold">{{course}}</h7>
+                                    <br>2 Jan 2022 - 17 Mar 2022
+                                    <h7 class="font-weight-bold">Prerequisites</h7>
+                                    <br>Requirements
+                                    <button type="submit" class="btn btn-success px-5 mt-3 btn-block">View Product</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END -->
                 </div>
-              </div>
             </div>
-            <!-- END -->
-          </div>
         </div>
-      </div>
-      <!-- end -->
+        <!-- end -->
     </div>
 
     <!-- Optional JavaScript -->
@@ -121,55 +123,61 @@
         }
     </style>
     <script>
-      var get_course_url = "http://127.0.0.1:5003/course"
-      var app = new Vue({
-        el: "#app ",
-        computed: {},
-        data: {
-            enrolled: [
-                "Python Course",
-                "C++ Course",
-            ],
-            cat1:[
-              "Database Course",
-              "HTML Course",
-              "CSS Course",
-              "Javascript Course",
-              "Java Course"
-            ],
-            cat2:[
-              "Computer",
-              "Service",
-              "Product"
-            ],
-            cat3:[
-              "Leadership",
-              "Time management"
-            ],
-            message: "",
-            courses: []
-        },
-        methods:{
-          getAllCourse: function () {
-            const response =
-                fetch(get_course_url)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.code === 404) {
-                            this.message = data.message;
-                        } else {
-                            this.courses = data.data.courses;
-                            console.log(this.courses)
-                        }
-                    })
-                    .catch(error => {
-                        // Errors when calling the service; such as network error, 
-                        // service offline, etc
-                        console.log(this.message + error);
-                    });
+        var get_course_url = "http://127.0.0.1:5003/course"
+        var app = new Vue({
+            el: "#app ",
+            created: function() {
+                this.getAllCourse()
+            },
+            data: {
+                enrolled: [
+                    "Python Course",
+                    "C++ Course",
+                ],
+                cat1: [
+                    "Database Course",
+                    "HTML Course",
+                    "CSS Course",
+                    "Javascript Course",
+                    "Java Course"
+                ],
+                cat2: [
+                    "Computer",
+                    "Service",
+                    "Product"
+                ],
+                cat3: [
+                    "Leadership",
+                    "Time management"
+                ],
+                message: "",
+                courses: []
+            },
+            methods: {
+                getAllCourse: function() {
+                    const response =
+                        fetch(get_course_url)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.code === 404) {
+                                this.message = data.message;
+                            } else {
+                                this.courses = data.data.courses;
+                                console.log(this.courses)
+                            }
+                        })
+                        .catch(error => {
+                            // Errors when calling the service; such as network error, 
+                            // service offline, etc
+                            console.log(this.message + error);
+                        });
+                },
+                redirectProductPage: function(courseID) {
+                    window.location.href = `productPage?courseID=${courseID}.html`;
+                }
             }
-        }
-      });
-  </script>
-  </body>
+        });
+    </script>
+</body>
+
 </html>

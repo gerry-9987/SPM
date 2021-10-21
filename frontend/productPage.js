@@ -1,23 +1,12 @@
-// Accordion
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var panel = this.nextElementSibling;
-        if (panel.style.maxHeight) {
-            panel.style.maxHeight = null;
-        } else {
-            panel.style.maxHeight = panel.scrollHeight + "px";
-        }
-    });
-}
-
 var courseID = 2
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+var courseID = urlParams.get('courseID')
+console.log('OIIIIIIIIIIIIIIIIIIIIIIIIIIII' * 5)
+console.log(courseID)
+
 var classDetailsURL = `http://127.0.0.1:5002/class/${courseID}`
 var courseDetailsURL = `http://127.0.0.1:5003/course/${courseID}`
-    // # TODO: Add this function
 var courseURL = 'http://127.0.0.1:5003/'
 var studentID = 13
 

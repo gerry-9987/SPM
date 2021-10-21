@@ -1,87 +1,160 @@
-<!DOCTYPE html>
-
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>LMS</title>
 </head>
 
 <body>
     <!-- navbar -->
-    <div id='nav-bar'>
-        <nav-bar></nav-bar>
-    </div>
-
-    <!-- Banner -->
-    <div class="jumbotron">
-        <h1 class="display-4">Something Something course</h1>
-        <p class="lead">This course is about stuffs</p>
-        <hr class="my-4">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita facilis magnam ab debitis officia eaque officiis illum cupiditate, harum quaerat vitae vero consequuntur corporis excepturi ducimus minima voluptatem molestias eveniet.</p>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Go somewhere</a>
-        </p>
-    </div>
-
-    <!-- Course info -->
-    <div class='container' id='section-wrapper'>
-        <div class="table-responsive">
-            <table class="table table-sm table-borderless mb-0">
-                <tbody>
-                    <tr>
-                        <th class="pl-0 w-25" scope="row"><strong>Trainer Name</strong></th>
-                        <td>{{ courseTrainers }}</td>
-                    </tr>
-                    <tr>
-                        <th class="pl-0 w-25" scope="row"><strong>Course Size</strong></th>
-                        <td>{{ courseSize }}</td>
-                    </tr>
-                    <tr>
-                        <th class="pl-0 w-25" scope="row"><strong>Prerequisites</strong></th>
-                        <td>{{ coursePrerequisites }}</td>
-                    </tr>
-                    <tr>
-                        <th class="pl-0 w-25" scope="row"><strong>Grading Breakdown</strong></th>
-                        <td>{{ courseGradingBreakdown }} quizzes, 1 final quiz</td>
-                    </tr>
-                    <tr>
-                        <th class="pl-0 w-25" scope="row"><strong>Classes</strong></th>
-                        <td>{{ courseClasses }}</td>
-                    </tr>
-                    <tr>
-                        <th class="pl-0 w-25" scope="row"><strong>Number of Chapters</strong></th>
-                        <td>{{ courseChapters }}</td>
-                    </tr>
-                </tbody>
-            </table>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">Course Management System</a>
+            <a href="">Home</a>
         </div>
+    </nav>
+    <div id="app">
+        <!--Course title-->
+        <div class="container-fluid bg-dark text-white section-wrapper">
+            <div class="row m-2">
+                <div class="col-10">
+                    <h4>{{ courseName }}</h4>
+                    <br>{{ courseDetails }}
+                </div>
+                <div class="col-2">
+                    <img src="../images/course.jpg" class="card-img-top" alt="...">
+                </div>
+            </div>
+        </div>
+
+        <!-- alerts  -->
+        <div class="alert alert-danger" role="alert" v-if="isEnrolled">
+            Student is already enrolled in this course
+        </div>
+
+        <!-- Course details -->
+        <div class="container-fluid section-wrapper">
+            <div class="border border-grey rounded">
+                <div class="row m-4">
+                    <div class="col-4">
+                        <p>
+                            <h5>{{ courseName }}</h5>
+                            {{ courseStartDate }} to {{ courseEndDate }}
+                        </p>
+                        <p>
+                            <h5>Prerequisites</h5>
+                            {{coursePrerequisites}}
+                        </p>
+                        <p>
+                            <h5>Course Size</h5>
+                            {{courseSize}}
+                        </p>
+                    </div>
+                    <div class="col-4">
+                        <p>
+                            <h5>Chapters</h5>
+                            {{courseChapters}}
+                        </p>
+                        <p>
+                            <h5>Grading Breakdown</h5> {{courseGradingBreakdown}} quizzes, 1 Final Quiz
+                        </p>
+                        <p>
+                            <h5>Trainers</h5> {{ courseTrainers }}
+                        </p>
+                    </div>
+                    <div class="col-4">
+                        <p>
+                            <h5>Class</h5>
+                            <div class="form-check form-check-inline" v-for="section in courseClassArray">
+                                <input class="form-check-input" type="radio" name="class" id="classid1" value="option1">
+                                <label class="form-check-label" for="inlineRadio1">{{section}}</label>
+                            </div>
+                            <button @click='signUpCourse()' type="submit" class="btn btn-success px-5 mt-3 btn-block">Self-Enroll</button>
+                            <button type="submit" class="btn btn-success px-5 mt-3 btn-block disabled">Withdraw</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Course Outline-->
+        <!-- #TODO: fix chapter details -->
+
+        <div class="container-fluid section-wrapper">
+            <h2>Course Outline</h2>
+            <div id="accordion">
+                <div class="card" v-for="num in chapter">
+                    <div class="card-header" id="num">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" :data-target="'#chapter'+num" aria-expanded="false" aria-controls="collapseOn">
+                        Chapter {{num}}
+                      </button>
+                        </h5>
+                    </div>
+
+                    <div :id="'chapter'+num" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            {{chapter_details[num-1]}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Accordion -->
-    <button class="accordion show">Chapter 1</button>
-    <div class="panel">
-        <p>Functions, parameters...</p>
-    </div>
 
-    <button class="accordion">Chapter 2</button>
-    <div class="panel">
-        <p>Lorem ipsum...</p>
-    </div>
 
-    <button class="accordion">Chapter 3</button>
-    <div class="panel">
-        <p>Lorem ipsum...</p>
-    </div>
-
-    <!-- Scripts -->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
+    <style>
+        .section-wrapper {
+            padding: 10px 45px 10px 45px;
+        }
+    </style>
+
     <script src="productPage.js" async defer></script>
-    <!-- <script src="vue.js" async defer></script> -->
+
+    <script>
+        var app = new Vue({
+            el: "#accordion ",
+            computed: {},
+            data: {
+                title: "Python Course for Repair Engineers",
+                description: "Learn Python like a Professional Start from the basics and go all the way to creating your own applications and games. You will learn a lot in this course",
+                course: "Python Course",
+                date: "2 Feb 2022 to 15 Mar 2022",
+                prerequisites: "Intro to programming",
+                size: 10,
+                chapter: 5,
+                ungraded: 5,
+                sections: [
+                    1, 2, 3
+                ],
+                trainers: [
+                    "Kelly", "Alan", "Ryan"
+                ],
+                chapter_details: [
+                    "Be familiar with engineering graphing, drawing, and sketching techniques",
+                    "Explain what dependent and independent variables are, notation used, and how relationships are developed between them",
+                    "Be familiar with the unit systems used in engineering, specifically for this course",
+                    "Understand unit analysis and be able to use units effectively in calculations and in checking your final answer for correctness",
+                    "Use exact numbers and significant figures correctly in calculations",
+                ]
+
+            },
+        });
+    </script>
 </body>
 
 </html>
