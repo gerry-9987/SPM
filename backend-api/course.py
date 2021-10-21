@@ -72,7 +72,6 @@ def get_all():
 @app.route("/course/<string:courseID>")
 def get_course_details(courseID):
 
-
     courses = Course.query.filter_by(courseID=courseID)
     if courses:
         courseDetails = [

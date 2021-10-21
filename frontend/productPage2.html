@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,18 +10,19 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>LMS</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <!-- navbar -->
     <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid" >
-          <a class="navbar-brand">Course Management System</a>
-          <a href="">Home</a>
+        <div class="container-fluid">
+            <a class="navbar-brand">Course Management System</a>
+            <a href="">Home</a>
         </div>
     </nav>
     <div id="app">
         <!--Course title-->
-        <div class="container-fluid bg-dark text-white section-wrapper" >
+        <div class="container-fluid bg-dark text-white section-wrapper">
             <div class="row m-2">
                 <div class="col-10">
                     <h4>{{ courseName }}</h4>
@@ -31,6 +33,12 @@
                 </div>
             </div>
         </div>
+
+        <!-- alerts  -->
+        <div class="alert alert-danger" role="alert" v-if="isEnrolled">
+            Student is already enrolled in this course
+        </div>
+
         <!-- Course details -->
         <div class="container-fluid section-wrapper">
             <div class="border border-grey rounded">
@@ -42,11 +50,11 @@
                         </p>
                         <p>
                             <h5>Prerequisites</h5>
-							{{coursePrerequisites}}
+                            {{coursePrerequisites}}
                         </p>
                         <p>
                             <h5>Course Size</h5>
-							{{courseSize}}
+                            {{courseSize}}
                         </p>
                     </div>
                     <div class="col-4">
@@ -71,38 +79,37 @@
                             <button @click='signUpCourse()' type="submit" class="btn btn-success px-5 mt-3 btn-block">Self-Enroll</button>
                             <button type="submit" class="btn btn-success px-5 mt-3 btn-block disabled">Withdraw</button>
                         </p>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
         <!-- Course Outline-->
         <!-- #TODO: fix chapter details -->
-        <!-- <div class="container-fluid section-wrapper">
+
+        <div class="container-fluid section-wrapper">
             <h2>Course Outline</h2>
             <div id="accordion">
                 <div class="card" v-for="num in chapter">
-                  <div class="card-header" id="num">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link collapsed" data-toggle="collapse" :data-target="'#chapter'+num" aria-expanded="false" aria-controls="collapseOn">
-                        TO BE FILLED
+                    <div class="card-header" id="num">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" :data-target="'#chapter'+num" aria-expanded="false" aria-controls="collapseOn">
                         Chapter {{num}}
                       </button>
-                    </h5>
-                  </div>
-              
-                  <div :id="'chapter'+num" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                    <div class="card-body">
-                        TO BE FILLED
-                      {{chapter_details[num-1]}}
+                        </h5>
                     </div>
-                  </div>
+
+                    <div :id="'chapter'+num" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            {{chapter_details[num-1]}}
+                        </div>
+                    </div>
                 </div>
-              </div>
-        </div> -->
-        
+            </div>
+        </div>
+
     </div>
-    
- 
+
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -119,37 +126,35 @@
     <script src="productPage.js" async defer></script>
 
     <script>
-
-        /*
         var app = new Vue({
-            el: "#app ",
+            el: "#accordion ",
             computed: {},
             data: {
                 title: "Python Course for Repair Engineers",
                 description: "Learn Python like a Professional Start from the basics and go all the way to creating your own applications and games. You will learn a lot in this course",
                 course: "Python Course",
                 date: "2 Feb 2022 to 15 Mar 2022",
-                prerequisites:"Intro to programming",
+                prerequisites: "Intro to programming",
                 size: 10,
                 chapter: 5,
-                ungraded:5,
-                sections:[
-                    1,2,3
+                ungraded: 5,
+                sections: [
+                    1, 2, 3
                 ],
                 trainers: [
-                    "Kelly","Alan","Ryan"
+                    "Kelly", "Alan", "Ryan"
                 ],
-                chapter_details:[
-                    "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.",
-                    "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.",
-                    "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.",
-                    "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.",
-                    "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.",
+                chapter_details: [
+                    "Be familiar with engineering graphing, drawing, and sketching techniques",
+                    "Explain what dependent and independent variables are, notation used, and how relationships are developed between them",
+                    "Be familiar with the unit systems used in engineering, specifically for this course",
+                    "Understand unit analysis and be able to use units effectively in calculations and in checking your final answer for correctness",
+                    "Use exact numbers and significant figures correctly in calculations",
                 ]
 
             },
         });
-        */
     </script>
-  </body>
+</body>
+
 </html>
