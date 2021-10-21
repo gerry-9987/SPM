@@ -280,7 +280,15 @@ INSERT INTO GRADEDQUIZ VALUES
 
 INSERT INTO CLASS_CHAPTER VALUES
 (1, 1, 1),
-(1, 1, 2);
+(1, 1, 2),
+(2, 3, 3),
+(2, 5, 4),
+(2, 6, 7),
+(4, 8, 8),
+(4, 10, 3),
+(5, 11, 5),
+(6, 14, 10),
+(7, 16, 11);
 
 INSERT INTO TRAINER VALUES
 (3, 10),
