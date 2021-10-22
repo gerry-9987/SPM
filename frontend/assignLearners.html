@@ -99,25 +99,56 @@
         }
     </style>
     <script>
-        var app = new Vue({
-            el: "#app ",
-            computed: {},
-            data: {
-                course_categories: [
-                    "Mechanical Engineer ",
-                    "Computer Engineer ",
-                    "Chemical Engineer ",
-                ],
-                learners: [
-                    "Wesley", "Jewel", "Gerry", "HaoYue", "LY"
-                ],
-                class_no:[
-                  1,2,3,4,5
-                ],
-                assigned: 10,
-                capacity: 25
-            },
-        });
+      var staffURL = `http://127.0.0.1:5005/staff`
+      var app = new Vue({
+          el: "#app ",
+          computed: {},
+          data: {
+              course_categories: [
+                  "Mechanical Engineer ",
+                  "Computer Engineer ",
+                  "Chemical Engineer ",
+              ],
+              learners: [],
+              learnersID:[],
+              class_no:[
+                1,2,3,4,5
+              ],
+              assigned: 10,
+              capacity: 25
+          },
+          created: function(){
+            this.getLearner()
+          },
+          methods: {
+            getLearner: function(){
+              console.log('Getting course details')
+              fetch(staffURL )
+                .then(response => response.json())
+                .then(data => {
+                    result = data.data.staff;
+                    console.log(result);
+                    // 3 cases
+                    switch (data.code) {
+                        case 200:
+                          for (var staff of result) {
+                            if (staff.department == "Learner") 
+                              this.learners.push(staff.staffName)
+                              this.learnersID.push(staff.staffID)
+                              console.log(staff.staffName)
+                          }
+                          break;
+                        case 400:
+                        case 500:
+                          console.log('failure')
+                          break;
+                        default:
+                          throw `${data.code}: ${data.message}`;
+                    }
+                })
+            }
+          }
+      });
     </script>
   </body>
 </html>
