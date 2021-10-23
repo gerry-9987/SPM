@@ -1,13 +1,14 @@
 // Extracting from URLSearchParams
 var courseID = 2
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-var courseID = urlParams.get('courseID')
+// const queryString = window.location.search;
+// const urlParams = new URLSearchParams(queryString);
+// var courseID = urlParams.get('courseID')
 
 // API end points
-var classDetailsURL = `http://127.0.0.1:5002/class/`
+var classDetailsURL = `http://127.0.0.1:5002/class/${courseID}`
 var courseDetailsURL = `http://127.0.0.1:5003/course/${courseID}`
-var courseURL = 'http://127.0.0.1:5003/'
+var courseURL = 'http://127.0.0.1:5003'
+var chapterDetailsURL = `http://127.0.0.1:5000/chapter/course/${courseID}`
 var studentID = 13
 
 // VUE JS
@@ -26,13 +27,15 @@ var app = new Vue({
         courseGradingBreakdown: 3,
         courseClasses: '',
         courseClassArray: [],
-        courseChapters: 2,
+        courseChapters: 0,
+        courseChaptersArray: [],
         courseStudents: [],
         isEnrolled: false,
     },
     created: function() {
         this.getCourseDetails(),
-            this.getClassDetails()
+        this.getClassDetails(),
+        this.getChapterDetails()
     },
     methods: {
         checkIsEnrolled: function() {
@@ -152,6 +155,26 @@ var app = new Vue({
                             this.courseEndDate = result[0].endDate
                             this.courseTrainers = trainersArray.join(", ")
                             this.courseSize = courseSize
+                            break;
+                        case 400:
+                        case 500:
+                            console.log('failure')
+                            break;
+                        default:
+                            throw `${data.code}: ${data.message}`;
+                    }
+                })
+        },
+        getChapterDetails: function() {
+            fetch(chapterDetailsURL)
+                .then(response => response.json())
+                .then(data => {
+                    result = data.data;
+                    console.log(result);
+                    switch (data.code) {
+                        case 200:
+                            this.courseChapters = result.length
+                            this.courseChaptersArray = result
                             break;
                         case 400:
                         case 500:
