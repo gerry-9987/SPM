@@ -4,7 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from sqlalchemy import and_
 
-
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/spm_proj'
@@ -23,7 +22,6 @@ class ClassChapter(db.Model):
     classID = db.Column(db.Integer(), db.ForeignKey('class.classID'), primary_key=True, nullable=False)
     chapterID = db.Column(db.Integer(), db.ForeignKey('chapter.chapterID'), primary_key=True, autoincrement=True)
 
-
     def __init__(self, courseID, classID, chapterID):
         self.courseID = courseID
         self.classID = classID
@@ -41,7 +39,7 @@ class ClassChapter(db.Model):
 # get the list of classes' chapters
 @app.route("/class_chapter")
 def get_all_class_chapters():
-    class_chapter_list = Chapter.query.all()
+    class_chapter_list = ClassChapter.query.all()
     if len(class_chapter_list):
         return jsonify(
             {
@@ -62,7 +60,7 @@ def get_all_class_chapters():
 # get specific chapter
 @app.route("/class_chapter/<string:chapterID>")
 def get_class_chapter(chapterID):
-    chapter = Chapter.query.filter_by(chapterID=chapterID).first()
+    chapter = ClassChapter.query.filter_by(chapterID=chapterID).first()
     if chapter:
         return jsonify(
             {
@@ -81,7 +79,11 @@ def get_class_chapter(chapterID):
 # get specific course, class and its chapter
 @app.route("/class_chapter/<string:courseID>/<string:classID>/<string:chapterID>")
 def get_course_class_chapter(courseID, classID, chapterID):
-    specific_chapter = Chapter.query.filter(and_(Chapter.courseID==courseID, Chapter.classID==classID, Chapter.chapterID==chapterID)).first()
+    specific_chapter = ClassChapter.query.filter(
+        and_(ClassChapter.courseID==courseID, \
+            ClassChapter.classID==classID, \
+            ClassChapter.chapterID==chapterID)
+    ).first()
     if specific_chapter:
         return jsonify(
             {
