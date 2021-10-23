@@ -14,18 +14,12 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-#  staffID int(11) NOT NULL,
-# courseID int(11) NOT NULL,
-# classID int(11) NOT NULL,
-# CONSTRAINT take_class_pk PRIMARY KEY (staffID, courseID, classID),
-# CONSTRAINT take_class_fk FOREIGN KEY (staffID) REFERENCES STAFF(staffID),
-# CONSTRAINT take_class_fk2 FOREIGN KEY (courseID, classID) REFERENCES CLASS(courseID, classID)
-
-class TakeClass(db.Model):
+class Take_Class(db.Model):
 
     __tablename__ = 'TAKE_CLASS'
     staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), primary_key=True, autoincrement=False)
     classID = db.Column(db.Integer(), db.ForeignKey('class.classID'), primary_key=True, nullable=False)
+    courseName = db.Column(db.VARCHAR(255), db.ForeignKey('course.courseName'), nullable=False)
     courseID = db.Column(db.Integer(), db.ForeignKey('course.courseID'), primary_key=True, nullable=False)
 
     __table_args__ = (
@@ -34,22 +28,25 @@ class TakeClass(db.Model):
             ),
     )
 
-    def __init__(self, staffID, courseID, classID):
+    def __init__(self, staffID, courseID, courseName, classID):
         self.staffID = staffID
         self.courseID = courseID
-
+        self.courseName = courseName
+        self.classID = classID
 
     def json(self):
         return {
             "staffID": self.staffID,
             "courseID": self.courseID,
+            "courseName": self.courseName,
+            "classID": self.classID
         }
 
 
 # get the list of all classes taken
 @app.route("/take_class")
 def get_all():
-    take_class_list = Take_class.query.all()
+    take_class_list = Take_Class.query.all()
     if len(take_class_list):
         return jsonify(
             {
@@ -70,7 +67,7 @@ def get_all():
 # get specific class taken
 @app.route("/take_class/<string:staffID>")
 def get_class_taken(staffID):
-    class_taken = Take_class.query.filter_by(staffID=staffID).first()
+    class_taken = Take_Class.query.filter_by(staffID=staffID).first()
     if class_taken:
         return jsonify(
             {
@@ -92,9 +89,10 @@ def add_class_taken():
 
     staffID = request.json.get("staffID")
     courseID = request.json.get("courseID")
+    courseName = request.json.get("courseName")
     classID = request.json.get("classID")
 
-    class_taken = Take_class(staffID=staffID, courseID=courseID, classID=classID)
+    class_taken = Take_Class(staffID=staffID, courseID=courseID, courseName = courseName, classID=classID)
 
     print(class_taken.json())
 

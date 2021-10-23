@@ -140,10 +140,12 @@ CREATE TABLE TAKE_CLASS
 (
     staffID int(11) NOT NULL,
     courseID int(11) NOT NULL,
+    courseName varchar(255) NOT NULL,
     classID int(11) NOT NULL,
     CONSTRAINT take_class_pk PRIMARY KEY (staffID, courseID, classID),
     CONSTRAINT take_class_fk FOREIGN KEY (staffID) REFERENCES STAFF(staffID),
-    CONSTRAINT take_class_fk2 FOREIGN KEY (courseID, classID) REFERENCES CLASS(courseID, classID)
+    -- CONSTRAINT take_class_fk2 FOREIGN KEY (courseName) REFERENCES COURSE(courseName),
+    CONSTRAINT take_class_fk3 FOREIGN KEY (courseID, classID) REFERENCES CLASS(courseID, classID)
 );
 
 DROP TABLE IF EXISTS QUIZ_QUESTION;
@@ -328,12 +330,12 @@ INSERT INTO MATERIAL VALUES
 (3, "bbb", "video", "https://www.youtube.com/watch?v=mFFXuXjVgkU&ab_channel=DevOpsJourney", "Vid", 3);
 
 INSERT INTO TAKE_CLASS VALUES
-(1, 1, 1),
-(2, 1, 2),
-(6, 2, 3),
-(7, 2, 4),
-(8, 2, 5),
-(9, 2, 6);
+(1, 1, 'IBM 101', 1),
+(2, 1, 'IBM 102', 2),
+(6, 2, 'HP 101', 3),
+(7, 2, 'HP 102', 4),
+(8, 2, 'Xerox 101', 5),
+(9, 2, 'Xerox 102', 6);
 
 INSERT INTO QUIZ_QUESTION VALUES
 (1, 1),
