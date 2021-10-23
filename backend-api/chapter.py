@@ -1,7 +1,9 @@
-from os import error
+from os import cpu_count, error
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+
+from classChapter import ClassChapter
 
 app = Flask(__name__)
 
@@ -19,12 +21,13 @@ class Chapter(db.Model):
     __tablename__ = 'chapter'
     chapterID = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     chapterName = db.Column(db.VARCHAR(255), nullable=False)
+    chapterDetails = db.Column(db.VARCHAR(255), nullable=False)
     quizID = db.Column(db.Integer(), db.ForeignKey('quiz.quizID'), nullable=False)
 
-
-    def __init__(self, chapterID, chapterName, quizID):
+    def __init__(self, chapterID, chapterName, chapterDetails, quizID):
         self.chapterID = chapterID
-        self.chapterName = chapterName
+        self.chapterName = chapterName,
+        self.chapterDetails = chapterDetails,
         self.quizID = quizID
 
 
@@ -32,7 +35,8 @@ class Chapter(db.Model):
         return {
             "chapterID": self.chapterID,
             "chapterName": self.chapterName,
-            "quizID": self.quizID,
+            "chapterDetails": self.chapterDetails,
+            "quizID": self.quizID
         }
 
 
@@ -74,6 +78,33 @@ def get_chapter(chapterID):
             "message": "Chapter not found."
         }
     ), 404
+
+@app.route("/chapter/course/<string:courseID>")
+def get_course_chapters(courseID):
+    chapters = db.session.query(Chapter).filter(Chapter.chapterID==ClassChapter.chapterID, ClassChapter.courseID==courseID).all()
+    if len(chapters) == 0:
+        return jsonify(
+        {
+            "code": 404,
+            "message": "There are no chapters for that course."
+        }
+        ), 404
+    else:
+        courseChapters = [
+            {
+                "chapterID": courseChapter.chapterID,
+                "chapterName": courseChapter.chapterName,
+                "chapterDetails": courseChapter.chapterDetails
+            }
+        for courseChapter in chapters
+        ]
+
+        return jsonify(
+            {
+                "code": 200,
+                "data": courseChapters
+            }
+        )
 
 
 if __name__ == '__main__':
