@@ -77,7 +77,7 @@ def get_staff(quizID):
 
 # add new quiz
 @app.route("/quiz", methods=['POST'])
-def add_staff():
+def add_quiz():
 
 
     quizID = request.json.get("quizID")
@@ -86,7 +86,6 @@ def add_staff():
 
     quiz = Quiz(quizID=quizID, startDate=startDate, endDate=endDate)
 
-    print(quiz.json())
 
     try:
         db.session.add(quiz)
@@ -104,7 +103,7 @@ def add_staff():
     return jsonify(
         {
             "code": 201,
-            "data": quiz.json()
+            "message": "Quiz has been created."
         }
     ), 201
 
