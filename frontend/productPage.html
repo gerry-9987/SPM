@@ -88,19 +88,20 @@
 
         <div class="container-fluid section-wrapper">
             <h2>Course Outline</h2>
-            <div id="accordion">
-                <div class="card" v-for="num in chapter">
+
+            <div>
+                <div class="card" v-for="(courseChapter, num) in courseChaptersArray">
                     <div class="card-header" id="num">
                         <h5 class="mb-0">
                             <button class="btn btn-link collapsed" data-toggle="collapse" :data-target="'#chapter'+num" aria-expanded="false" aria-controls="collapseOn">
-                        Chapter {{num}}
-                      </button>
+                                Chapter {{num+1}}
+                            </button>
                         </h5>
                     </div>
 
                     <div :id="'chapter'+num" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
-                            {{chapter_details[num-1]}}
+                            {{ courseChapter.chapterDetails }}
                         </div>
                     </div>
                 </div>
