@@ -26,11 +26,11 @@
             <h2>Enrolled Courses</h2>
             <div class="row">
                 <!-- start of enrolled courses col -->
-                <div class="col-md-3" v-for="course in enrolled">
+                <div class="col-md-3" v-for="class_taken in classes_taken" v-if='class_taken.staffID == 1 '>
                     <div class="card">
                         <img src="../images/course.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h7 class="card-text font-weight-bold">{{course}}</h7>
+                            <h7 class="card-text font-weight-bold">{{class_taken.courseName}}</h7>
                             <button type="submit" class="btn btn-success px-5 mt-3 btn-block">View Course</button>
                         </div>
                     </div>
@@ -79,10 +79,12 @@
     </style>
     <script>
         var get_course_url = "http://127.0.0.1:5003/course"
+        var get_classes_taken ="http://127.0.0.1:5007/take_class"
         var app = new Vue({
             el: "#app ",
             created: function() {
                 this.getAllCourse()
+                this.getAllClassTaken()
             },
             data: {
                 enrolled: [
@@ -107,6 +109,7 @@
                 ],
                 message: "",
                 courses: [],
+                classes_taken: [],
                 courseCategories: ['IBM', 'HP', 'Xerox', 'Canon']
             },
             methods: {
@@ -124,6 +127,26 @@
                         })
                         .catch(error => {
                             // Errors when calling the service; such as network error, 
+                            // service offline, etc
+                            console.log(this.message + error);
+                        });
+                },
+
+                getAllClassTaken: function() {
+                    const response =
+                        fetch(get_classes_taken)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.code === 404) {
+                                this.message = data.message;
+                            } else {
+                                this.classes_taken = data.data.classes_taken;
+                                console.log("=====Classes Taken=====")
+                                console.log(this.classes_taken)
+                            }
+                        })
+                        .catch(error => {
+                            // Errors when calling the service; such as network error,
                             // service offline, etc
                             console.log(this.message + error);
                         });
