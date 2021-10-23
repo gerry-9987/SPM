@@ -47,8 +47,8 @@ DROP TABLE IF EXISTS QUIZ;
 CREATE TABLE QUIZ
 (
     quizID int(11) NOT NULL AUTO_INCREMENT,
-    startDate date NOT NULL,
-    endDate date NOT NULL,
+    startDate varchar(255) NOT NULL,
+    endDate varchar(255) NOT NULL,
     CONSTRAINT quiz_pk PRIMARY KEY (quizID)
 );
 
