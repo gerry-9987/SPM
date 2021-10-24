@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>LMS</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid" >
+          <a class="navbar-brand">Course Management System</a>
+          <a href="">Home</a>
+        </div>
+    </nav>
+
+    <!-- Manage Course -->
+    <div class="container-fluid section-wrapper" id="app">
+        <h2>Quiz</h2>
+        
+        <!-- start of form -->
+        <form class="mt-3" id="app">
+            <!-- True/False Question-->
+            <div class="border border-grey rounded mt-2">
+                <div class="form-check">
+                    <div class="form-group" v-for="num in questions.length">
+                        <label class="font-weight-bold">Question {{num}}: {{questions[num]}}</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">True</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                            <label class="form-check-label" for="flexRadioDefault2">False</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success px-5 mt-3">Submit</button>
+        </form>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
+    <style>
+        .section-wrapper {
+            padding: 10px 45px 10px 45px;
+        }
+    </style>
+    <script>
+        var app = new Vue({
+            el: "#app ",
+            computed: {},
+            data: {
+                questions: ["Is cat cute?","Is dog cute?","Is cat cute?","Is dog cute?","Is cat cute?","Is dog cute?","Is cat cute?","Is dog cute?","Is cat cute?","Is dog cute?",]
+            },
+        });
+    </script>
+  </body>
+</html>
