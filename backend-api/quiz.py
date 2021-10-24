@@ -20,22 +20,27 @@ class Quiz(db.Model):
     quizID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
     startDate = db.Column(db.VARCHAR(255), nullable=False)
     endDate = db.Column(db.VARCHAR(255), nullable=False)
+    question = db.Column(db.VARCHAR(255), nullable=False)
+    answer = db.Column(db.VARCHAR(255), nullable=False)
 
-    def __init__(self, quizID, startDate, endDate):
+    def __init__(self, quizID, startDate, endDate, question, answer):
         self.quizID = quizID
         self.startDate = startDate
         self.endDate = endDate
-
+        self.question = question
+        self.answer = answer
 
     def json(self):
         return {
             "quizID": self.quizID,
             "startDate": self.startDate,
-            "endDate": self.endDate
+            "endDate": self.endDate,
+            "question": self.question,
+            "answer": self.answer
         }
 
 
-# get the list of all staff
+# get the list of all quizzes
 @app.route("/quiz")
 def get_all():
     quizzes = Quiz.query.all()
@@ -58,7 +63,7 @@ def get_all():
 
 # get specific quiz
 @app.route("/quiz/<string:quizID>")
-def get_staff(quizID):
+def get_quiz(quizID):
     quiz = Quiz.query.filter_by(quizID=quizID).first()
     if quiz:
         return jsonify(
@@ -83,8 +88,10 @@ def add_quiz():
     quizID = request.json.get("quizID")
     startDate = request.json.get("startDate")
     endDate = request.json.get("endDate")
+    question = request.json.get("question")
+    answer = request.json.get("answer")
 
-    quiz = Quiz(quizID=quizID, startDate=startDate, endDate=endDate)
+    quiz = Quiz(quizID=quizID, startDate=startDate, endDate=endDate, question=question, answer=answer)
 
 
     try:
