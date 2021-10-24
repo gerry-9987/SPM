@@ -63,13 +63,13 @@
         <!-- 1st row Course Name and Number of Classes-->
         <div class="form-row">
           <div class="form-group col-6">
-              <label for="course-name">Course Name</label>
-              <input type="text" class="form-control" id="course-name" placeholder="Example input">
+              <label for="course-name" >Course Name</label>
+              <input type="text" class="form-control" id="course-name" v-model="courseName">
           </div>
           <div class="form-group col-6">
               <label for="number-of-classes">Class</label>
-              <select class="form-control" id="number-of-classes">
-                <option v-for="num in class_no"> {{ num }}</option>
+              <select class="form-control" id="number-of-classes" v-model="setClassNo">
+                <option v-for="num in class_no"  > {{ num }}</option>
               </select>
             </div>
         </div>
@@ -79,11 +79,12 @@
         <div>
             <ul class="container list-group infinite-scroll m-0" id="basic-example" style="max-height: 261px; overflow-y: scroll;">
               <li class="list-group-item" v-for="learner in learners">
-                <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." /> {{ learner }}
+                <input class="form-check-input me-1" type="checkbox" v-bind:value="learner" aria-label="..." v-model="checkedNames"/> {{ learner }}
               </li> 
             </ul>
         </div>
         <button type="submit" class="btn btn-success px-5 mt-3">Save</button>
+        <span>Testing: {{ checkedNames }} {{courseName}} {{setClassNo}}</span>
       </form>
     </div>
 
@@ -101,53 +102,51 @@
     <script>
       var staffURL = `http://127.0.0.1:5005/staff`
       var app = new Vue({
-          el: "#app ",
-          computed: {},
-          data: {
-              course_categories: [
-                  "Mechanical Engineer ",
-                  "Computer Engineer ",
-                  "Chemical Engineer ",
-              ],
-              learners: [],
-              learnersID:[],
-              class_no:[
-                1,2,3,4,5
-              ],
-              assigned: 10,
-              capacity: 25
-          },
-          created: function(){
-            this.getLearner()
-          },
-          methods: {
-            getLearner: function(){
-              console.log('Getting course details')
-              fetch(staffURL )
-                .then(response => response.json())
-                .then(data => {
-                    result = data.data.staff;
-                    console.log(result);
-                    // 3 cases
-                    switch (data.code) {
-                        case 200:
-                          for (var staff of result) {
-                            if (staff.department == "Learner") 
-                              this.learners.push(staff.staffName)
-                              this.learnersID.push(staff.staffID)
-                              console.log(staff.staffName)
-                          }
-                          break;
-                        case 400:
-                        case 500:
-                          console.log('failure')
-                          break;
-                        default:
-                          throw `${data.code}: ${data.message}`;
-                    }
-                })
-            }
+        el: "#app ",
+        computed: {},
+        data: {
+          courseName:"",
+          setClassNo:0,
+          checkedNames:[],
+          learners: [],
+          learnersID:[],
+          class_no:[
+            1,2,3,4,5
+          ],
+          assigned: 10,
+          capacity: 25
+        },
+        created: function(){
+          this.getLearner()
+        },
+        methods: {
+          getLearner: function(){
+            console.log('Getting course details')
+            fetch(staffURL )
+              .then(response => response.json())
+              .then(data => {
+                  result = data.data.staff;
+                  console.log(result);
+                  // 3 cases
+                  switch (data.code) {
+                      case 200:
+                        for (var staff of result) {
+                          if (staff.department == "Learner") 
+                            this.learners.push(staff.staffName)
+                            this.learnersID.push(staff.staffID)
+                            console.log(staff.staffName)
+                        }
+                        break;
+                      case 400:
+                      case 500:
+                        console.log('failure')
+                        break;
+                      default:
+                        throw `${data.code}: ${data.message}`;
+                  }
+              })
           }
+        }
       });
     </script>
   </body>

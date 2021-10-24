@@ -73,30 +73,30 @@
             <div class="form-row">
                 <div class="form-group col-6">
                     <label for="quiz-start">Start Date</label>
-                    <input type="text" class="form-control" id="quiz-start">
+                    <input type="text" class="form-control" id="quiz-start" v-model="quizStart">
                 </div>
                 <div class="form-group col-6">
                     <label for="quiz-end">End Date</label>
-                    <input type="text" class="form-control" id="quiz-end">
+                    <input type="text" class="form-control" id="quiz-end" v-model="quizEnd">
                 </div>
             </div>
             <div class="form-check pl-0">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="quiz-type" value="mcq">
+                    <input class="form-check-input" type="radio" name="quiz-type" value="mcq" v-model="quizType">
                     <label class="form-check-label">MCQ</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="quiz-type" value="tf" checked>
+                    <input class="form-check-input" type="radio" name="quiz-type" value="trueFalse" v-model="quizType">
                     <label class="form-check-label">True/False</label>
                 </div>
             </div>
             <div class="form-check pl-0">
                 <div class="form-check form-check-inline ">
-                    <input class="form-check-input" type="radio" name="class" value="graded">
+                    <input class="form-check-input" type="radio" name="class" value="graded" v-model="scoreType">
                     <label class="form-check-label" >Graded</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="class" value="ungraded" checked>
+                    <input class="form-check-input" type="radio" name="class" value="ungraded" v-model="scoreType">
                     <label class="form-check-label" >Ungraded</label>
                 </div>
             </div>
@@ -137,7 +137,10 @@
             el: "#app ",
             computed: {},
             data: {
-                isTrueFalse: false
+                quizStart: "",
+                quizEnd: "",
+                quizType: "trueFalse",
+                scoreType:"ungraded"
             },
         });
     </script>
