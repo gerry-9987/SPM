@@ -31,7 +31,7 @@ CREATE TABLE COURSE
 DROP TABLE IF EXISTS QUIZ;
 CREATE TABLE QUIZ
 (
-    quizID int(11) NOT NULL AUTO_INCREMENT,
+    quizID int(11) NOT NULL,
     startDate varchar(255) NOT NULL,
     endDate varchar(255) NOT NULL,
     question varchar(255) NOT NULL,
@@ -202,8 +202,20 @@ INSERT INTO COURSE VALUES
 INSERT INTO QUIZ VALUES
 (1, '01 Jan 2021', '03 Jan 2021', 'Is cat cute?', 'True'),
 (1, '01 Jan 2021', '03 Jan 2021', 'Is dog cute?', 'True'),
+(1, '01 Jan 2021', '03 Jan 2021', 'Does SPM teach pair programming?', 'True'),
+(1, '01 Jan 2021', '03 Jan 2021', 'Do chickens lay eggs?', 'True'),
+(1, '01 Jan 2021', '03 Jan 2021', 'Can chickens swim?', 'False'),
+(1, '01 Jan 2021', '03 Jan 2021', 'Can monkeys dance?', 'True'),
+(1, '01 Jan 2021', '03 Jan 2021', 'Can birds talk?', 'False'),
+(1, '01 Jan 2021', '03 Jan 2021', 'Is this module fun?', 'True'),
 (2, '01 Jan 2021', '03 Jan 2021', 'Is dog cute?', 'True'),
 (2, '01 Jan 2021', '03 Jan 2021', 'Is catdog cute?', 'True'),
+(2, '01 Jan 2021', '03 Jan 2021', 'Does SPM teach pair programming?', 'True'),
+(2, '01 Jan 2021', '03 Jan 2021', 'Do chickens lay eggs?', 'True'),
+(2, '01 Jan 2021', '03 Jan 2021', 'Can chickens swim?', 'False'),
+(3, '01 Jan 2021', '03 Jan 2021', 'Can monkeys dance?', 'True'),
+(3, '01 Jan 2021', '03 Jan 2021', 'Can birds talk?', 'False'),
+(3, '01 Jan 2021', '03 Jan 2021', 'Is this module fun?', 'True'),
 (3, '01 Jan 2021', '03 Jan 2021', 'Is life cute?', 'False'),
 (4, '01 Jan 2021', '03 Jan 2021', 'Is foetus cute?', 'False'),
 (5, '03 Jan 2021', '07 Feb 2021', 'Is baby cute?', 'True'),
@@ -271,6 +283,7 @@ INSERT INTO GRADEDQUIZ VALUES
 (6, 50),
 (7, 50);
 
+-- courseID, classID, ..., trainerName, staffID, quizID
 INSERT INTO CLASS VALUES
 (1, 1, '01 Jan 2021', '03 Feb 2021', '22:30:00', '23:30:00', 4, 'Haoyue', 3, 1),
 (1, 2, '01 Jan 2021', '03 Feb 2021', '12:30:00', '01:30:00', 4, 'Haoyue', 3, 2),
