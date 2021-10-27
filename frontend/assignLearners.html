@@ -63,9 +63,13 @@
         <!-- 1st row Course Name and Number of Classes-->
         <div class="form-row">
           <div class="form-group col-6">
-              <label for="course-name" >Course Name</label>
-              <input type="text" class="form-control" id="course-name" v-model="courseName">
+              <label for="courseID" >Course ID</label>
+              <input type="text" class="form-control" id="courseID" v-model="courseID">
           </div>
+          <div class="form-group col-6">
+            <label for="courseName" >Course Name</label>
+            <input type="text" class="form-control" id="courseName" v-model="courseName">
+        </div>
           <div class="form-group col-6">
               <label for="number-of-classes">Class</label>
               <select class="form-control" id="number-of-classes" v-model="setClassNo">
@@ -78,13 +82,13 @@
         </div>
         <div>
             <ul class="container list-group infinite-scroll m-0" id="basic-example" style="max-height: 261px; overflow-y: scroll;">
-              <li class="list-group-item" v-for="learner in learners">
-                <input class="form-check-input me-1" type="checkbox" v-bind:value="learner" aria-label="..." v-model="checkedNames"/> {{ learner }}
-              </li> 
+              <li class="list-group-item" v-for="learner in learners" >
+                <input class="form-check-input me-1" type="checkbox" v-bind:value="learner" @change="assigned++" aria-label="..." v-model="checkedNames"/> {{ learner[0] }}
+              </li>
             </ul>
         </div>
-        <button type="submit" class="btn btn-success px-5 mt-3">Save</button>
-        <span>Testing: {{ checkedNames }} {{courseName}} {{setClassNo}}</span>
+        <button type="submit" @click = "assignLearners()" class="btn btn-success px-5 mt-3">Save</button>
+        <span>Testing: {{ checkedNames }} {{courseID}} {{setClassNo}}</span>
       </form>
     </div>
 
@@ -101,28 +105,39 @@
     </style>
     <script>
       var staffURL = `http://127.0.0.1:5005/staff`
+      var takeclassURL = `http://127.0.0.1:5007/take_class`
+
       var app = new Vue({
         el: "#app ",
         computed: {},
         data: {
-          courseName:"",
+          // courseName:"",
           setClassNo:0,
+          courseID: 1,
           checkedNames:[],
           learners: [],
-          learnersID:[],
+          courseName: "",
+          // learnersID:[],
           class_no:[
             1,2,3,4,5
           ],
           assigned: 10,
-          capacity: 25
+          capacity: 25,
+          message: [],
+          classes_taken: [],
+          staff: [],
+          assigned: 0,
+          PostLearners: false
         },
         created: function(){
-          this.getLearner()
+          this.getLearners(),
+          this.getAllClassTaken(),
+          this.assignLearners()
         },
         methods: {
-          getLearner: function(){
+          getLearners: function(){
             console.log('Getting course details')
-            fetch(staffURL )
+            fetch(staffURL)
               .then(response => response.json())
               .then(data => {
                   result = data.data.staff;
@@ -131,10 +146,13 @@
                   switch (data.code) {
                       case 200:
                         for (var staff of result) {
-                          if (staff.department == "Learner") 
-                            this.learners.push(staff.staffName)
-                            this.learnersID.push(staff.staffID)
+                          if (staff.department == "Learner")
+                            this.learners.push([staff.staffName, staff.staffID])
+                            // this.learners.push(staff.staffName)
+                            // this.learnersID.push(staff.staffID)
                             console.log(staff.staffName)
+                            console.log(staff.staffID)
+                            // console.log(this.learners)
                         }
                         break;
                       case 400:
@@ -145,8 +163,79 @@
                         throw `${data.code}: ${data.message}`;
                   }
               })
-          }
+          },
+
+          getAllClassTaken: function() {
+                    const response =
+                        fetch(takeclassURL)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.code === 404) {
+                                this.message = data.message;
+                            } else {
+                                this.classes_taken = data.data.classes_taken;
+                                console.log("=====Classes Taken=====")
+                                console.log(this.classes_taken)
+                            }
+                        })
+                        .catch(error => {
+                            // Errors when calling the service; such as network error,
+                            // service offline, etc
+                            console.log(this.message + error);
+                        });
+                },
+
+          assignLearners: function () {
+                  // staffIDs = [name[1] for name in this.checkedNames],
+
+                  fetch(takeclassURL,
+                      {
+                          method: "POST",
+                          mode: "no-cors",
+                          headers: {
+                              "Content-type": "application/json"
+                          },
+                          body: JSON.stringify(
+                              {
+                                  "staffID" : this.checkedNames[1],
+                                  "courseID" : this.courseID,
+                                  "courseName" : this.courseName,
+                                  "classID" : this.setClassNo,
+                              })
+                      })
+                      .then(response => response.json())
+                      .then(data => {
+                          console.log(data);
+                          result = data.data;
+                          console.log(result);
+                          // 3 cases
+                      switch (data.code) {
+                          case 201:
+                              // 201
+                              this.assignSuccessful = true;
+                              break;
+
+                          case 400:
+                              // 400
+                              this.assignSuccessful = true;
+                              break;
+                          case 500:
+                              // 500
+                              break;
+                          default:
+                              throw `${data.code}: ${data.message}`;
+
+                          } // switch
+                          this.PostLearners = true;
+                      })
+                      .catch(error => {
+                          console.log("Problem in assigning learners " + error);
+                      })
+                  },
+
+
         }
+
       });
     </script>
   </body>
