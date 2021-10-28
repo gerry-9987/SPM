@@ -92,11 +92,11 @@
             </div>
             <div class="form-check pl-0">
                 <div class="form-check form-check-inline ">
-                    <input class="form-check-input" type="radio" name="class" value="graded" v-model="scoreType">
+                    <input class="form-check-input" type="radio" name="score-type" value="graded" v-model="scoreType">
                     <label class="form-check-label" >Graded</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="class" value="ungraded" v-model="scoreType">
+                    <input class="form-check-input" type="radio" name="score0type" value="ungraded" v-model="scoreType">
                     <label class="form-check-label" >Ungraded</label>
                 </div>
             </div>
@@ -104,15 +104,15 @@
             <div class="border border-grey rounded mt-2">
                 <div class="form-check">
                     <div class="form-group" v-for="num in 10">
-                        <label class="font-weight-bold">Question {{num}}</label>
-                        <input type="text" class="form-control" id="question-1">
+                        <label class="font-weight-bold" >Question {{num}}</label>
+                        <input type="text" class="form-control" :id="'question-'+num" v-model="quizQuestion">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">True</label>
+                            <input class="form-check-input" type="radio" value="true" :name="'flexRadioDefault'+num">
+                            <label class="form-check-label" >True</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                            <label class="form-check-label" for="flexRadioDefault2">False</label>
+                            <input class="form-check-input" type="radio" value="false" :name="'flexRadioDefault'+num">
+                            <label class="form-check-label">False</label>
                         </div>
                     </div>
                 </div>
@@ -140,7 +140,7 @@
                 quizStart: "",
                 quizEnd: "",
                 quizType: "trueFalse",
-                scoreType:"ungraded"
+                scoreType:"ungraded",
             },
         });
     </script>
