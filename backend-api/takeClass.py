@@ -2,6 +2,8 @@ from os import error
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from class1 import Class
+from staff import Staff
 
 app = Flask(__name__)
 
@@ -16,16 +18,19 @@ CORS(app)
 
 class Take_Class(db.Model):
 
-    __tablename__ = 'TAKE_CLASS'
+    __tablename__ = 'take_class'
     staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), primary_key=True, autoincrement=False)
     classID = db.Column(db.Integer(), db.ForeignKey('class.classID'), primary_key=True, nullable=False)
-    courseName = db.Column(db.VARCHAR(255), db.ForeignKey('course.courseName'), nullable=False)
-    courseID = db.Column(db.Integer(), db.ForeignKey('course.courseID'), primary_key=True, nullable=False)
+    courseName = db.Column(db.VARCHAR(255), nullable=False)
+    courseID = db.Column(db.Integer(), db.ForeignKey('class.courseID'), primary_key=True, nullable=False)
+    # courseID = db.Column(db.Integer(), primary_key=True, nullable=False)
 
     __table_args__ = (
         db.PrimaryKeyConstraint(
             staffID, courseID, classID,
             ),
+        db.ForeignKeyConstraint([courseID, classID],
+            ['class.courseID','class.classID']),
     )
 
     def __init__(self, staffID, courseID, courseName, classID):
@@ -87,10 +92,17 @@ def get_class_taken(staffID):
 @app.route("/take_class", methods=['POST'])
 def add_class_taken():
 
-    staffID = request.json.get("staffID")
-    courseID = request.json.get("courseID")
-    courseName = request.json.get("courseName")
-    classID = request.json.get("classID")
+    # staffID = request.json.get("staffID")
+    # courseID = request.json.get("courseID")
+    # courseName = request.json.get("courseName")
+    # classID = request.json.get("classID")
+
+    #hardcode test
+    staffID =54
+    courseID = 123
+    courseName = "test"
+    classID =321
+
 
     class_taken = Take_Class(staffID=staffID, courseID=courseID, courseName = courseName, classID=classID)
 

@@ -150,7 +150,6 @@ CREATE TABLE TAKE_CLASS
     classID int(11) NOT NULL,
     CONSTRAINT take_class_pk PRIMARY KEY (staffID, courseID, classID),
     CONSTRAINT take_class_fk FOREIGN KEY (staffID) REFERENCES STAFF(staffID),
-    -- CONSTRAINT take_class_fk2 FOREIGN KEY (courseName) REFERENCES COURSE(courseName),
     CONSTRAINT take_class_fk3 FOREIGN KEY (courseID, classID) REFERENCES CLASS(courseID, classID)
 );
 

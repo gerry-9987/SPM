@@ -88,7 +88,7 @@
             </ul>
         </div>
         <button type="submit" @click = "assignLearners()" class="btn btn-success px-5 mt-3">Save</button>
-        <span>Testing: {{ checkedNames }} {{courseID}} {{setClassNo}}</span>
+        <span>Testing: {{ checkedNames }} {{courseID}} {{courseName}} {{setClassNo}}</span>
       </form>
     </div>
 
@@ -104,25 +104,25 @@
         }
     </style>
     <script>
-      var staffURL = `http://127.0.0.1:5005/staff`
-      var takeclassURL = `http://127.0.0.1:5007/take_class`
+      var staffURL = `http://127.0.0.1:5005/staff`;
+      var courseURL = `http://127.0.0.1:5003/course`;
+      var classURL = `http://127.0.0.1:5002/class`;
+      var takeclassURL = `http://127.0.0.1:5007/take_class`;
 
       var app = new Vue({
         el: "#app ",
         computed: {},
         data: {
-          // courseName:"",
-          setClassNo:0,
+          setClassNo:1,
           courseID: 1,
           checkedNames:[],
+          courses: [],
+          classes: [],
           learners: [],
-          courseName: "",
-          // learnersID:[],
-          class_no:[
-            1,2,3,4,5
-          ],
+          courseName: "IBM 101",
+          class_no: [],
           assigned: 10,
-          capacity: 25,
+          capacity: 1,
           message: [],
           classes_taken: [],
           staff: [],
@@ -130,11 +130,73 @@
           PostLearners: false
         },
         created: function(){
+          this.getNumClasses(),
+          this.getClassCapacity(),
           this.getLearners(),
           this.getAllClassTaken(),
           this.assignLearners()
         },
         methods: {
+
+          getNumClasses: function(){
+            fetch(courseURL)
+              .then(response => response.json())
+              .then(data => {
+                  result = data.data.courses;
+                  console.log(result);
+                  // 3 cases
+                  switch (data.code) {
+                      case 200:
+                        for (var course of result) {
+                          if (course.courseID == this.courseID){
+                            console.log(this.courseID+1)
+                            for (let i = 1; i < (this.courseID + 2); i++) {
+                              this.class_no.push(i);
+                            }
+                            console.log('class_no')
+                            console.log(this.class_no)
+                          }
+                        }
+                        break;
+                      case 400:
+                      case 500:
+                        console.log('failure')
+                        break;
+                      default:
+                        throw `${data.code}: ${data.message}`;
+                  }
+              })
+
+          },
+
+          getClassCapacity: function(){
+            fetch(classURL)
+              .then(response => response.json())
+              .then(data => {
+                  result = data.data.classes;
+                  console.log(result);
+                  // 3 cases
+                  switch (data.code) {
+                      case 200:
+                        for (var one_class of result) {
+                          if (one_class.courseID == this.courseID && one_class.classID == this.setClassNo){
+                            this.capacity = one_class.classSize
+                            console.log('capacity')
+                            console.log(this.capacity)
+                          }
+                        }
+                        break;
+                      case 400:
+                      case 500:
+                        console.log('failure')
+                        break;
+                      default:
+                        throw `${data.code}: ${data.message}`;
+                  }
+              })
+
+          },
+
           getLearners: function(){
             console.log('Getting course details')
             fetch(staffURL)
@@ -187,11 +249,12 @@
 
           assignLearners: function () {
                   // staffIDs = [name[1] for name in this.checkedNames],
-
+                  console.log('in assign learners')
+                  // console.log(this.checkedNames[1], this.courseID, this.courseName, this.setClassNo)
                   fetch(takeclassURL,
                       {
                           method: "POST",
-                          mode: "no-cors",
+                          mode: "cors",
                           headers: {
                               "Content-type": "application/json"
                           },
