@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from sqlalchemy import and_
 
+from dbModel import *
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/spm_proj'
@@ -13,27 +15,6 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle': 299}
 db = SQLAlchemy(app)
 
 CORS(app)
-
-class ClassChapter(db.Model):
-
-
-    __tablename__ = 'class_chapter'
-    courseID = db.Column(db.Integer(), db.ForeignKey('class.courseID'), primary_key=True, nullable=False)
-    classID = db.Column(db.Integer(), db.ForeignKey('class.classID'), primary_key=True, nullable=False)
-    chapterID = db.Column(db.Integer(), db.ForeignKey('chapter.chapterID'), primary_key=True, autoincrement=True)
-
-    def __init__(self, courseID, classID, chapterID):
-        self.courseID = courseID
-        self.classID = classID
-        self.chapterID = chapterID
-
-
-    def json(self):
-        return {
-            "courseID": self.courseID,
-            "classID": self.classID,
-            "chapterID": self.chapterID
-        }
 
 
 # get the list of classes' chapters

@@ -3,6 +3,8 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+from dbModel import *
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/spm_proj'
@@ -14,30 +16,6 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-class Quiz(db.Model):
-
-    __tablename__ = 'quiz'
-    quizID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
-    startDate = db.Column(db.VARCHAR(255), nullable=False)
-    endDate = db.Column(db.VARCHAR(255), nullable=False)
-    question = db.Column(db.VARCHAR(255), primary_key=True, nullable=False)
-    answer = db.Column(db.VARCHAR(255), nullable=False)
-
-    def __init__(self, quizID, startDate, endDate, question, answer):
-        self.quizID = quizID
-        self.startDate = startDate
-        self.endDate = endDate
-        self.question = question
-        self.answer = answer
-
-    def json(self):
-        return {
-            "quizID": self.quizID,
-            "startDate": self.startDate,
-            "endDate": self.endDate,
-            "question": self.question,
-            "answer": self.answer
-        }
 
 
 # get the list of all quizzes

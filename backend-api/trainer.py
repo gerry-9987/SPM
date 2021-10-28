@@ -3,6 +3,8 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+from dbModel import *
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/spm_proj'
@@ -13,23 +15,6 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle': 299}
 db = SQLAlchemy(app)
 
 CORS(app)
-
-class Trainer(db.Model):
-
-    __tablename__ = 'trainer'
-    staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), primary_key=True, autoincrement=False)
-    numberOfClasses = db.Column(db.Integer(), nullable=False)
-
-    def __init__(self, staffID, numberOfClasses):
-        self.staffID = staffID
-        self.numberOfClasses = numberOfClasses
-
-
-    def json(self):
-        return {
-            "staffID": self.staffID,
-            "numberOfClasses": self.numberOfClasses,
-        }
 
 
 # get the list of all trainers

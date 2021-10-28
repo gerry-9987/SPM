@@ -3,8 +3,8 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from datetime import datetime
-# import time
-# import json
+
+from dbModel import *
 
 app = Flask(__name__)
 
@@ -17,49 +17,6 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-
-class Class(db.Model):
-    __tablename__ = 'class'
-
-    classID = db.Column(db.Integer(), primary_key=True, nullable=False)
-    courseID = db.Column(db.Integer(), db.ForeignKey('course.courseID'), primary_key=True, nullable=False)
-    startDate = db.Column(db.VARCHAR(255), nullable=False)
-    endDate = db.Column(db.VARCHAR(255), nullable=False)
-    startTime = db.Column(db.VARCHAR(255), nullable=False)
-    endTime = db.Column(db.VARCHAR(255), nullable=False)
-    classSize = db.Column(db.Integer(), nullable=False)
-    trainerName = db.Column(db.VARCHAR(255), nullable=False)
-    staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), nullable=False)
-
-    __table_args__ = (
-        db.PrimaryKeyConstraint(
-            courseID, classID,
-            ),
-    )
-
-    def __init__(self, classID, courseID, startDate, endDate, startTime, endTime, classSize,  trainerName, staffID):
-        self.classID = classID
-        self.courseID = courseID
-        self.startDate = startDate
-        self.endDate = endDate
-        self.startTime = startTime
-        self.endTime = endTime
-        self.classSize = classSize
-        self.trainerName = trainerName
-        self.staffID = staffID
-
-    def json(self):
-        return {
-            "classID": self.classID,
-            "courseID": self.courseID,
-            "startDate": self.startDate,
-            "endDate": self.endDate,
-            "startTime": self.startTime,
-            "endTime": self.endTime,
-            "classSize": self.classSize,
-            "trainerName": self.trainerName,
-            "staffID": self.staffID
-        }
 
 # get the list of all classes
 @app.route("/class")

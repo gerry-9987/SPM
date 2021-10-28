@@ -3,6 +3,8 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+from dbModel import *
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/spm_proj'
@@ -13,47 +15,6 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle': 299}
 db = SQLAlchemy(app)
 
 CORS(app)
-
-
-class Course(db.Model):
-
-    __tablename__ = 'course'
-    courseID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
-    courseName = db.Column(db.VARCHAR(255), nullable=False)
-    courseCategory = db.Column(db.VARCHAR(255), nullable=False)
-    courseDetails = db.Column(db.VARCHAR(255), nullable=False)
-    prereqCourses = db.Column(db.VARCHAR(255), nullable=False)
-    noOfClasses = db.Column(db.Integer(), nullable=False)
-    students = db.Column(db.VARCHAR(255), nullable=False)
-
-    def __init__(self, courseID, courseName, courseCategory, courseDetails, prereqCourses, noOfClasses, students):
-        self.courseID = courseID
-        self.courseName = courseName
-        self.courseCategory = courseCategory
-        self.courseDetails = courseDetails
-        self.prereqCourses = prereqCourses
-        self.noOfClasses = noOfClasses
-        self.students = students
-
-    def json(self):
-        return {
-            "courseID": self.courseID,
-            "courseName": self.courseName,
-            "courseCategory": self.courseCategory,
-            "courseDetails": self.courseDetails,
-            "prereqCourses": self.prereqCourses,
-            "noOfClasses": self.noOfClasses,
-            "students": self.students
-        }
-
-    def addStudent(self, studentID):
-        studentArray = self.students.split(",")
-        print(studentID, studentArray)
-
-        if str(studentID) not in studentArray:
-            self.students = self.students + ',' + str(studentID)
-        else:
-            return "Student is already enrolled in this course"
 
 
 # get the list of all courses

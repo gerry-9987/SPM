@@ -3,6 +3,8 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+from dbModel import *
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/spm_proj'
@@ -14,28 +16,6 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-class Staff(db.Model):
-
-    __tablename__ = 'staff'
-    staffID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
-    staffUsername = db.Column(db.VARCHAR(255), nullable=False)
-    staffName = db.Column(db.VARCHAR(255), nullable=False)
-    department = db.Column(db.VARCHAR(255), nullable=False)
-
-    def __init__(self, staffID, staffUsername, staffName, department):
-        self.staffID = staffID
-        self.staffUsername = staffUsername
-        self.staffName = staffName
-        self.department = department
-
-
-    def json(self):
-        return {
-            "staffID": self.staffID,
-            "staffUsername": self.staffUsername,
-            "staffName": self.staffName,
-            "department": self.department,
-        }
 
 
 # get the list of all staff
