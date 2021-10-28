@@ -26,40 +26,27 @@ CREATE TABLE COURSE
     CONSTRAINT course_pk PRIMARY KEY (courseID)
 );
 
-DROP TABLE IF EXISTS CLASS;
-CREATE TABLE CLASS
-(
-    classID int(11) NOT NULL,
-    courseID int(11) NOT NULL,
-    startDate varchar(255) NOT NULL,
-    endDate varchar(255) NOT NULL,
-    startTime varchar(255) NOT NULL,
-    endTime varchar(255) NOT NULL,
-    classSize int(11) NOT NULL,
-    trainerName varchar(255) NOT NULL,
-    staffID int(11) NOT NULL,
-    CONSTRAINT class_pk PRIMARY KEY (courseID, classID),
-    CONSTRAINT class_fk FOREIGN KEY (courseID) REFERENCES COURSE(courseID),
-    CONSTRAINT class_fk2 FOREIGN KEY (staffID) REFERENCES STAFF(staffID)
-);
+
 
 DROP TABLE IF EXISTS QUIZ;
 CREATE TABLE QUIZ
 (
-    quizID int(11) NOT NULL AUTO_INCREMENT,
+    quizID int(11) NOT NULL,
     startDate varchar(255) NOT NULL,
     endDate varchar(255) NOT NULL,
-    CONSTRAINT quiz_pk PRIMARY KEY (quizID)
-);
-
-DROP TABLE IF EXISTS QUESTION;
-CREATE TABLE QUESTION
-(
-    questionID int(11) NOT NULL AUTO_INCREMENT,
     question varchar(255) NOT NULL,
     answer varchar(255) NOT NULL,
-    CONSTRAINT question_pk PRIMARY KEY (questionID)
+    CONSTRAINT quiz_pk PRIMARY KEY (quizID, question)
 );
+
+-- DROP TABLE IF EXISTS QUESTION;
+-- CREATE TABLE QUESTION
+-- (
+--     questionID int(11) NOT NULL AUTO_INCREMENT,
+--     question varchar(255) NOT NULL,
+--     answer varchar(255) NOT NULL,
+--     CONSTRAINT question_pk PRIMARY KEY (questionID)
+-- );
 
 DROP TABLE IF EXISTS CHAPTER;
 CREATE TABLE CHAPTER
@@ -79,6 +66,25 @@ CREATE TABLE GRADEDQUIZ
     passingScore int(11) NOT NULL,
     CONSTRAINT gradedquiz_pk PRIMARY KEY (quizID),
     CONSTRAINT gradedquiz_fk FOREIGN KEY (quizID) REFERENCES QUIZ(quizID)
+);
+
+DROP TABLE IF EXISTS CLASS;
+CREATE TABLE CLASS
+(
+    courseID int(11) NOT NULL,
+    classID int(11) NOT NULL,
+    startDate varchar(255) NOT NULL,
+    endDate varchar(255) NOT NULL,
+    startTime varchar(255) NOT NULL,
+    endTime varchar(255) NOT NULL,
+    classSize int(11) NOT NULL,
+    trainerName varchar(255) NOT NULL,
+    staffID int(11) NOT NULL,
+    quizID int(11) NOT NULL,
+    CONSTRAINT class_pk PRIMARY KEY (courseID, classID),
+    CONSTRAINT class_fk FOREIGN KEY (courseID) REFERENCES COURSE(courseID),
+    CONSTRAINT class_fk2 FOREIGN KEY (staffID) REFERENCES STAFF(staffID),
+    CONSTRAINT class_fk3 FOREIGN KEY (quizID) REFERENCES GRADEDQUIZ(quizID)
 );
 
 DROP TABLE IF EXISTS CLASS_CHAPTER;
@@ -148,15 +154,15 @@ CREATE TABLE TAKE_CLASS
     CONSTRAINT take_class_fk3 FOREIGN KEY (courseID, classID) REFERENCES CLASS(courseID, classID)
 );
 
-DROP TABLE IF EXISTS QUIZ_QUESTION;
-CREATE TABLE QUIZ_QUESTION
-(
-    quizID int(11) NOT NULL,
-    questionID int(11) NOT NULL,
-    CONSTRAINT quiz_question_pk PRIMARY KEY (quizID, questionID),
-    CONSTRAINT quiz_question_fk FOREIGN KEY (quizID) REFERENCES QUIZ(quizID),
-    CONSTRAINT quiz_question_fk2 FOREIGN KEY (questionID) REFERENCES QUESTION(questionID)
-);
+-- DROP TABLE IF EXISTS QUIZ_QUESTION;
+-- CREATE TABLE QUIZ_QUESTION
+-- (
+--     quizID int(11) NOT NULL,
+--     questionID int(11) NOT NULL,
+--     CONSTRAINT quiz_question_pk PRIMARY KEY (quizID, questionID),
+--     CONSTRAINT quiz_question_fk FOREIGN KEY (quizID) REFERENCES QUIZ(quizID),
+--     CONSTRAINT quiz_question_fk2 FOREIGN KEY (questionID) REFERENCES QUESTION(questionID)
+-- );
 
 DROP TABLE IF EXISTS LEARNER_QUIZ;
 CREATE TABLE LEARNER_QUIZ
@@ -191,74 +197,70 @@ INSERT INTO COURSE VALUES
 (7, 'Canon 101', 'Canon', 'Canon printers and types', 'None', 3, ''),
 (8, 'Canon 102', 'Canon', 'Advanced knowledge on Canon and creating your virtual printer', 'Canon 101', 1, '');
 
-INSERT INTO CLASS VALUES
-(1, 1, '01 Jan 2021', '03 Feb 2021', '22:30:00', '23:30:00', 4, 'Haoyue', 3),
-(2, 1, '01 Jan 2021', '03 Feb 2021', '12:30:00', '01:30:00', 4, 'Haoyue', 3),
-(3, 2, '03 Feb 2021', '07 May 2021', '01:30:00', '02:30:00', 4, 'Haoyue', 3),
-(4, 2, '03 Feb 2021', '07 May 2021', '02:30:00', '03:30:00', 4, 'Haoyue', 3),
-(5, 2, '03 Feb 2021', '07 May 2021', '22:30:00', '23:30:00', 4, 'Jewel', 4),
-(6, 2, '03 Feb 2021', '07 May 2021', '12:30:00', '02:30:00', 4, 'Jewel', 4),
-(7, 3, '04 Mar 2021', '07 May 2021', '01:30:00', '02:30:00', 4, 'Jewel', 4),
-(8, 4, '05 Mar 2021', '07 Jul 2021', '02:30:00', '03:30:00', 4, 'Haoyue', 3),
-(9, 4, '05 Mar 2021', '07 Jul 2021', '02:00:00', '03:30:00', 4, 'Haoyue', 3),
-(10, 4, '05 Mar 2021', '07 Jul 2021', '22:30:00', '23:30:00', 1, 'Haoyue', 3),
-(11, 5, '07 May 2021', '21 Dec 2021', '12:30:00', '13:30:00', 1, 'Jewel', 4),
-(12, 5, '07 May 2021', '21 Dec 2021', '01:30:00','02:30:00', 1, 'Jewel', 4),
-(13, 6, '10 Jun 2021', '21 Dec 2021', '02:00:00', '02:30:00', 1, 'Jewel', 4),
-(14, 6, '10 Jun 2021', '21 Dec 2021', '02:30:00', '03:30:00', 1, 'Jewel', 4),
-(15, 7, '21 Dec 2021', '28 Feb 2022', '04:30:00', '05:30:00', 1, 'Haoyue', 3),
-(16, 7, '21 Dec 2021', '28 Feb 2022', '22:30:00', '23:30:00', 2, 'Haoyue', 3),
-(17, 7,  '21 Dec 2021', '28 Feb 2022', '12:30:00', '13:30:00', 2, 'Haoyue', 3),
-(18, 8, '21 Dec 2021', '28 Feb 2022', '22:30:00', '23:30:00', 2, 'Jewel', 4);
+
 
 INSERT INTO QUIZ VALUES
-(1, '01 Jan 2021', '03 Jan 2021'),
-(2, '01 Jan 2021', '03 Jan 2021'),
-(3, '01 Jan 2021', '03 Jan 2021'),
-(4, '01 Jan 2021', '03 Jan 2021'),
-(5, '03 Jan 2021', '07 Feb 2021'),
-(6, '03 Jan 2021', '07 Feb 2021'),
-(7, '03 Jan 2021', '07 Feb 2021'),
-(8, '03 Jan 2021', '07 Feb 2021'),
-(9, '03 Jan 2021', '07 Feb 2021'),
-(10, '07 Feb 2021', '21 Dec 2021'),
-(11, '07 Feb 2021', '21 Dec 2021'),
-(12, '07 Feb 2021', '21 Dec 2021'),
-(13, '07 Feb 2021', '21 Dec 2021'),
-(14, '07 Feb 2021', '21 Dec 2021'),
-(15, '07 Feb 2021', '21 Dec 2021'),
-(16, '21 Dec 2021', '28 Feb 2022'),
-(17, '21 Dec 2021', '28 Feb 2022'),
-(18, '21 Dec 2021', '28 Feb 2022');
+(1, '01 Jan 2021', '03 Jan 2021', 'Is cat cute?', 'True'),
+(1, '01 Jan 2021', '03 Jan 2021', 'Is dog cute?', 'True'),
+(1, '01 Jan 2021', '03 Jan 2021', 'Does SPM teach pair programming?', 'True'),
+(1, '01 Jan 2021', '03 Jan 2021', 'Do chickens lay eggs?', 'True'),
+(1, '01 Jan 2021', '03 Jan 2021', 'Can chickens swim?', 'False'),
+(1, '01 Jan 2021', '03 Jan 2021', 'Can monkeys dance?', 'True'),
+(1, '01 Jan 2021', '03 Jan 2021', 'Can birds talk?', 'False'),
+(1, '01 Jan 2021', '03 Jan 2021', 'Is this module fun?', 'True'),
+(2, '01 Jan 2021', '03 Jan 2021', 'Is dog cute?', 'True'),
+(2, '01 Jan 2021', '03 Jan 2021', 'Is catdog cute?', 'True'),
+(2, '01 Jan 2021', '03 Jan 2021', 'Does SPM teach pair programming?', 'True'),
+(2, '01 Jan 2021', '03 Jan 2021', 'Do chickens lay eggs?', 'True'),
+(2, '01 Jan 2021', '03 Jan 2021', 'Can chickens swim?', 'False'),
+(3, '01 Jan 2021', '03 Jan 2021', 'Can monkeys dance?', 'True'),
+(3, '01 Jan 2021', '03 Jan 2021', 'Can birds talk?', 'False'),
+(3, '01 Jan 2021', '03 Jan 2021', 'Is this module fun?', 'True'),
+(3, '01 Jan 2021', '03 Jan 2021', 'Is life cute?', 'False'),
+(4, '01 Jan 2021', '03 Jan 2021', 'Is foetus cute?', 'False'),
+(5, '03 Jan 2021', '07 Feb 2021', 'Is baby cute?', 'True'),
+(6, '03 Jan 2021', '07 Feb 2021', 'Is diluc cute?', 'True'),
+(7, '03 Jan 2021', '07 Feb 2021', 'Is diluc cute?', 'True'),
+(8, '03 Jan 2021', '07 Feb 2021', 'Is diluc cute?', 'True'),
+(9, '03 Jan 2021', '07 Feb 2021', 'Is diluc cute?', 'True'),
+(10, '07 Feb 2021', '21 Dec 2021', 'Is diluc cute?', 'True'),
+(11, '07 Feb 2021', '21 Dec 2021', 'Is diluc cute?', 'True'),
+(12, '07 Feb 2021', '21 Dec 2021', 'Is zhongli cute?', 'True'),
+(13, '07 Feb 2021', '21 Dec 2021', 'Is zhongli cute?', 'True'),
+(14, '07 Feb 2021', '21 Dec 2021', 'Is zhongli cute?', 'True'),
+(15, '07 Feb 2021', '21 Dec 2021', 'Is zhongli cute?', 'True'),
+(16, '21 Dec 2021', '28 Feb 2022', 'Is zhongli cute?', 'True'),
+(17, '21 Dec 2021', '28 Feb 2022', 'Is zhongli cute?', 'True'),
+(18, '21 Dec 2021', '28 Feb 2022', 'Is zhongli cute?', 'True');
 
-INSERT INTO QUESTION VALUES
-(1, 'Is cat cute?', 'True'),
-(2, 'Is dog cute?', 'True'),
-(3, 'Is turtle cute?', 'True'),
-(4, 'Is life cute?', 'False'),
-(5, 'Is foetus cute?', 'False'),
-(6, 'Is baby cute?', 'True'),
-(7, 'Is diluc cute?', 'True'),
-(8, 'Is zhongli cute?', 'True'),
-(9, 'Which cat is cutest?', 'B'),
-(10, 'Which dog is cuter?', 'C'),
-(11, 'AAA', 'D'),
-(12, 'BBB', 'B'),
-(13, 'BBV', 'C'),
-(14, 'CCC', 'True'),
-(15, 'DDD', 'F'),
-(16, 'EEE', 'E'),
-(17, 'FFF', 'False'),
-(18, 'GGG', 'G');
+-- INSERT INTO QUESTION VALUES
+-- (1, 'Is cat cute?', 'True'),
+-- (2, 'Is dog cute?', 'True'),
+-- (3, 'Is turtle cute?', 'True'),
+-- (4, 'Is life cute?', 'False'),
+-- (5, 'Is foetus cute?', 'False'),
+-- (6, 'Is baby cute?', 'True'),
+-- (7, 'Is diluc cute?', 'True'),
+-- (8, 'Is zhongli cute?', 'True'),
+-- (9, 'Which cat is cutest?', 'B'),
+-- (10, 'Which dog is cuter?', 'C'),
+-- (11, 'AAA', 'D'),
+-- (12, 'BBB', 'B'),
+-- (13, 'BBV', 'C'),
+-- (14, 'CCC', 'True'),
+-- (15, 'DDD', 'F'),
+-- (16, 'EEE', 'E'),
+-- (17, 'FFF', 'False'),
+-- (18, 'GGG', 'G');
 
 INSERT INTO CHAPTER VALUES
-(1, 'CAT', 'A cat is running away', 1),
-(2, 'DOG', 'A dog is running away',2),
-(3, 'TURTLE', 'A turtle is running away', 3),
-(4, 'LIFE', 'My life is great', 4),
-(5, 'foetus', 'A foetus is growing', 5),
-(6, 'baby', 'A baby is crawling away', 6),
-(7, 'diluc', 'yay diluc', 7),
+(1, 'CAT', 'A cat is running away', 8),
+(2, 'DOG', 'A dog is running away',9),
+(3, 'TURTLE', 'A turtle is running away', 10),
+(4, 'LIFE', 'My life is great', 11),
+(5, 'foetus', 'A foetus is growing', 12),
+(6, 'baby', 'A baby is crawling away', 13),
+(7, 'diluc', 'yay diluc', 14),
 (8, 'zhongli', 'yay zhongli', 8),
 (9, 'cutest', 'yay cutest', 9),
 (10, 'cuter', 'yay cuter', 10),
@@ -271,6 +273,7 @@ INSERT INTO CHAPTER VALUES
 (17, 'FFF', 'FFF bumble bee', 17),
 (18, 'GGG', 'GGG bumble bee', 18);
 
+
 INSERT INTO GRADEDQUIZ VALUES
 (1, 50),
 (2, 50),
@@ -280,17 +283,38 @@ INSERT INTO GRADEDQUIZ VALUES
 (6, 50),
 (7, 50);
 
+-- courseID, classID, ..., trainerName, staffID, quizID
+INSERT INTO CLASS VALUES
+(1, 1, '01 Jan 2021', '03 Feb 2021', '22:30:00', '23:30:00', 4, 'Haoyue', 3, 1),
+(1, 2, '01 Jan 2021', '03 Feb 2021', '12:30:00', '01:30:00', 4, 'Haoyue', 3, 2),
+(2, 3, '03 Feb 2021', '07 May 2021', '01:30:00', '02:30:00', 4, 'Haoyue', 3, 3),
+(2, 4, '03 Feb 2021', '07 May 2021', '02:30:00', '03:30:00', 4, 'Haoyue', 3, 4),
+(2, 5, '03 Feb 2021', '07 May 2021', '22:30:00', '23:30:00', 4, 'Jewel', 4, 5),
+(2, 6, '03 Feb 2021', '07 May 2021', '12:30:00', '02:30:00', 4, 'Jewel', 4, 6),
+(3, 7, '04 Mar 2021', '07 May 2021', '01:30:00', '02:30:00', 4, 'Jewel', 4, 7);
+-- (8, 4, '05 Mar 2021', '07 Jul 2021', '02:30:00', '03:30:00', 4, 'Haoyue', 3),
+-- (9, 4, '05 Mar 2021', '07 Jul 2021', '02:00:00', '03:30:00', 4, 'Haoyue', 3),
+-- (10, 4, '05 Mar 2021', '07 Jul 2021', '22:30:00', '23:30:00', 1, 'Haoyue', 3),
+-- (11, 5, '07 May 2021', '21 Dec 2021', '12:30:00', '13:30:00', 1, 'Jewel', 4),
+-- (12, 5, '07 May 2021', '21 Dec 2021', '01:30:00','02:30:00', 1, 'Jewel', 4),
+-- (13, 6, '10 Jun 2021', '21 Dec 2021', '02:00:00', '02:30:00', 1, 'Jewel', 4),
+-- (14, 6, '10 Jun 2021', '21 Dec 2021', '02:30:00', '03:30:00', 1, 'Jewel', 4),
+-- (15, 7, '21 Dec 2021', '28 Feb 2022', '04:30:00', '05:30:00', 1, 'Haoyue', 3),
+-- (16, 7, '21 Dec 2021', '28 Feb 2022', '22:30:00', '23:30:00', 2, 'Haoyue', 3),
+-- (17, 7,  '21 Dec 2021', '28 Feb 2022', '12:30:00', '13:30:00', 2, 'Haoyue', 3),
+-- (18, 8, '21 Dec 2021', '28 Feb 2022', '22:30:00', '23:30:00', 2, 'Jewel', 4);
+
 INSERT INTO CLASS_CHAPTER VALUES
 (1, 1, 1),
 (1, 1, 2),
 (2, 3, 3),
 (2, 5, 4),
-(2, 6, 7),
-(4, 8, 8),
-(4, 10, 3),
-(5, 11, 5),
-(6, 14, 10),
-(7, 16, 11);
+(2, 6, 7);
+-- (4, 8, 8),
+-- (4, 10, 3),
+-- (5, 11, 5),
+-- (6, 14, 10),
+-- (7, 16, 11);
 
 INSERT INTO TRAINER VALUES
 (3, 10),
@@ -311,18 +335,18 @@ INSERT INTO TEACH_CLASS VALUES
 (3, 2, 4),
 (4, 2, 5),
 (4, 2, 6),
-(4, 3, 7),
-(3, 4, 8),
-(3, 4, 9),
-(3, 4, 10),
-(4, 5, 11),
-(4, 5, 12),
-(4, 6, 13),
-(4, 6, 14),
-(3, 7, 15),
-(3, 7, 16),
-(3, 7, 17),
-(4, 8, 18);
+(4, 3, 7);
+-- (3, 4, 8),
+-- (3, 4, 9),
+-- (3, 4, 10),
+-- (4, 5, 11),
+-- (4, 5, 12),
+-- (4, 6, 13),
+-- (4, 6, 14),
+-- (3, 7, 15),
+-- (3, 7, 16),
+-- (3, 7, 17),
+-- (4, 8, 18);
 
 INSERT INTO MATERIAL VALUES
 (1, "aaa", "document", "https://cseweb.ucsd.edu/classes/sp15/cse190-c/reports/sp15/048.pdf", "Info", 1),
@@ -337,16 +361,16 @@ INSERT INTO TAKE_CLASS VALUES
 (8, 2, 'Xerox 101', 5),
 (9, 2, 'Xerox 102', 6);
 
-INSERT INTO QUIZ_QUESTION VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(1, 4),
-(2, 1),
-(2, 2),
-(2, 3),
-(2, 4),
-(3, 1);
+-- INSERT INTO QUIZ_QUESTION VALUES
+-- (1, 1),
+-- (1, 2),
+-- (1, 3),
+-- (1, 4),
+-- (2, 1),
+-- (2, 2),
+-- (2, 3),
+-- (2, 4),
+-- (3, 1);
 
 INSERT INTO LEARNER_QUIZ VALUES
 (1, 1, 23),

@@ -20,22 +20,27 @@ class Quiz(db.Model):
     quizID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
     startDate = db.Column(db.VARCHAR(255), nullable=False)
     endDate = db.Column(db.VARCHAR(255), nullable=False)
+    question = db.Column(db.VARCHAR(255), primary_key=True, nullable=False)
+    answer = db.Column(db.VARCHAR(255), nullable=False)
 
-    def __init__(self, quizID, startDate, endDate):
+    def __init__(self, quizID, startDate, endDate, question, answer):
         self.quizID = quizID
         self.startDate = startDate
         self.endDate = endDate
-
+        self.question = question
+        self.answer = answer
 
     def json(self):
         return {
             "quizID": self.quizID,
             "startDate": self.startDate,
-            "endDate": self.endDate
+            "endDate": self.endDate,
+            "question": self.question,
+            "answer": self.answer
         }
 
 
-# get the list of all staff
+# get the list of all quizzes
 @app.route("/quiz")
 def get_all():
     quizzes = Quiz.query.all()
@@ -58,7 +63,7 @@ def get_all():
 
 # get specific quiz
 @app.route("/quiz/<string:quizID>")
-def get_staff(quizID):
+def get_quiz(quizID):
     quiz = Quiz.query.filter_by(quizID=quizID).first()
     if quiz:
         return jsonify(
@@ -75,18 +80,39 @@ def get_staff(quizID):
     ), 404
 
 
+# get questions in a specific quiz
+@app.route("/quiz/questions/<string:quizID>")
+def get_questions(quizID):
+    quizzes = Quiz.query.filter_by(quizID=quizID)
+
+    if quizzes:
+        questions = [quiz.question for quiz in quizzes]
+        return jsonify(
+            {
+                "code": 200,
+                "data": questions
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Quiz is not found."
+        }
+    ), 404
+
 # add new quiz
 @app.route("/quiz", methods=['POST'])
-def add_staff():
+def add_quiz():
 
 
     quizID = request.json.get("quizID")
     startDate = request.json.get("startDate")
     endDate = request.json.get("endDate")
+    question = request.json.get("question")
+    answer = request.json.get("answer")
 
-    quiz = Quiz(quizID=quizID, startDate=startDate, endDate=endDate)
+    quiz = Quiz(quizID=quizID, startDate=startDate, endDate=endDate, question=question, answer=answer)
 
-    print(quiz.json())
 
     try:
         db.session.add(quiz)
@@ -104,7 +130,7 @@ def add_staff():
     return jsonify(
         {
             "code": 201,
-            "data": quiz.json()
+            "message": "Quiz has been created."
         }
     ), 201
 

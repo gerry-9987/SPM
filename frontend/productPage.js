@@ -1,8 +1,9 @@
 // Extracting from URLSearchParams
-var courseID = 2
-// const queryString = window.location.search;
-// const urlParams = new URLSearchParams(queryString);
-// var courseID = urlParams.get('courseID')
+// var courseID = 2
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const courseID = urlParams.get('courseID')
+console.log(courseID)
 
 // API end points
 var classDetailsURL = `http://127.0.0.1:5002/class/${courseID}`
