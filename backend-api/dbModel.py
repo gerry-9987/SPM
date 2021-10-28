@@ -41,8 +41,9 @@ class Chapter(db.Model):
 
 
 class Class(db.Model):
-    __tablename__ = 'class'
 
+
+    __tablename__ = 'class'
     classID = db.Column(db.Integer(), primary_key=True, nullable=False)
     courseID = db.Column(db.Integer(), db.ForeignKey('course.courseID'), primary_key=True, nullable=False)
     startDate = db.Column(db.VARCHAR(255), nullable=False)
@@ -149,6 +150,7 @@ class Course(db.Model):
 
 
 class Learner(db.Model):
+
 
     __tablename__ = 'learner'
     staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), primary_key=True, autoincrement=False)
