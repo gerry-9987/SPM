@@ -66,7 +66,11 @@ var app = new Vue({
                 'studentID': studentID,
                 'courseID': courseID
             });
+<<<<<<< Updated upstream
             fetch(`${courseURL}/signup`, {
+=======
+            fetch(`signUpCourseURL/${studentID}/${courseID}`,{
+>>>>>>> Stashed changes
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"
