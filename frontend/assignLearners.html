@@ -115,11 +115,11 @@
         data: {
           setClassNo:1,
           courseID: 1,
-          checkedNames:[],
+          checkedNames:[['Ley Yi', 2]],
           courses: [],
           classes: [],
           learners: [],
-          courseName: "IBM 101",
+          courseName: "IBM 102",
           class_no: [],
           assigned: 10,
           capacity: 1,
@@ -134,9 +134,12 @@
           this.getClassCapacity(),
           this.getLearners(),
           this.getAllClassTaken(),
+          // this.assignAllLearners(),
           this.assignLearners()
         },
+
         methods: {
+
 
           getNumClasses: function(){
             fetch(courseURL)
@@ -198,7 +201,7 @@
           },
 
           getLearners: function(){
-            console.log('Getting course details')
+            console.log('Getting learner details')
             fetch(staffURL)
               .then(response => response.json())
               .then(data => {
@@ -227,7 +230,7 @@
               })
           },
 
-          getAllClassTaken: function() {
+          getAllClassTaken: function(){
                     const response =
                         fetch(takeclassURL)
                         .then(response => response.json())
@@ -247,40 +250,77 @@
                         });
                 },
 
-          assignLearners: function () {
+
+          // if there is more than one learner selected
+          // assignAllLearners: function(){
+          //     var numLearners = this.checkedNames.length();
+          //     var staffID = "";
+          //     for (var i=0; i<numLearners+1; i++) {
+          //       staffID = checkedNames[i][0];
+          //       console.log(staffID);
+          //       this.assignLearners(staffID);
+          //     };
+
+          // },
+
+          assignLearners: function(){
                   // staffIDs = [name[1] for name in this.checkedNames],
                   console.log('in assign learners')
-                  // console.log(this.checkedNames[1], this.courseID, this.courseName, this.setClassNo)
-                  fetch(takeclassURL,
+                  console.log(this.checkedNames[0][0])
+                  console.log(this.checkedNames[0][0], this.courseID, this.courseName, this.setClassNo)
+
+                  var staffID = this.checkedNames[0][0]
+                  // console.log(staffID)
+                  // console.log('before fetch')
+
+                  let jsonData = JSON.stringify(
+                              {
+                                  "staffID" : this.checkedNames[0][0],
+                                  "courseID" : this.courseID,
+                                  "courseName" : this.courseName,
+                                  "classID" : this.setClassNo,
+                              });
+
+                  if (typeof jsonData == 'object'){
+                      jsonData = jsonData;
+                  };
+
+                  if (typeof jsonData == 'string') {
+                      jsonData = JSON.parse(jsonData);
+                  };
+
+                  console.log(jsonData);
+                  console.log(typeof(jsonData));
+
+                  // fetch(takeclassURL,
+                  fetch(`http://127.0.0.1:5007/take_class`,
                       {
                           method: "POST",
                           mode: "cors",
                           headers: {
-                              "Content-type": "application/json"
+                              "Content-type": "application/json",
+                              'Accept': 'application/json'
                           },
-                          body: JSON.stringify(
-                              {
-                                  "staffID" : this.checkedNames[1],
-                                  "courseID" : this.courseID,
-                                  "courseName" : this.courseName,
-                                  "classID" : this.setClassNo,
-                              })
+
+                          body: jsonData
                       })
                       .then(response => response.json())
                       .then(data => {
                           console.log(data);
                           result = data.data;
+                          console.log('HELLO');
                           console.log(result);
                           // 3 cases
                       switch (data.code) {
                           case 201:
                               // 201
                               this.assignSuccessful = true;
+                              console.log('201 - Assigned learners successfully!');
                               break;
 
                           case 400:
                               // 400
-                              this.assignSuccessful = true;
+                              this.assignSuccessful = false;
                               break;
                           case 500:
                               // 500

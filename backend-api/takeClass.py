@@ -15,8 +15,9 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
+import dbModel as dbModel
 from dbModel import *
-
+Take_Class = dbModel.Take_Class
 
 # get the list of all classes taken
 @app.route("/take_class")
@@ -78,16 +79,19 @@ def get_class_taken_course(courseID):
 @app.route("/take_class", methods=['POST'])
 def add_class_taken():
 
+    # print(request.json)
     staffID = request.json.get("staffID")
+    print(staffID)
     courseID = request.json.get("courseID")
     courseName = request.json.get("courseName")
     classID = request.json.get("classID")
 
     #hardcode test
-    # staffID =54
-    # courseID = 123
-    # courseName = "test"
-    # classID =321
+    # staffID =1
+    # courseID = 1
+    # courseName = "IBM 102"
+    # classID =2
+
     print(staffID, courseID, courseName, classID)
 
 
