@@ -4,6 +4,7 @@ start "classChapter" python backend-api/classChapter.py
 start "course" python backend-api/course.py
 start "quiz" python backend-api/quiz.py
 start "learner" python backend-api/learner.py
+start "material" python backend-api/material.py
 start "staff" python backend-api/staff.py
 start "trainer" python backend-api/trainer.py
 start "takeClass" python backend-api/takeClass.py
