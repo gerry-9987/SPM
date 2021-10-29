@@ -168,6 +168,36 @@ class Learner(db.Model):
         }
 
 
+class Material(db.Model):
+
+
+    __tablename__ = 'material'
+    materialID = db.Column(db.Integer(), primary_key=True, autoincrement=True)
+    materialName = db.Column(db.VARCHAR(255), nullable=False)
+    materialType = db.Column(db.VARCHAR(255), nullable=False)
+    materialLink = db.Column(db.VARCHAR(255), nullable=False)
+    materialLinkBody = db.Column(db.VARCHAR(255), nullable=False)
+    chapterID = db.Column(db.Integer(), db.ForeignKey('chapter.chapterID'), nullable=False)
+
+    def __init__(self, materialID, materialName, materialType, materialLink, materialLinkBody, chapterID):
+        self.materialID = materialID
+        self.materialName = materialName
+        self.materialType = materialType
+        self.materialLink = materialLink
+        self.materialLinkBody = materialLinkBody
+        self.chapterID = chapterID
+
+    def json(self):
+        return {
+            "materialID": self.materialID,
+            "materialName": self.materialName,
+            "materialType": self.materialType,
+            "materialLink": self.materialLink,
+            "materialLinkBody": self.materialLinkBody,
+            "chapterID": self.chapterID
+        }
+
+
 class Quiz(db.Model):
 
 
