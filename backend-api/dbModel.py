@@ -53,6 +53,7 @@ class Class(db.Model):
     classSize = db.Column(db.Integer(), nullable=False)
     trainerName = db.Column(db.VARCHAR(255), nullable=False)
     staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), nullable=False)
+    quizID = db.Column(db.Integer(), db.ForeignKey('gradedquiz.quizID'), nullable=False)
 
     __table_args__ = (
         db.PrimaryKeyConstraint(
@@ -60,7 +61,7 @@ class Class(db.Model):
             ),
     )
 
-    def __init__(self, classID, courseID, startDate, endDate, startTime, endTime, classSize,  trainerName, staffID):
+    def __init__(self, classID, courseID, startDate, endDate, startTime, endTime, classSize,  trainerName, staffID, quizID):
         self.classID = classID
         self.courseID = courseID
         self.startDate = startDate
@@ -70,6 +71,7 @@ class Class(db.Model):
         self.classSize = classSize
         self.trainerName = trainerName
         self.staffID = staffID
+        self.quizID = quizID
 
     def json(self):
         return {
@@ -81,7 +83,9 @@ class Class(db.Model):
             "endTime": self.endTime,
             "classSize": self.classSize,
             "trainerName": self.trainerName,
-            "staffID": self.staffID
+            "staffID": self.staffID,
+            "quizID": self.quizID
+
         }
 
 

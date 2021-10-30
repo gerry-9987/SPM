@@ -57,7 +57,8 @@ def get_classes(courseID):
             "endTime": eachClass.endTime,
             "classSize": eachClass.classSize,
             "trainerName": eachClass.trainerName,
-            "staffID": eachClass.staffID
+            "staffID": eachClass.staffID,
+            "quizID":eachClass.quizID
             }
         for eachClass in classRows]
 
@@ -107,6 +108,7 @@ def create_class():
     classSize = request.json.get("classSize")
     trainerName = request.json.get("trainerName")
     staffID = request.json.get("staffID")
+    quizID = request.json.get("quizID")
 
     a_class = Class(
         classID=classID,
@@ -117,7 +119,8 @@ def create_class():
         endTime=endTime,
         classSize=classSize,
         trainerName=trainerName,
-        staffID=staffID
+        staffID=staffID,
+        quizID= quizID
     )
 
     print(a_class.json())
