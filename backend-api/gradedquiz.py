@@ -59,12 +59,9 @@ def get_graded_quiz(quizID):
 @app.route("/gradedquiz", methods=['POST'])
 def add_graded_quiz():
 
-
     quizID = request.json.get("quizID")
     passingScore = request.json.get("passingScore")
-
     gradedquiz = GradedQuiz(quizID=quizID, passingScore=passingScore)
-
 
     try:
         db.session.add(gradedquiz)
@@ -81,7 +78,7 @@ def add_graded_quiz():
 
     return jsonify(
         {
-            "code": 201,
+            "code": 200,
             "message": "Graded has been added."
         }
     ), 201
