@@ -33,9 +33,5 @@ class test_Quiz(unittest.TestCase):
 
     # def test_quiz_details(self):
 
-
-
-
-
 if __name__ == "__main__":
     unittest.main()
