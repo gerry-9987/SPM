@@ -35,5 +35,36 @@ def get_all():
         }
     ), 404
 
+
+@app.route("/material/<string:chapterID>")
+def get_material_details(chapterID):
+
+    materials = Material.query.filter_by(chapterID=chapterID)
+    if materials:
+        materialDetails = [
+            {
+                "materialID": material.materialID,
+                "materialName": material.materialName,
+                "materialType": material.materialType,
+                "materialLink": material.materialLink,
+                "materialLinkBody": material.materialLinkBody,
+                "chapterID": material.chapterID
+            }
+            for material in materials]
+
+        return jsonify(
+            {
+                "code": 200,
+                "data": materialDetails
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Materials not found."
+        }
+    ), 404
+
+
 if __name__ == '__main__':
     app.run(port=5010, debug=True)
