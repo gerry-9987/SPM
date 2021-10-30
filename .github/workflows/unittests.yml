@@ -29,3 +29,4 @@ jobs:
     - name: Test with unittest
       run: |
         python -m unittest backend-api/TDD/test_Material.py
+        python -m unittest backend-api/test_Quiz.py
