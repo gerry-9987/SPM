@@ -235,7 +235,7 @@ class GradedQuiz(db.Model):
     quizID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
     passingScore = db.Column(db.Integer(), db.ForeignKey('quiz.quizID'), autoincrement=False)
 
-    def __init__(self, quizID, startDate, endDate, question, answer):
+    def __init__(self, quizID, passingScore):
         self.quizID = quizID,
         self.passingScore = passingScore
 

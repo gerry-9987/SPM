@@ -1,10 +1,11 @@
 import unittest
 
-import sys
-sys.path.append('./')
+# import sys
+# sys.path.append('./')
 
-# from dbModel import *
-from quiz import *
+from dbModel import *
+# import quiz
+# from quiz import *
 
 class test_Quiz(unittest.TestCase):
     def setUp(self):
