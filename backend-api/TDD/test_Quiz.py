@@ -1,11 +1,18 @@
 import unittest
 
-# import sys
-# sys.path.append('./')
+# import os
 
+# print(os.getcwd())
+
+# os.chdir("./backend-api")
+# print(os.getcwd())
+
+# os.getcwd()
+
+# import dbModel
 from dbModel import *
 # import quiz
-# from quiz import *
+from quiz import *
 
 class test_Quiz(unittest.TestCase):
     def setUp(self):
@@ -25,10 +32,6 @@ class test_Quiz(unittest.TestCase):
         )
 
     # def test_quiz_details(self):
-
-
-
-
 
 if __name__ == "__main__":
     unittest.main()

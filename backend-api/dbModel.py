@@ -303,7 +303,6 @@ class Take_Class(db.Model):
             "classID": self.classID
         }
 
-
 class Trainer(db.Model):
 
 

@@ -18,6 +18,7 @@ CORS(app)
 
 
 # get the list of all courses
+
 @app.route("/course")
 def get_all():
     course_list = Course.query.all()
