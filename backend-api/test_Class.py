@@ -42,4 +42,8 @@ class TestClass(unittest.TestCase):
         result = self.session.query(dbModel.Class).all()
         self.assertEqual(result, expected)
 
+if __name__ == "__main__":
+    unittest.main()
+
+
 

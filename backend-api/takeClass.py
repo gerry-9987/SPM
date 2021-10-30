@@ -80,17 +80,17 @@ def get_class_taken_course(courseID):
 def add_class_taken():
 
     # print(request.json)
-    staffID = request.json.get("staffID")
-    print(staffID)
-    courseID = request.json.get("courseID")
-    courseName = request.json.get("courseName")
-    classID = request.json.get("classID")
+    # staffID = request.json.get("staffID")
+    # print(staffID)
+    # courseID = request.json.get("courseID")
+    # courseName = request.json.get("courseName")
+    # classID = request.json.get("classID")
 
     #hardcode test
-    # staffID =1
-    # courseID = 1
-    # courseName = "IBM 102"
-    # classID =2
+    staffID =1
+    courseID = 1
+    courseName = "IBM 102"
+    classID =2
 
     print(staffID, courseID, courseName, classID)
 

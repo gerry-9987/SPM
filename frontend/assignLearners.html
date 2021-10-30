@@ -125,6 +125,7 @@
           capacity: 1,
           message: [],
           classes_taken: [],
+          already_assigned:[],
           staff: [],
           assigned: 0,
           PostLearners: false
@@ -139,7 +140,6 @@
         },
 
         methods: {
-
 
           getNumClasses: function(){
             fetch(courseURL)
@@ -241,6 +241,15 @@
                                 this.classes_taken = data.data.classes_taken;
                                 console.log("=====Classes Taken=====")
                                 console.log(this.classes_taken)
+                                for(var class_taken of this.classes_taken){
+                                  if (class_taken.classID == this.classID){
+                                    this.already_assigned.push(class_taken.staffID)
+                                
+                                  }
+
+                                }
+                                console.log('TAKEN_CLASS')
+                                console.log(this.already_assigned)
                             }
                         })
                         .catch(error => {
@@ -266,30 +275,31 @@
           assignLearners: function(){
                   // staffIDs = [name[1] for name in this.checkedNames],
                   console.log('in assign learners')
-                  console.log(this.checkedNames[0][0])
-                  console.log(this.checkedNames[0][0], this.courseID, this.courseName, this.setClassNo)
+                  console.log(this.checkedNames[0][1])
+                  console.log(this.checkedNames[0][1], this.courseID, this.courseName, this.setClassNo)
 
-                  var staffID = this.checkedNames[0][0]
+                  var staffID = this.checkedNames[0][1]
                   // console.log(staffID)
                   // console.log('before fetch')
 
                   let jsonData = JSON.stringify(
                               {
-                                  "staffID" : this.checkedNames[0][0],
+                                  "staffID" : this.checkedNames[0][1],
                                   "courseID" : this.courseID,
                                   "courseName" : this.courseName,
                                   "classID" : this.setClassNo,
                               });
 
-                  if (typeof jsonData == 'object'){
-                      jsonData = jsonData;
-                  };
+                  // if (typeof jsonData == 'object'){
+                  //     jsonData = jsonData;
+                  // };
 
-                  if (typeof jsonData == 'string') {
-                      jsonData = JSON.parse(jsonData);
-                  };
+                  // if (typeof jsonData == 'string') {
+                  //     jsonData = JSON.parse(jsonData);
+                  // };
 
-                  console.log(jsonData);
+                  // console.log('JSONDATA')
+                  // console.log(jsonData);
                   console.log(typeof(jsonData));
 
                   // fetch(takeclassURL,
