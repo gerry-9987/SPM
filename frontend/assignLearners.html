@@ -111,36 +111,35 @@
         var classURL = `http://127.0.0.1:5002/class`;
         var takeclassURL = `http://127.0.0.1:5007/take_class`;
 
-        var app = new Vue({
-            el: "#app ",
-            computed: {},
-            data: {
-                setClassNo: 1,
-                courseID: 1,
-                checkedNames: [
-                    ['Ley Yi', 2]
-                ],
-                courses: [],
-                classes: [],
-                learners: [],
-                courseName: "IBM 102",
-                class_no: [],
-                assigned: 10,
-                capacity: 1,
-                message: [],
-                classes_taken: [],
-                staff: [],
-                assigned: 0,
-                PostLearners: false
-            },
-            created: function() {
-                this.getNumClasses(),
-                    this.getClassCapacity(),
-                    this.getLearners(),
-                    this.getAllClassTaken(),
-                    // this.assignAllLearners(),
-                    this.assignLearners()
-            },
+      var app = new Vue({
+        el: "#app ",
+        computed: {},
+        data: {
+          setClassNo:1,
+          courseID: 1,
+          checkedNames:[['Ley Yi', 2]],
+          courses: [],
+          classes: [],
+          learners: [],
+          courseName: "IBM 102",
+          class_no: [],
+          assigned: 10,
+          capacity: 1,
+          message: [],
+          classes_taken: [],
+          already_assigned:[],
+          staff: [],
+          assigned: 0,
+          PostLearners: false
+        },
+        created: function(){
+          this.getNumClasses(),
+          this.getClassCapacity(),
+          this.getLearners(),
+          this.getAllClassTaken(),
+          // this.assignAllLearners(),
+          this.assignLearners()
+        },
 
             methods: {
 
@@ -245,6 +244,15 @@
                                 this.classes_taken = data.data.classes_taken;
                                 console.log("=====Classes Taken=====")
                                 console.log(this.classes_taken)
+                                for(var class_taken of this.classes_taken){
+                                  if (class_taken.classID == this.classID){
+                                    this.already_assigned.push(class_taken.staffID)
+                                
+                                  }
+
+                                }
+                                console.log('TAKEN_CLASS')
+                                console.log(this.already_assigned)
                             }
                         })
                         .catch(error => {
@@ -267,33 +275,35 @@
 
                 // },
 
-                assignLearners: function() {
-                    // staffIDs = [name[1] for name in this.checkedNames],
-                    console.log('in assign learners')
-                    console.log(this.checkedNames[0][0])
-                    console.log(this.checkedNames[0][0], this.courseID, this.courseName, this.setClassNo)
+          assignLearners: function(){
+                  // staffIDs = [name[1] for name in this.checkedNames],
+                  console.log('in assign learners')
+                  console.log(this.checkedNames[0][1])
+                  console.log(this.checkedNames[0][1], this.courseID, this.courseName, this.setClassNo)
 
-                    var staffID = this.checkedNames[0][0]
-                        // console.log(staffID)
-                        // console.log('before fetch')
+                  var staffID = this.checkedNames[0][1]
+                  // console.log(staffID)
+                  // console.log('before fetch')
 
-                    let jsonData = JSON.stringify({
-                        "staffID": 11,
-                        "courseID": this.courseID,
-                        "courseName": this.courseName,
-                        "classID": this.setClassNo,
-                    });
+                  let jsonData = JSON.stringify(
+                              {
+                                  "staffID" : this.checkedNames[0][1],
+                                  "courseID" : this.courseID,
+                                  "courseName" : this.courseName,
+                                  "classID" : this.setClassNo,
+                              });
 
-                    /* if (typeof jsonData == 'object') {
-                    jsonData = jsonData;
-                };
+                  // if (typeof jsonData == 'object'){
+                  //     jsonData = jsonData;
+                  // };
 
-                if (typeof jsonData == 'string') {
-                    jsonData = JSON.parse(jsonData);
-                }; */
+                  // if (typeof jsonData == 'string') {
+                  //     jsonData = JSON.parse(jsonData);
+                  // };
 
-                    console.log(jsonData);
-                    console.log(typeof(jsonData));
+                  // console.log('JSONDATA')
+                  // console.log(jsonData);
+                  console.log(typeof(jsonData));
 
                     // fetch(takeclassURL,
                     fetch(`http://127.0.0.1:5007/take_class`, {
