@@ -1,16 +1,17 @@
 import unittest
 
-import sys
+# import os
 
-# from dbModel import *
-import os
-sys.path.append(os.path.abspath("\wamp64\www\SPM\SPM\backend-api"))
-# print(sys.path)
-# sys.path.append('./')
+# print(os.getcwd())
 
-import dbModel
+# os.chdir("./backend-api")
+# print(os.getcwd())
+
+# os.getcwd()
+
+# import dbModel
 from dbModel import *
-import quiz
+# import quiz
 from quiz import *
 
 class test_Quiz(unittest.TestCase):

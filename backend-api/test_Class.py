@@ -2,6 +2,7 @@ import unittest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+import os
 
 # import pytest
 from os import error
@@ -13,6 +14,12 @@ from datetime import datetime
 # from .. import dbModel
 import dbModel
 from dbModel import Class
+
+
+os.chdir("./backend-api")
+# print(os.getcwd())
+os.getcwd()
+
 
 class TestClass(unittest.TestCase):
     def setUp(self):
