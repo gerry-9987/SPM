@@ -1,6 +1,6 @@
 import unittest
 
-from dbModel import *
+# from dbModel import *
 from quiz import *
 
 
