@@ -4,6 +4,8 @@ import sys
 sys.path.append('./')
 
 # from dbModel import *
+import os
+sys.path.append(os.path.abspath("\wamp64\www\SPM\SPM\backend-api"))
 from quiz import *
 
 class test_Quiz(unittest.TestCase):
@@ -24,10 +26,6 @@ class test_Quiz(unittest.TestCase):
         )
 
     # def test_quiz_details(self):
-
-
-
-
 
 if __name__ == "__main__":
     unittest.main()
