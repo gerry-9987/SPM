@@ -35,8 +35,8 @@ var app = new Vue({
     },
     created: function() {
         this.getCourseDetails(),
-        this.getClassDetails(),
-        this.getChapterDetails()
+            this.getClassDetails(),
+            this.getChapterDetails()
     },
     methods: {
         checkIsEnrolled: function() {
@@ -66,11 +66,7 @@ var app = new Vue({
                 'studentID': studentID,
                 'courseID': courseID
             });
-<<<<<<< Updated upstream
             fetch(`${courseURL}/signup`, {
-=======
-            fetch(`signUpCourseURL/${studentID}/${courseID}`,{
->>>>>>> Stashed changes
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"

@@ -79,10 +79,9 @@ def get_questions(quizID):
     ), 404
 
 # add new quiz
-@app.route("/quiz", methods=['POST'])
+@app.route("/quiz/create", methods=['POST'])
 def add_quiz():
-
-
+    
     quizID = request.json.get("quizID")
     startDate = request.json.get("startDate")
     endDate = request.json.get("endDate")
@@ -91,10 +90,10 @@ def add_quiz():
 
     quiz = Quiz(quizID=quizID, startDate=startDate, endDate=endDate, question=question, answer=answer)
 
-
     try:
         db.session.add(quiz)
         db.session.commit()
+        
     except error:
         return jsonify(
             {
@@ -107,7 +106,7 @@ def add_quiz():
 
     return jsonify(
         {
-            "code": 201,
+            "code": 200,
             "message": "Quiz has been created."
         }
     ), 201
