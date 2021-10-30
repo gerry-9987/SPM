@@ -228,6 +228,22 @@ class Quiz(db.Model):
             "answer": self.answer
         }
 
+class GradedQuiz(db.Model):
+
+
+    __tablename__ = 'gradedquiz'
+    quizID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
+    passingScore = db.Column(db.Integer(), db.ForeignKey('quiz.quizID'), autoincrement=False)
+
+    def __init__(self, quizID, startDate, endDate, question, answer):
+        self.quizID = quizID,
+        self.passingScore = passingScore
+
+    def json(self):
+        return {
+            "quizID": self.quizID,
+            "passingScore": self.passingScore
+        }
 
 class Staff(db.Model):
 
