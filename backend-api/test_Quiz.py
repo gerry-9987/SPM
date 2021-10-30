@@ -1,11 +1,16 @@
 import unittest
 
 import sys
-sys.path.append('./')
 
 # from dbModel import *
 import os
 sys.path.append(os.path.abspath("\wamp64\www\SPM\SPM\backend-api"))
+# print(sys.path)
+# sys.path.append('./')
+
+import dbModel
+from dbModel import *
+import quiz
 from quiz import *
 
 class test_Quiz(unittest.TestCase):
