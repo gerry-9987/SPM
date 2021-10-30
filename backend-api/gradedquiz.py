@@ -66,6 +66,7 @@ def add_graded_quiz():
     try:
         db.session.add(gradedquiz)
         db.session.commit()
+        
     except error:
         return jsonify(
             {
