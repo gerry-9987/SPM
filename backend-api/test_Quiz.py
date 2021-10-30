@@ -1,17 +1,17 @@
 import unittest
 
-import os
+# import os
 
 # print(os.getcwd())
 
-os.chdir("./backend-api")
+# os.chdir("./backend-api")
 # print(os.getcwd())
 
-os.getcwd()
+# os.getcwd()
 
-import dbModel
+# import dbModel
 from dbModel import *
-import quiz
+# import quiz
 from quiz import *
 
 class test_Quiz(unittest.TestCase):
