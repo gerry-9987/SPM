@@ -12,13 +12,7 @@ from flask_cors import CORS
 from datetime import datetime
 
 # from .. import dbModel
-import dbModel
 from dbModel import Class
-
-
-os.chdir("./backend-api")
-# print(os.getcwd())
-os.getcwd()
 
 
 class TestClass(unittest.TestCase):
