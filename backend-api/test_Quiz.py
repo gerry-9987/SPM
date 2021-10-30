@@ -1,9 +1,13 @@
 import unittest
 
-import sys
+import os
 
-# print(sys.path)
-# sys.path.append('./')
+# print(os.getcwd())
+
+os.chdir("./backend-api")
+# print(os.getcwd())
+
+os.getcwd()
 
 import dbModel
 from dbModel import *
