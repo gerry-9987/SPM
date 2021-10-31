@@ -19,21 +19,36 @@ db = SQLAlchemy(app)
 CORS(app)
 
 
-@app.route("/main/<string:staffID>")
+@app.route("/all/<string:staffID>")
 def get_details(staffID):
 
     takenCourses = Take_Class.query.filter_by(staffID=staffID)
     takenCourses = [(takenCourse.courseID, takenCourse.classID) for takenCourse in takenCourses]
     print(takenCourses)
     allDetails = []
+    # for each course that learner takes
     for takenCourse in takenCourses:
-        courseDetails = {
-            "courseID": takenCourse[0],
-            "classID": takenCourse[1]
-        }
+        courseID = takenCourse[0]
+        classID = takenCourse[1]
+        singleDetails = {}
+        courseDetails = Course.query.filter(Course.courseID==courseID).first().json()
+        print("courseDetails")
+        print(courseDetails)
+        for courseDetail in courseDetails:
+            if courseDetail not in singleDetails:
+                singleDetails[courseDetail] = courseDetails[courseDetail]
+        classDetails = Class.query.filter(and_(Class.courseID==courseID, Class.classID==classID)).first().json()
+        print("classDetails")
+        print(classDetails)
+        for classDetail in classDetails:
+            if classDetail not in singleDetails:
+                singleDetails[classDetail] = classDetails[classDetail]
+        
+        print()
+        print(singleDetails)
         classChapters = ClassChapter.query.filter(
-            and_(ClassChapter.courseID==takenCourse[0],
-                ClassChapter.classID==takenCourse[1])).all()
+            and_(ClassChapter.courseID==courseID,
+                ClassChapter.classID==classID)).all()
         if classChapters:
             chapterIDs = [classChapter.chapterID for classChapter in classChapters]
             print(chapterIDs)
@@ -47,13 +62,13 @@ def get_details(staffID):
                 if "materials" not in chapterDetails:
                     chapterDetails["materials"] = materials
                 chapterList.append(chapterDetails)
-            if "chapters" not in courseDetails:
-                courseDetails["chapters"] = chapterList
+            if "chapters" not in singleDetails:
+                singleDetails["chapters"] = chapterList
 
         else:
-            if "chapters" not in courseDetails:
-                courseDetails["chapters"] = "There are no chapters for this class in this course."
-        allDetails.append(courseDetails)
+            if "chapters" not in singleDetails:
+                singleDetails["chapters"] = "There are no chapters for this class in this course."
+        allDetails.append(singleDetails)
 
     return jsonify(
         {
