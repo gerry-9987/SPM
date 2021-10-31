@@ -71,6 +71,22 @@ def get_course_details(courseID):
     ), 404
 
 
+@app.route("/courses/<string:staffID>")
+def get_learner_courses(staffID):
+    takenCourses = Take_Class.query.filter_by(staffID=staffID)
+    takenCourses = [takenCourse.courseID for takenCourse in takenCourses]
+
+    courses = Course.query.filter(Course.courseID.in_(takenCourses)).all()
+    print(courses)
+    
+    return jsonify(
+        {
+            "code": 200,
+            "data": [course.json() for course in courses]
+        }
+    )
+
+
 # add new course
 @app.route("/course", methods=['POST'])
 def create_course():

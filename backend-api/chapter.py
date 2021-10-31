@@ -3,6 +3,8 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+from sqlalchemy import and_
+
 from dbModel import *
 
 app = Flask(__name__)
@@ -79,32 +81,7 @@ def get_chapter(chapterID):
         }
     ), 404
 
-@app.route("/chapter/course/<string:courseID>")
-def get_course_chapters(courseID):
-    chapters = db.session.query(Chapter).filter(Chapter.chapterID==ClassChapter.chapterID, ClassChapter.courseID==courseID).all()
-    if len(chapters) == 0:
-        return jsonify(
-        {
-            "code": 404,
-            "message": "There are no chapters for that course."
-        }
-        ), 404
-    else:
-        courseChapters = [
-            {
-                "chapterID": courseChapter.chapterID,
-                "chapterName": courseChapter.chapterName,
-                "chapterDetails": courseChapter.chapterDetails
-            }
-        for courseChapter in chapters
-        ]
 
-        return jsonify(
-            {
-                "code": 200,
-                "data": courseChapters
-            }
-        )
 
 
 if __name__ == '__main__':
