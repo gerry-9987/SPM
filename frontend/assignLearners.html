@@ -81,11 +81,12 @@
             </div>
             <div class="my-3">
                 {{assigned}}/{{capacity}} assigned
+                {{status}}
             </div>
             <div>
                 <ul class="container list-group infinite-scroll m-0" id="basic-example" style="max-height: 261px; overflow-y: scroll;">
                     <li class="list-group-item" v-for="learner in learners">
-                        <input class="form-check-input me-1" type="checkbox" v-bind:value="learner" @change="assigned++" aria-label="..." v-model="checkedNames" /> {{ learner[0] }}
+                        <input class="form-check-input me-1" type="checkbox" v-bind:value="learner" @change="assigned++" aria-label="..." v-model="checkedNames" /> {{ learner[0] }} {{learner[2]}}
                     </li>
                 </ul>
             </div>
@@ -118,6 +119,7 @@
           setClassNo:1,
           courseID: 1,
           checkedNames:[['Ley Yi', 2]],
+        // checkedNames:[],
           courses: [],
           classes: [],
           learners: [],
@@ -129,6 +131,7 @@
           classes_taken: [],
           already_assigned:[],
           staff: [],
+          status: [],
           assigned: 0,
           PostLearners: false
         },
@@ -214,13 +217,19 @@
                             switch (data.code) {
                                 case 200:
                                     for (var staff of result) {
-                                        if (staff.department == "Learner")
-                                            this.learners.push([staff.staffName, staff.staffID])
+
+                                        if (staff.department == "Learner" && this.already_assigned.includes(staff.staffID)) {
+                                            this.learners.push([staff.staffName, staff.staffID, '- Already Assigned']);
                                             // this.learners.push(staff.staffName)
                                             // this.learnersID.push(staff.staffID)
-                                        console.log(staff.staffName)
-                                        console.log(staff.staffID)
-                                            // console.log(this.learners)
+                                            console.log(staff.staffName);
+                                            console.log(staff.staffID);
+                                            } else {
+                                            //  block of code to be executed if the condition is false
+                                            this.learners.push([staff.staffName, staff.staffID, '- Not Assigned']);
+                                            }
+
+                                        
                                     }
                                     break;
                                 case 400:
@@ -245,13 +254,18 @@
                                 console.log("=====Classes Taken=====")
                                 console.log(this.classes_taken)
                                 for(var class_taken of this.classes_taken){
-                                  if (class_taken.classID == this.classID){
-                                    this.already_assigned.push(class_taken.staffID)
+                                    console.log('FOR in get all classes taken')
+                                    console.log(class_taken.classID)
+                                    console.log(this.setClassNo)
+                                    if (class_taken.classID == this.setClassNo){
+                                        console.log('IF in get all classes taken')
+                                        
+                                        this.already_assigned.push(class_taken.staffID)
                                 
-                                  }
+                                    }
 
                                 }
-                                console.log('TAKEN_CLASS')
+                                console.log('##### Already Assigned:')
                                 console.log(this.already_assigned)
                             }
                         })
@@ -281,7 +295,12 @@
                   console.log(this.checkedNames[0][1])
                   console.log(this.checkedNames[0][1], this.courseID, this.courseName, this.setClassNo)
 
-                  var staffID = this.checkedNames[0][1]
+                  if (assigned_already.includes(this.checkedNames[0][1])){
+                    this.status = 'Learner has already been assigned!'
+                  }
+
+                  else{
+                    var staffID = this.checkedNames[0][1]
                   // console.log(staffID)
                   // console.log('before fetch')
 
@@ -303,6 +322,7 @@
 
                   // console.log('JSONDATA')
                   // console.log(jsonData);
+
                   console.log(typeof(jsonData));
 
                     // fetch(takeclassURL,
@@ -347,6 +367,9 @@
                         .catch(error => {
                             console.log("Problem in assigning learners " + error);
                         })
+                  }
+
+                  
                 },
 
 
