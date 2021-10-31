@@ -36,7 +36,7 @@ CREATE TABLE QUIZ
     endDate varchar(255) NOT NULL,
     question varchar(255) NOT NULL,
     answer varchar(255) NOT NULL,
-    CONSTRAINT quiz_pk PRIMARY KEY (quizID, question)
+    CONSTRAINT quiz_pk PRIMARY KEY (quizID, question(50))
 );
 
 -- DROP TABLE IF EXISTS QUESTION;

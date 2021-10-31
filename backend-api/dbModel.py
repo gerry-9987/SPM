@@ -1,3 +1,5 @@
+#%%
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -236,7 +238,7 @@ class GradedQuiz(db.Model):
     passingScore = db.Column(db.Integer(), db.ForeignKey('quiz.quizID'), autoincrement=False)
 
     def __init__(self, quizID, passingScore):
-        self.quizID = quizID,
+        self.quizID = quizID
         self.passingScore = passingScore
 
     def json(self):
@@ -321,3 +323,5 @@ class Trainer(db.Model):
             "numberOfClasses": self.numberOfClasses,
         }
 
+
+# %%
