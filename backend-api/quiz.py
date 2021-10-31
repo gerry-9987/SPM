@@ -82,19 +82,32 @@ def get_questions(quizID):
 @app.route("/quiz/create", methods=['POST'])
 def add_quiz():
     
-    quizID = request.json.get("quizID")
-    startDate = request.json.get("startDate")
-    endDate = request.json.get("endDate")
-    question = request.json.get("question")
-    answer = request.json.get("answer")
+    try:
+        quizID = request.json.get("quizID")
+        startDate = request.json.get("startDate")
+        endDate = request.json.get("endDate")
+        question = request.json.get("question")
+        answer = request.json.get("answer")
+    except:
+        print("missing parameters for the quiz")
+        return jsonify(
+                {
+                    "code": 500,
+                    "data": {
+                    },
+                    "message": "Missing parameters for the quiz."
+                }
+            ), 500 
 
     quiz = Quiz(quizID=quizID, startDate=startDate, endDate=endDate, question=question, answer=answer)
+    print(quiz.json())
 
     try:
         db.session.add(quiz)
         db.session.commit()
         
     except error:
+        print('Failed to push quiz to database')
         return jsonify(
             {
                 "code": 500,

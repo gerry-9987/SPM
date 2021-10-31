@@ -13,6 +13,7 @@ var app = new Vue({
         quizQuestions: [],
         quizAnswers: [],
         numQuestions: 1,
+        quizDuration: 1,
         passingScore: 0
     },
     methods: {
@@ -48,13 +49,18 @@ var app = new Vue({
                     switch (data.code) {
                         case 200:
                             console.log('success')
-                            this.addGradedQuiz()
-                            alert("Scuessfully added quiz!");
+                            if (this.quizIsGraded == 'graded') {
+                                this.addGradedQuiz()
+                            } else {
+                                alert("Scuessfully added quiz!");
+                            }
                             break;
                         case 500:
+                            alert("Failed to add quiz!");
                             console.log('failure')
                             break;
                         default:
+                            alert("Failed to add quiz :(");
                             throw `${data.code}: ${data.message}`;
                     }
                 })

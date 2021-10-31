@@ -31,10 +31,10 @@ def get_all():
         )
     return jsonify(
         {
-            "code": 404,
+            "code": 500,
             "message": "There are no graded quizzes."
         }
-    ), 404
+    ), 500
 
 
 # get specific graded quiz
