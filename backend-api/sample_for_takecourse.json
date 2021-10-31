@@ -1,0 +1,93 @@
+{
+    "code": 200,
+    "data": [
+        {
+            "chapters": [
+                {
+                    "chapterDetails": "A cat is running away",
+                    "chapterID": 1,
+                    "chapterName": "CAT",
+                    "materials": [
+                        {
+                            "chapterID": 1,
+                            "materialID": 1,
+                            "materialLink": "https://cseweb.ucsd.edu/classes/sp15/cse190-c/reports/sp15/048.pdf",
+                            "materialLinkBody": "Info",
+                            "materialName": "aaa",
+                            "materialType": "document"
+                        }
+                    ],
+                    "quizID": 8
+                },
+                {
+                    "chapterDetails": "A dog is running away",
+                    "chapterID": 2,
+                    "chapterName": "DOG",
+                    "materials": [
+                        {
+                            "chapterID": 2,
+                            "materialID": 2,
+                            "materialLink": "www.google.com",
+                            "materialLinkBody": "Website",
+                            "materialName": "bbb",
+                            "materialType": "link"
+                        }
+                    ],
+                    "quizID": 9
+                }
+            ],
+            "classID": 1,
+            "classSize": 4,
+            "courseCategory": "IBM",
+            "courseDetails": "Learn about introductory IBM terminologies",
+            "courseID": 1,
+            "courseName": "IBM 101",
+            "endDate": "03 Feb 2021",
+            "endTime": "23:30:00",
+            "noOfClasses": 2,
+            "prereqCourses": "None",
+            "quizID": 1,
+            "staffID": 3,
+            "startDate": "01 Jan 2021",
+            "startTime": "22:30:00",
+            "students": "1,2",
+            "trainerName": "Haoyue"
+        },
+        {
+            "chapters": [
+                {
+                    "chapterDetails": "yay zhongli",
+                    "chapterID": 8,
+                    "chapterName": "zhongli",
+                    "materials": [
+                        {
+                            "chapterID": 8,
+                            "materialID": 4,
+                            "materialLink": "https://www.youtube.com/watch?v=mFFXuXjVgkU&ab_channel=DevOpsJourney",
+                            "materialLinkBody": "Vid",
+                            "materialName": "ccc",
+                            "materialType": "video"
+                        }
+                    ],
+                    "quizID": 8
+                }
+            ],
+            "classID": 7,
+            "classSize": 4,
+            "courseCategory": "HP",
+            "courseDetails": "Understand the basics of HP",
+            "courseID": 3,
+            "courseName": "HP 101",
+            "endDate": "07 May 2021",
+            "endTime": "02:30:00",
+            "noOfClasses": 1,
+            "prereqCourses": "None",
+            "quizID": 7,
+            "staffID": 4,
+            "startDate": "04 Mar 2021",
+            "startTime": "01:30:00",
+            "students": "1",
+            "trainerName": "Jewel"
+        }
+    ]
+}
