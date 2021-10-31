@@ -189,7 +189,7 @@ INSERT INTO STAFF VALUES
 INSERT INTO COURSE VALUES
 (1, 'IBM 101', 'IBM', 'Learn about introductory IBM terminologies', 'None', 2, '1,2'),
 (2, 'IBM 102', 'IBM', 'Build up your IBM knowledge and skills', 'IBM 101', 4, '6,7,8,9'),
-(3, 'HP 101', 'HP', 'Understand the basics of HP', 'None', 1, ''),
+(3, 'HP 101', 'HP', 'Understand the basics of HP', 'None', 1, '1'),
 (4, 'HP 102', 'HP', 'Intermediate HP with building your own application', 'HP 101', 3, ''),
 (5, 'Xerox 101', 'Xerox', 'Learn basic printing with Xerox', 'None', 2, ''),
 (6, 'Xerox 102', 'Xerox', 'Learn deeper printing with Xerox and our different kinds of printers', 'Xerox 101', 2, ''),
@@ -308,7 +308,8 @@ INSERT INTO CLASS_CHAPTER VALUES
 (1, 1, 2),
 (2, 3, 3),
 (2, 5, 4),
-(2, 6, 7);
+(2, 6, 7),
+(3, 7, 8);
 -- (4, 8, 8),
 -- (4, 10, 3),
 -- (5, 11, 5),
@@ -350,10 +351,14 @@ INSERT INTO TEACH_CLASS VALUES
 INSERT INTO MATERIAL VALUES
 (1, "aaa", "document", "https://cseweb.ucsd.edu/classes/sp15/cse190-c/reports/sp15/048.pdf", "Info", 1),
 (2, "bbb", "link", "www.google.com", "Website", 2),
-(3, "bbb", "video", "https://www.youtube.com/watch?v=mFFXuXjVgkU&ab_channel=DevOpsJourney", "Vid", 3);
+(3, "bbb", "video", "https://www.youtube.com/watch?v=mFFXuXjVgkU&ab_channel=DevOpsJourney", "Vid", 3),
+(4, "ccc", "video", "https://www.youtube.com/watch?v=mFFXuXjVgkU&ab_channel=DevOpsJourney", "Vid", 8);
+-- (5, "eee", "link", "www.google.com", "Website", 8),
+
 
 INSERT INTO TAKE_CLASS VALUES
 (1, 1, 'IBM 101', 1),
+(1, 3, 'HP 101', 7),
 (2, 1, 'IBM 102', 2),
 (6, 2, 'HP 101', 3),
 (7, 2, 'HP 102', 4),
