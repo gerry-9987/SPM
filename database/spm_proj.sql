@@ -34,9 +34,17 @@ CREATE TABLE QUIZ
     quizID int(11) NOT NULL,
     startDate varchar(255) NOT NULL,
     endDate varchar(255) NOT NULL,
+<<<<<<< Updated upstream
     question varchar(255) NOT NULL,
     answer varchar(255) NOT NULL,
     CONSTRAINT quiz_pk PRIMARY KEY (quizID, question(50))
+=======
+    questions varchar(255) NOT NULL,
+    answers varchar(255) NOT NULL,
+    duration int(11) NOT NULL,
+    passingScore int(11) NOT NULL,
+    CONSTRAINT quiz_pk PRIMARY KEY (quizID)
+>>>>>>> Stashed changes
 );
 
 -- DROP TABLE IF EXISTS QUESTION;
@@ -59,14 +67,14 @@ CREATE TABLE CHAPTER
     CONSTRAINT chapter_fk FOREIGN KEY (quizID) REFERENCES QUIZ(quizID)
 );
 
-DROP TABLE IF EXISTS GRADEDQUIZ;
-CREATE TABLE GRADEDQUIZ
-(
-    quizID int(11) NOT NULL,
-    passingScore int(11) NOT NULL,
-    CONSTRAINT gradedquiz_pk PRIMARY KEY (quizID),
-    CONSTRAINT gradedquiz_fk FOREIGN KEY (quizID) REFERENCES QUIZ(quizID)
-);
+-- DROP TABLE IF EXISTS GRADEDQUIZ;
+-- CREATE TABLE GRADEDQUIZ
+-- (
+--     quizID int(11) NOT NULL,
+--     passingScore int(11) NOT NULL,
+--     CONSTRAINT gradedquiz_pk PRIMARY KEY (quizID),
+--     CONSTRAINT gradedquiz_fk FOREIGN KEY (quizID) REFERENCES QUIZ(quizID)
+-- );
 
 DROP TABLE IF EXISTS CLASS;
 CREATE TABLE CLASS
@@ -84,7 +92,7 @@ CREATE TABLE CLASS
     CONSTRAINT class_pk PRIMARY KEY (courseID, classID),
     CONSTRAINT class_fk FOREIGN KEY (courseID) REFERENCES COURSE(courseID),
     CONSTRAINT class_fk2 FOREIGN KEY (staffID) REFERENCES STAFF(staffID),
-    CONSTRAINT class_fk3 FOREIGN KEY (quizID) REFERENCES GRADEDQUIZ(quizID)
+    CONSTRAINT class_fk3 FOREIGN KEY (quizID) REFERENCES QUIZ(quizID)
 );
 
 DROP TABLE IF EXISTS CLASS_CHAPTER;
@@ -199,38 +207,15 @@ INSERT INTO COURSE VALUES
 
 
 INSERT INTO QUIZ VALUES
-(1, '01 Jan 2021', '03 Jan 2021', 'Is cat cute?', 'True'),
-(1, '01 Jan 2021', '03 Jan 2021', 'Is dog cute?', 'True'),
-(1, '01 Jan 2021', '03 Jan 2021', 'Does SPM teach pair programming?', 'True'),
-(1, '01 Jan 2021', '03 Jan 2021', 'Do chickens lay eggs?', 'True'),
-(1, '01 Jan 2021', '03 Jan 2021', 'Can chickens swim?', 'False'),
-(1, '01 Jan 2021', '03 Jan 2021', 'Can monkeys dance?', 'True'),
-(1, '01 Jan 2021', '03 Jan 2021', 'Can birds talk?', 'False'),
-(1, '01 Jan 2021', '03 Jan 2021', 'Is this module fun?', 'True'),
-(2, '01 Jan 2021', '03 Jan 2021', 'Is dog cute?', 'True'),
-(2, '01 Jan 2021', '03 Jan 2021', 'Is catdog cute?', 'True'),
-(2, '01 Jan 2021', '03 Jan 2021', 'Does SPM teach pair programming?', 'True'),
-(2, '01 Jan 2021', '03 Jan 2021', 'Do chickens lay eggs?', 'True'),
-(2, '01 Jan 2021', '03 Jan 2021', 'Can chickens swim?', 'False'),
-(3, '01 Jan 2021', '03 Jan 2021', 'Can monkeys dance?', 'True'),
-(3, '01 Jan 2021', '03 Jan 2021', 'Can birds talk?', 'False'),
-(3, '01 Jan 2021', '03 Jan 2021', 'Is this module fun?', 'True'),
-(3, '01 Jan 2021', '03 Jan 2021', 'Is life cute?', 'False'),
-(4, '01 Jan 2021', '03 Jan 2021', 'Is foetus cute?', 'False'),
-(5, '03 Jan 2021', '07 Feb 2021', 'Is baby cute?', 'True'),
-(6, '03 Jan 2021', '07 Feb 2021', 'Is diluc cute?', 'True'),
-(7, '03 Jan 2021', '07 Feb 2021', 'Is diluc cute?', 'True'),
-(8, '03 Jan 2021', '07 Feb 2021', 'Is diluc cute?', 'True'),
-(9, '03 Jan 2021', '07 Feb 2021', 'Is diluc cute?', 'True'),
-(10, '07 Feb 2021', '21 Dec 2021', 'Is diluc cute?', 'True'),
-(11, '07 Feb 2021', '21 Dec 2021', 'Is diluc cute?', 'True'),
-(12, '07 Feb 2021', '21 Dec 2021', 'Is zhongli cute?', 'True'),
-(13, '07 Feb 2021', '21 Dec 2021', 'Is zhongli cute?', 'True'),
-(14, '07 Feb 2021', '21 Dec 2021', 'Is zhongli cute?', 'True'),
-(15, '07 Feb 2021', '21 Dec 2021', 'Is zhongli cute?', 'True'),
-(16, '21 Dec 2021', '28 Feb 2022', 'Is zhongli cute?', 'True'),
-(17, '21 Dec 2021', '28 Feb 2022', 'Is zhongli cute?', 'True'),
-(18, '21 Dec 2021', '28 Feb 2022', 'Is zhongli cute?', 'True');
+(1, '01 Jan 2021', '03 Jan 2021', 'Is cat cute?, Is dog cute?, Does SPM teach pair programming?, Do chickens lay eggs?, Can chickens swim?, Can monkeys dance?, Can birds talk?, Is this module fun?', 'True, True, True, True, False, True, False, True', '100', '50'),
+(2, '01 Jan 2021', '03 Jan 2021', 'Is dog cute?, Is catdog cute?, Does SPM teach pair programming?, Do chickens lay eggs, Can chickens swim?', 'True, True, True, True, False', '60', '35'),
+(3, '01 Jan 2021', '03 Jan 2021', 'Can monkeys dance?, Can birds talk?, Is this module fun?, Is life cute?, ', 'True, False, True, False', '30', '25'),
+(4, '01 Jan 2021', '03 Jan 2021', 'Is foetus cute?', 'False', '10', '0'),
+(5, '03 Jan 2021', '07 Feb 2021', 'Is baby cute?', 'True', '10', '0'),
+(6, '03 Jan 2021', '07 Feb 2021', 'Is diluc cute?', 'True', '10', '0'),
+(7, '07 Feb 2021', '21 Dec 2021', 'Is diluc cute?', 'True', '10', '0'),
+(8, '07 Feb 2021', '21 Dec 2021', 'Is zhongli cute?', 'True', '10', '0'),
+(9, '21 Dec 2021', '28 Feb 2022', 'Is zhongli cute?', 'True', '10', '0');
 
 -- INSERT INTO QUESTION VALUES
 -- (1, 'Is cat cute?', 'True'),
@@ -253,34 +238,34 @@ INSERT INTO QUIZ VALUES
 -- (18, 'GGG', 'G');
 
 INSERT INTO CHAPTER VALUES
-(1, 'CAT', 'A cat is running away', 8),
-(2, 'DOG', 'A dog is running away',9),
-(3, 'TURTLE', 'A turtle is running away', 10),
-(4, 'LIFE', 'My life is great', 11),
-(5, 'foetus', 'A foetus is growing', 12),
-(6, 'baby', 'A baby is crawling away', 13),
-(7, 'diluc', 'yay diluc', 14),
+(1, 'CAT', 'A cat is running away', 1),
+(2, 'DOG', 'A dog is running away',2),
+(3, 'TURTLE', 'A turtle is running away', 3),
+(4, 'LIFE', 'My life is great', 4),
+(5, 'foetus', 'A foetus is growing', 5),
+(6, 'baby', 'A baby is crawling away', 6),
+(7, 'diluc', 'yay diluc', 7),
 (8, 'zhongli', 'yay zhongli', 8),
-(9, 'cutest', 'yay cutest', 9),
-(10, 'cuter', 'yay cuter', 10),
-(11, 'AAA', 'AAA yummy', 11),
-(12, 'BBB', 'BBB happy', 12),
-(13, 'BBV', 'BBV bumble bee', 13),
-(14, 'CCC', 'CCC bumble bee', 14),
-(15, 'DDD', 'DDD bumble bee', 15),
-(16, 'EEE', 'EEE bumble bee', 16),
-(17, 'FFF', 'FFF bumble bee', 17),
-(18, 'GGG', 'GGG bumble bee', 18);
+(9, 'cutest', 'yay cutest', 1),
+(10, 'cuter', 'yay cuter', 2),
+(11, 'AAA', 'AAA yummy', 3),
+(12, 'BBB', 'BBB happy', 4),
+(13, 'BBV', 'BBV bumble bee', 5),
+(14, 'CCC', 'CCC bumble bee', 6),
+(15, 'DDD', 'DDD bumble bee', 7),
+(16, 'EEE', 'EEE bumble bee', 8),
+(17, 'FFF', 'FFF bumble bee', 9),
+(18, 'GGG', 'GGG bumble bee', 9);
 
 
-INSERT INTO GRADEDQUIZ VALUES
-(1, 50),
-(2, 50),
-(3, 50),
-(4, 50),
-(5, 50),
-(6, 50),
-(7, 50);
+-- INSERT INTO GRADEDQUIZ VALUES
+-- (1, 50),
+-- (2, 50),
+-- (3, 50),
+-- (4, 50),
+-- (5, 50),
+-- (6, 50),
+-- (7, 50);
 
 -- courseID, classID, ..., trainerName, staffID, quizID
 INSERT INTO CLASS VALUES
