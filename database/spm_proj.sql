@@ -34,17 +34,11 @@ CREATE TABLE QUIZ
     quizID int(11) NOT NULL,
     startDate varchar(255) NOT NULL,
     endDate varchar(255) NOT NULL,
-<<<<<<< Updated upstream
-    question varchar(255) NOT NULL,
-    answer varchar(255) NOT NULL,
-    CONSTRAINT quiz_pk PRIMARY KEY (quizID, question(50))
-=======
     questions varchar(255) NOT NULL,
     answers varchar(255) NOT NULL,
     duration int(11) NOT NULL,
     passingScore int(11) NOT NULL,
     CONSTRAINT quiz_pk PRIMARY KEY (quizID)
->>>>>>> Stashed changes
 );
 
 -- DROP TABLE IF EXISTS QUESTION;
