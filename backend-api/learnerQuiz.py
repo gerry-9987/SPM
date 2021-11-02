@@ -86,5 +86,45 @@ def add_learner_quiz():
     ), 201
 
 
+# Endpoint for updating a quiz score (retake quiz)
+@app.route("/learnerquiz", methods=["PUT"])
+def update_score():
+
+    quizID = request.json.get("quizID")
+    staffID = request.json.get("staffID")
+    quizScore = request.json.get("quizScore")
+    # quizID = 1
+    # staffID = 1
+    # quizScore = 8
+    # learnerquiz = LearnerQuiz(quizID=quizID, staffID = staffID, quizScore=quizScore)
+
+    learnerquiz = LearnerQuiz.query.filter_by(quizID=quizID, staffID = staffID).first()
+    learnerquiz.quizScore = quizScore
+
+    # learnerquiz = LearnerQuiz.query.filter_by(quizID=quizID, staffID = staffID).update(dict(quizScore))
+
+    try:
+        # db.session.add(learnerquiz)
+        db.session.commit()
+        
+    except error:
+        return jsonify(
+            {
+                "code": 500,
+                "data": {
+                },
+                "message": "An error occurred updating the learner quiz."
+            }
+        ), 500
+
+    return jsonify(
+        {
+            "code": 200,
+            "message": "Learner Quiz has been updated."
+        }
+    ), 201
+
+
+
 if __name__ == '__main__':
     app.run(port=5010, debug=True)
