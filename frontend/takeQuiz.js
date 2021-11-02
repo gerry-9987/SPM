@@ -15,7 +15,6 @@ var app = new Vue({
         duration: 0,
         questions: [],
         allquizzes: [],
-        options:["True", "False"],
         response:[],
         learnerAnswer: [],
         questions_answers: [],
@@ -27,6 +26,7 @@ var app = new Vue({
     created: function() {
         this.getQuestions(),
         this.getDuration(),
+        
         // this.getQuiz(),
         // this.getAnswers(),
         this.postAnswers()
@@ -69,7 +69,21 @@ var app = new Vue({
             
             console.log(endDate)
         },
+        getLearnerAnswers: function() {
+            let inputs = document.getElementsByClassName('answer')
+            for (var an_input of inputs) {
+                // console.log(an_input)
+                //console.log(an_input.checked)
+                if (an_input.checked) {
+                    console.log(an_input)
+                    console.log(an_input.value)
+                    this.learnerAnswer.push(an_input.value)
+                }
+            }
+            // console.log(this.learnerAnswer)
+        },
         getQuiz: function() {
+            // TODO: i think no need this function because can call the answer API endpoint in checkAnswers() function
             console.log('Getting all quizes details')
             fetch(allquizURL)
                 .then(response => response.json())
@@ -102,6 +116,9 @@ var app = new Vue({
         },
 
         checkAnswers: function(){
+            // TODO: you can retrieve the /quiz/<quizID>/answers API endpoint to check against this.learnerAnswer
+            // we managed to retrieve the list of answers that the learner entered
+
             for(var i=0; i<this.answers.length+1; i++){
                 if (this.learnerAnswer[i]==this.answer){
                     this.score++
