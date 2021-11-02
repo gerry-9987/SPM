@@ -59,12 +59,12 @@ def get_quiz(quizID):
 
 
 # get questions in a specific quiz
-@app.route("/quiz/questions/<string:quizID>")
+@app.route("/quiz/<string:quizID>/questions")
 def get_questions(quizID):
-    quizzes = Quiz.query.filter_by(quizID=quizID)
-
-    if quizzes:
-        questions = [quiz.question for quiz in quizzes]
+    quiz = Quiz.query.filter_by(quizID=quizID).first()
+    print(quiz)
+    if quiz:
+        questions = quiz.questions.split(", ")
         return jsonify(
             {
                 "code": 200,
@@ -78,10 +78,32 @@ def get_questions(quizID):
         }
     ), 404
 
+
+# get questions in a specific quiz
+@app.route("/quiz/<string:quizID>/answers")
+def get_answers(quizID):
+    quiz = Quiz.query.filter_by(quizID=quizID).first()
+
+    if quiz:
+        answers = quiz.answers.split(", ")
+        return jsonify(
+            {
+                "code": 200,
+                "data": answers
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Quiz is not found."
+        }
+    ), 404
+
+
 # add new quiz
 @app.route("/quiz/create", methods=['POST'])
 def add_quiz():
-    
+
     try:
         quizID = request.json.get("quizID")
         startDate = request.json.get("startDate")

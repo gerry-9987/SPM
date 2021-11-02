@@ -211,41 +211,48 @@ class Quiz(db.Model):
     quizID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
     startDate = db.Column(db.VARCHAR(255), nullable=False)
     endDate = db.Column(db.VARCHAR(255), nullable=False)
-    question = db.Column(db.VARCHAR(255), primary_key=True, nullable=False)
-    answer = db.Column(db.VARCHAR(255), nullable=False)
+    questions = db.Column(db.VARCHAR(255), nullable=False)
+    answers = db.Column(db.VARCHAR(255), nullable=False)
+    duration = db.Column(db.Integer(), nullable=False)
+    passingScore = db.Column(db.Integer(), nullable=False)
 
-    def __init__(self, quizID, startDate, endDate, question, answer):
+
+    def __init__(self, quizID, startDate, endDate, questions, answers, duration, passingScore):
         self.quizID = quizID
         self.startDate = startDate
         self.endDate = endDate
-        self.question = question
-        self.answer = answer
+        self.questions = questions
+        self.answers = answers
+        self.duration = duration
+        self.passingScore = passingScore
 
     def json(self):
         return {
             "quizID": self.quizID,
             "startDate": self.startDate,
             "endDate": self.endDate,
-            "question": self.question,
-            "answer": self.answer
-        }
-
-class GradedQuiz(db.Model):
-
-
-    __tablename__ = 'gradedquiz'
-    quizID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
-    passingScore = db.Column(db.Integer(), db.ForeignKey('quiz.quizID'), autoincrement=False)
-
-    def __init__(self, quizID, passingScore):
-        self.quizID = quizID
-        self.passingScore = passingScore
-
-    def json(self):
-        return {
-            "quizID": self.quizID,
+            "questions": self.questions,
+            "answers": self.answers,
+            "duration": self.duration,
             "passingScore": self.passingScore
         }
+
+# class GradedQuiz(db.Model):
+
+
+#     __tablename__ = 'gradedquiz'
+#     quizID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
+#     passingScore = db.Column(db.Integer(), db.ForeignKey('quiz.quizID'), autoincrement=False)
+
+#     def __init__(self, quizID, passingScore):
+#         self.quizID = quizID
+#         self.passingScore = passingScore
+
+#     def json(self):
+#         return {
+#             "quizID": self.quizID,
+#             "passingScore": self.passingScore
+#         }
 
 class LearnerQuiz(db.Model):
 
