@@ -94,7 +94,6 @@ def add_class_taken():
 
     print(staffID, courseID, courseName, classID)
 
-
     class_taken = Take_Class(staffID, courseID, courseName, classID)
 
     print(class_taken)

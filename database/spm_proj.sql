@@ -114,6 +114,7 @@ CREATE TABLE LEARNER
 (
     staffID int(11) NOT NULL,
     numberOfClassesPassed int(11) NOT NULL,
+    
     CONSTRAINT learner_pk PRIMARY KEY (staffID),
     CONSTRAINT learner_fk FOREIGN KEY (staffID) REFERENCES STAFF(staffID)
 );
@@ -138,8 +139,14 @@ CREATE TABLE MATERIAL
     materialLink varchar(255) NOT NULL,
     materialLinkBody varchar(255) NOT NULL,
     chapterID int(11) NOT NULL,
+    classID int(11) NOT NULL,
+    courseID int(11) NOT NULL,
+
     CONSTRAINT material_pk PRIMARY KEY (materialID),
-    CONSTRAINT material_fk FOREIGN KEY (chapterID) REFERENCES CHAPTER(chapterID)
+    CONSTRAINT material_fk FOREIGN KEY (chapterID) REFERENCES CHAPTER(chapterID),
+    CONSTRAINT material_fk2 FOREIGN KEY (classID) REFERENCES CLASS(classID),
+    CONSTRAINT material_fk3 FOREIGN KEY (courseID) REFERENCES COURSE(courseID)
+
 
 );
 
@@ -285,7 +292,7 @@ INSERT INTO CLASS VALUES
 INSERT INTO CLASS_CHAPTER VALUES
 (1, 1, 1),
 (1, 1, 2),
-(2, 3, 3),
+(1, 1, 3),
 (2, 5, 4),
 (2, 6, 7),
 (3, 7, 8);
@@ -329,10 +336,10 @@ INSERT INTO TEACH_CLASS VALUES
 
 INSERT INTO MATERIAL VALUES
 (1, "Census Income", "document", "https://cseweb.ucsd.edu/classes/sp15/cse190-c/reports/sp15/048.pdf", "Predicting if income exceeds $50,000 per year based on 1994 US Census Data with
-Simple Classification Techniques", 1),
-(2, "About google", "link", "https://www.google.com/", "You can learn more about google", 1),
-(3, "Github Actions CI/CD", "video", "https://www.youtube.com/embed/mFFXuXjVgkU", "Everything you need to know to get started", 2),
-(4, "CSS Crash Course For Absolute Beginners", "video", "https://www.youtube.com/embed/yfoY53QXEnI", "We will be looking at styles, selectors, declarations, etc. We will build a CSS cheat sheet that you can keep as a resource and we will also create a basic website layout. ", 1);
+Simple Classification Techniques", 1,1,1),
+(2, "About google", "link", "https://www.google.com/", "You can learn more about google", 2,1,1),
+(3, "Github Actions CI/CD", "video", "https://www.youtube.com/embed/mFFXuXjVgkU", "Everything you need to know to get started", 3,1,1),
+(4, "CSS Crash Course For Absolute Beginners", "video", "https://www.youtube.com/embed/yfoY53QXEnI", "We will be looking at styles, selectors, declarations, etc. We will build a CSS cheat sheet that you can keep as a resource and we will also create a basic website layout. ", 4,1,1);
 -- (5, "eee", "link", "www.google.com", "Website", 8),
 
 
