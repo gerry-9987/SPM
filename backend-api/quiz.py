@@ -129,7 +129,7 @@ def add_quiz():
     try:
         db.session.add(quiz)
         db.session.commit()
-        
+
     except error:
         print('Failed to push quiz to database')
         return jsonify(

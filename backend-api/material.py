@@ -67,4 +67,4 @@ def get_material_details(chapterID):
 
 
 if __name__ == '__main__':
-    app.run(port=5010, debug=True)
+    app.run(port=5009, debug=True)
