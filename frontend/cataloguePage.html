@@ -30,7 +30,7 @@
                     <div class="card">
                         <img src="../images/course.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h7 class="card-text font-weight-bold">{{class_taken.courseName}}</h7>
+                            <h6 class="card-text font-weight-bold">{{class_taken.courseName}}</h6>
                             <button type="submit" class="btn btn-success px-5 mt-3 btn-block">View Course</button>
                         </div>
                     </div>
@@ -52,8 +52,8 @@
                             <div class="card">
                                 <img src="../images/course.jpg" class="card-img-top" alt="...">
                                 <div class="card-body">
-                                    <h7 class="card-text font-weight-bold"> {{course.courseName}}</h7> <br>
-                                    <h7 class="font-weight-bold">Prerequisites</h7>: {{ course.prereqCourses }} <br>
+                                    <h6 class="card-text font-weight-bold"> {{course.courseName}}</h6> <br>
+                                    <h6 class="font-weight-bold">Prerequisites</h7>: {{ course.prereqCourses }} <br>
                                     <i> {{course.courseDetails}} </i>
                                     <button @click=' redirectProductPage(course.courseID) ' class="btn btn-success px-5 mt-3 btn-block">View Product</button>
                                 </div>

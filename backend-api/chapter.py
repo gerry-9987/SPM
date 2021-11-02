@@ -17,30 +17,6 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-class Chapter(db.Model):
-
-
-    __tablename__ = 'chapter'
-    chapterID = db.Column(db.Integer(), primary_key=True, autoincrement=True)
-    chapterName = db.Column(db.VARCHAR(255), nullable=False)
-    chapterDetails = db.Column(db.VARCHAR(255), nullable=False)
-    quizID = db.Column(db.Integer(), db.ForeignKey('quiz.quizID'), nullable=False)
-
-    def __init__(self, chapterID, chapterName, chapterDetails, quizID):
-        self.chapterID = chapterID
-        self.chapterName = chapterName,
-        self.chapterDetails = chapterDetails,
-        self.quizID = quizID
-
-
-    def json(self):
-        return {
-            "chapterID": self.chapterID,
-            "chapterName": self.chapterName,
-            "chapterDetails": self.chapterDetails,
-            "quizID": self.quizID
-        }
-
 
 # get the list of all chapters
 @app.route("/chapter")
@@ -82,6 +58,27 @@ def get_chapter(chapterID):
     ), 404
 
 
+# get specific chapter
+@app.route("/chapter/course/<string:courseID>")
+def get_course_chapters(courseID):
+    classes = Class.query.filter_by(courseID=courseID).all()
+    classIDs = [a_class.classID for a_class in classes]
+    chapters = ClassChapter.query.filter(ClassChapter.classID.in_(classIDs)).all()
+    chapterIDs = [chapter.chapterID for chapter in chapters]
+    allChapters = Chapter.query.filter(Chapter.chapterID.in_(chapterIDs)).all()
+    if allChapters:
+        return jsonify(
+            {
+                "code": 200,
+                "data": [chapter.json() for chapter in allChapters]
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Chapters not found."
+        }
+    ), 404
 
 
 if __name__ == '__main__':
