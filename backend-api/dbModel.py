@@ -247,6 +247,33 @@ class GradedQuiz(db.Model):
             "passingScore": self.passingScore
         }
 
+class LearnerQuiz(db.Model):
+
+
+    __tablename__ = 'learner_quiz'
+    quizID = db.Column(db.Integer(), db.ForeignKey('quiz.quizID'), primary_key=True, autoincrement=False)
+    staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), primary_key=True, autoincrement=False)
+    quizScore = db.Column(db.Integer(), autoincrement=False)
+
+    __table_args__ = (
+    PrimaryKeyConstraint(
+        quizID, staffID
+        ),
+    )
+
+    def __init__(self, quizID, staffID, quizScore):
+        self.quizID = quizID
+        self.staffID = staffID
+        self.quizScore = quizScore
+        
+
+    def json(self):
+        return {
+            "quizID": self.quizID,
+            "staffID": self.staffID,
+            "quizScore": self.quizScore
+        }
+
 class Staff(db.Model):
 
 

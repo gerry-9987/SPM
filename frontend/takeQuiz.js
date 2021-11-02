@@ -1,6 +1,7 @@
 const classID = 1
 var questionsURL = `http://127.0.0.1:5008/quiz/questions/${classID}`
 var allquizURL = `http://127.0.0.1:5008/quiz`
+var learnerquizURL = ``;
 var app = new Vue({
     el: "#app ",
     data: {
@@ -12,12 +13,15 @@ var app = new Vue({
         learnerAnswer: [],
         questions_answers: [],
         answers: [],
-        score: 0
+        score: 0,
+        alertMessage: "",
+        postSuccessful: false
     },
     created: function() {
         this.getQuestions(),
         this.getQuiz(),
-        this.getAnswers()
+        this.getAnswers(),
+        this.postAnswers()
     },
     methods: {
         getQuestions: function() {
@@ -82,6 +86,65 @@ var app = new Vue({
                 if (this.learnerAnswer[i]==this.answer){
                     this.score++
                 }
+            }
+        },
+
+        postAnswers: function(){
+            
+            if(this.learnerAnswer.length == this.questions.length){
+                
+                let jsonData = JSON.stringify(
+                    {
+                        "quizID" : this.quizID,
+                        "staffID" : this.staffID,
+                        "quizScore" : this.Score,
+                    });
+
+                console.log(typeof(jsonData));
+
+                fetch(learnerquizURL, {
+                        method: "POST",
+                        mode: "cors",
+                        headers: {
+                            "Content-type": "application/json",
+                            'Accept': 'application/json'
+                        },
+
+                        body: jsonData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        result = data.data;
+                        console.log(result);
+                        // 3 cases
+                        switch (data.code) {
+                            case 201:
+                                // 201
+                                this.postSuccessfull = true;
+                                console.log('201 - Posted quiz score successfully!');
+                                break;
+
+                            case 400:
+                                // 400
+                                this.postSuccessfull = false;
+                                break;
+                            case 500:
+                                // 500
+                                console.log(data.message);
+                                break;
+                            default:
+                                throw `${data.code}: ${data.message}`;
+
+                        } // switch
+                        this.postSuccessful = true;
+                    })
+                    .catch(error => {
+                        console.log("Problem in posting quiz Score " + error);
+                    })
+            }
+            else{
+                this.alertMessage='You cannot submit this quiz before you have finished all the questions!';
             }
         }
     }
