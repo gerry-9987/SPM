@@ -45,28 +45,28 @@
                     </div>
                 </div>
             </div>
-            <button v-on:click="getLearnerAnswers()" type="submit" class="btn btn-success px-5 mt-3">Submit</button>
+            <button v-on:click="getLearnerAnswers(); checkAnswers();" type="submit" class="btn btn-success px-5 mt-3">Submit</button>
             <span>Learner Answer {{ learnerAnswer }} </span>
             <span> {{ alertMessage }}</span>
         </div>
     </div>
     <script>
-        /*function check() {
-            learnerAnswers = []
-            console.log("I AM INSIDE CHECK()")
-            inputs = document.getElementsByClassName('answer')
-            for (var an_input of inputs) {
-                // console.log(an_input)
-                //console.log(an_input.checked)
-                if (an_input.checked) {
-                    console.log(an_input)
-                }
-            }
-            //console.log(document.getElementsByClassName('answer').checked = true)
-            console.log("hi")
-            return "Bye"
-        }
-        */
+        // function check() {
+        //     learnerAnswers = []
+        //     console.log("I AM INSIDE CHECK()")
+        //     inputs = document.getElementsByClassName('answer')
+        //     for (var an_input of inputs) {
+        //         // console.log(an_input)
+        //         //console.log(an_input.checked)
+        //         if (an_input.checked) {
+        //             console.log(an_input)
+        //         }
+        //     }
+        //     //console.log(document.getElementsByClassName('answer').checked = true)
+        //     console.log("hi")
+        //     return "Bye"
+        // }
+        
     </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

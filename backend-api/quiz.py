@@ -79,7 +79,7 @@ def get_questions(quizID):
     ), 404
 
 
-# get questions in a specific quiz
+# get answers in a specific quiz
 @app.route("/quiz/<string:quizID>/answers")
 def get_answers(quizID):
     quiz = Quiz.query.filter_by(quizID=quizID).first()
