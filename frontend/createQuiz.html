@@ -76,13 +76,13 @@
                 <div class="form-group col-6">
                     <div class="form-group">
                         <label class="control-label" for="date">Start Date</label>
-                        <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" v-model="quizStart">
+                        <input class="form-control" id="date" name="date" placeholder="01 Jan 2021" type="text" v-model="quizStart">
                     </div>
                 </div>
                 <div class="form-group col-6">
                     <div class="form-group">
                         <label class="control-label" for="date">End Date</label>
-                        <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" v-model="quizEnd">
+                        <input class="form-control" id="date" name="date" placeholder="03 Jan 2021" type="text" v-model="quizEnd">
                     </div>
                 </div>
             </div>
@@ -111,15 +111,15 @@
                         <label class="font-weight-bold">Question {{num}} </label>
                         <input type="text" class="form-control mb-2" :id="'question-'+num" v-model="quizQuestions[num-1]" placeholder="Please enter question here">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" :name="'graded-'+num" :id="'graded-'+num+'false'" v-model="quizAnswers[num-1]" value=true>
-                            <label class="form-check-label" :for="'graded-'+num+'false'">
-                                        False
+                            <input class="form-check-input" type="radio" :name="'graded-'+num" :id="'graded-'+num+'true'" v-model="quizAnswers[num-1]" value="True">
+                            <label class="form-check-label" :for="'graded-'+num+'true'">
+                                        True
                                     </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" :name="'graded-'+num" :id="'graded-'+num+'true'" v-model="quizAnswers[num-1]" value=false>
-                            <label class="form-check-label" :for="'graded-'+num+'true'">
-                                        True
+                            <input class="form-check-input" type="radio" :name="'graded-'+num" :id="'graded-'+num+'false'" v-model="quizAnswers[num-1]" value="False">
+                            <label class="form-check-label" :for="'graded-'+num+'false'">
+                                        False
                                     </label>
                         </div>
                     </div>

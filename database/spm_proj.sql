@@ -201,15 +201,15 @@ INSERT INTO COURSE VALUES
 
 
 INSERT INTO QUIZ VALUES
-(1, '01 Jan 2021', '03 Jan 2021', 'Is cat cute?, Is dog cute?, Does SPM teach pair programming?, Do chickens lay eggs?, Can chickens swim?, Can monkeys dance?, Can birds talk?, Is this module fun?', 'True, True, True, True, False, True, False, True', '100', '50'),
-(2, '01 Jan 2021', '03 Jan 2021', 'Is dog cute?, Is catdog cute?, Does SPM teach pair programming?, Do chickens lay eggs, Can chickens swim?', 'True, True, True, True, False', '60', '35'),
-(3, '01 Jan 2021', '03 Jan 2021', 'Can monkeys dance?, Can birds talk?, Is this module fun?, Is life cute?, ', 'True, False, True, False', '30', '25'),
-(4, '01 Jan 2021', '03 Jan 2021', 'Is foetus cute?', 'False', '10', '0'),
-(5, '03 Jan 2021', '07 Feb 2021', 'Is baby cute?', 'True', '10', '0'),
-(6, '03 Jan 2021', '07 Feb 2021', 'Is diluc cute?', 'True', '10', '0'),
-(7, '07 Feb 2021', '21 Dec 2021', 'Is diluc cute?', 'True', '10', '0'),
-(8, '07 Feb 2021', '21 Dec 2021', 'Is zhongli cute?', 'True', '10', '0'),
-(9, '21 Dec 2021', '28 Feb 2022', 'Is zhongli cute?', 'True', '10', '0');
+(1, '01 Jan 2021', '03 Jan 2021', 'Is cat cute?, Is dog cute?, Does SPM teach pair programming?, Do chickens lay eggs?, Can chickens swim?, Can monkeys dance?, Can birds talk?, Is this module fun?', 'True, True, True, True, False, True, False, True', 100, 50),
+(2, '01 Jan 2021', '03 Jan 2021', 'Is dog cute?, Is catdog cute?, Does SPM teach pair programming?, Do chickens lay eggs, Can chickens swim?', 'True, True, True, True, False', 60, 35),
+(3, '01 Jan 2021', '03 Jan 2021', 'Can monkeys dance?, Can birds talk?, Is this module fun?, Is life cute?, ', 'True, False, True, False', 30, 25),
+(4, '01 Jan 2021', '03 Jan 2021', 'Is foetus cute?', 'False', 10, 0),
+(5, '03 Jan 2021', '07 Feb 2021', 'Is baby cute?', 'True', 10, 0),
+(6, '03 Jan 2021', '07 Feb 2021', 'Is diluc cute?', 'True', 10, 0),
+(7, '07 Feb 2021', '21 Dec 2021', 'Is diluc cute?', 'True', 10, 0),
+(8, '07 Feb 2021', '21 Dec 2021', 'Is zhongli cute?', 'True', 10, 0),
+(9, '21 Dec 2021', '28 Feb 2022', 'Is zhongli cute?', 'True', 10, 0);
 
 -- INSERT INTO QUESTION VALUES
 -- (1, 'Is cat cute?', 'True'),

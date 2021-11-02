@@ -108,8 +108,10 @@ def add_quiz():
         quizID = request.json.get("quizID")
         startDate = request.json.get("startDate")
         endDate = request.json.get("endDate")
-        question = request.json.get("question")
-        answer = request.json.get("answer")
+        questions = request.json.get("questions")
+        answers = request.json.get("answers")
+        duration = int(request.json.get("duration"))
+        passingScore = int(request.json.get("passingScore"))
     except:
         print("missing parameters for the quiz")
         return jsonify(
@@ -121,7 +123,7 @@ def add_quiz():
                 }
             ), 500 
 
-    quiz = Quiz(quizID=quizID, startDate=startDate, endDate=endDate, question=question, answer=answer)
+    quiz = Quiz(quizID=quizID, startDate=startDate, endDate=endDate, questions=questions, answers=answers, duration=duration, passingScore=passingScore)
     print(quiz.json())
 
     try:
