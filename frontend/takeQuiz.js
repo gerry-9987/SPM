@@ -1,11 +1,18 @@
+const now = Date.now()
+const start = new Date(now)
+console.log(now)
+console.log(start)
 const classID = 1
-var questionsURL = `http://127.0.0.1:5008/quiz/questions/${classID}`
+const quizID = 1
+var quizURL = `http://127.0.0.1:5008/quiz/${quizID}`
+var questionsURL = `http://127.0.0.1:5008/quiz/${quizID}/questions`
 var allquizURL = `http://127.0.0.1:5008/quiz`
 var learnerquizURL = ``;
 var app = new Vue({
     el: "#app ",
     data: {
         classID: 1,
+        duration: 0,
         questions: [],
         allquizzes: [],
         options:["True", "False"],
@@ -19,8 +26,9 @@ var app = new Vue({
     },
     created: function() {
         this.getQuestions(),
-        this.getQuiz(),
-        this.getAnswers(),
+        this.getDuration(),
+        // this.getQuiz(),
+        // this.getAnswers(),
         this.postAnswers()
     },
     methods: {
@@ -48,7 +56,19 @@ var app = new Vue({
                     }
                 })
         },
-
+        getDuration: function() {
+            fetch(quizURL)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    this.duration = data.data.duration
+                })
+                console.log(typeof(now))
+            console.log(now + 60*(this.duration))
+            var endDate = new Date(now + 60*this.duration)
+            
+            console.log(endDate)
+        },
         getQuiz: function() {
             console.log('Getting all quizes details')
             fetch(allquizURL)
