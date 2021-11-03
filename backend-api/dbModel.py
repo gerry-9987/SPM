@@ -41,6 +41,13 @@ class Chapter(db.Model):
             "quizID": self.quizID
         }
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 class Class(db.Model):
 
@@ -55,7 +62,7 @@ class Class(db.Model):
     classSize = db.Column(db.Integer(), nullable=False)
     trainerName = db.Column(db.VARCHAR(255), nullable=False)
     staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), nullable=False)
-    quizID = db.Column(db.Integer(), db.ForeignKey('gradedquiz.quizID'), nullable=False)
+    quizID = db.Column(db.Integer(), db.ForeignKey('quiz.quizID'), nullable=False)
 
     __table_args__ = (
         db.PrimaryKeyConstraint(
@@ -112,6 +119,13 @@ class ClassChapter(db.Model):
             "chapterID": self.chapterID
         }
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 class Course(db.Model):
 
@@ -202,6 +216,14 @@ class Material(db.Model):
             "materialLinkBody": self.materialLinkBody,
             "chapterID": self.chapterID
         }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 
 class Quiz(db.Model):
