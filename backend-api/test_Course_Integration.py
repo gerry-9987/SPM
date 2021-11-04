@@ -7,7 +7,7 @@ from course import *
 
 
 class TestApp(flask_testing.TestCase):
-    # app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://"
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://spm@localhost:3306/spm_proj'
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {}
     app.config['TESTING'] = True
 

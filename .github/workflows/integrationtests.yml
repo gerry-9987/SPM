@@ -45,3 +45,5 @@ jobs:
         run: |
           python -m unittest backend-api/test_Chapter.py
           python -m unittest backend-api/test_Material.py
+          python -m unittest backend-api/test_Course_Integration.py
+
