@@ -39,8 +39,8 @@ jobs:
           sudo /etc/init.d/mysql start
           pwd
           ls
-          mysql -e 'CREATE DATABASE spm_proj;'
-          mysql -e 'SHOW DATABASES;'
+          mysql -e 'CREATE DATABASE spm_proj;' -u root -p
+          mysql -e 'SHOW DATABASES;' =u root -u root -p
       - name: Test with unittest
         run: |
           python -m unittest backend-api/test_Chapter.py
