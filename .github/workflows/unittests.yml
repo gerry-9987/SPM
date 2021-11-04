@@ -15,7 +15,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      working-directory: ./database
       DB_DATABASE: spm_proj
       DB_USER: root
 
