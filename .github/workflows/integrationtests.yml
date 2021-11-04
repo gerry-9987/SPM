@@ -37,10 +37,10 @@ jobs:
       - name: Set up MySQL
         run: |
           sudo /etc/init.d/mysql start
-          pwd
-          ls
-          mysql -e 'CREATE DATABASE spm_proj;' -u root -p
-          mysql -e 'SHOW DATABASES;' =u root -u root -p
+          CREATE USER 'spm'@'localhost' IDENTIFIED BY 'team9';
+          GRANT SELECT, INSERT, DELETE, UPDATE ON spm_proj.* TO 'spm'@'localhost';
+          mysql -e 'CREATE DATABASE spm_proj;' -u spm -p team9
+          mysql -e 'SHOW DATABASES;' -u spm -p team9
       - name: Test with unittest
         run: |
           python -m unittest backend-api/test_Chapter.py
