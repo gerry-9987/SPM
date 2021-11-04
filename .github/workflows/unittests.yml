@@ -13,14 +13,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        env:
-          MYSQL_HOST: 127.0.0.1
-          MYSQL_DATABASE: spm_proj
-          MYSQL_USER: root
-        ports:
-          - 3306
+
+    env:
+      DB_DATABASE: spm_proj
+      DB_USER: root
+      DB_PASSWORD: 
+
+    steps:
+      - name: Set up MySQL
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e 'CREATE DATABASE spm_proj' -uroot -proot
+          mysql -e 'SHOW DATABASES;' -uroot -proot
+
     defaults:
       run:
         working-directory: ./backend-api
