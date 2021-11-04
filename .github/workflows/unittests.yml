@@ -11,17 +11,16 @@ on:
     
 
 jobs:
-  services:
-    mysql:
-      env:
-        MYSQL_HOST: 127.0.0.1
-        MYSQL_DATABASE: spm_proj
-        MYSQL_USER: root
-      ports:
-        - 3306
   build:
     runs-on: ubuntu-latest
-
+    services:
+      mysql:
+        env:
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_DATABASE: spm_proj
+          MYSQL_USER: root
+        ports:
+          - 3306
     defaults:
       run:
         working-directory: ./backend-api
