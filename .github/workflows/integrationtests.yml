@@ -17,8 +17,10 @@ jobs:
     env:
       DB_DATABASE: spm_proj
       DB_USER: root
-      DB_HOST: localhost
+      DB_HOST: 127.0.0.1
       DB_PASSWORD: ''
+    ports:
+      - 3306:3006
     defaults:
       run:
         working-directory: ./backend-api
@@ -35,6 +37,8 @@ jobs:
       - name: Set up MySQL
         run: |
           sudo /etc/init.d/mysql start
+          mysql –u root –p
+          ls -l
           mysql -e 'CREATE DATABASE spm_proj;' -u root -p
           mysql -e 'SHOW DATABASES;' -u root -p
       - name: Test with unittest
