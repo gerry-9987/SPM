@@ -39,8 +39,8 @@ def get_all():
 @app.route("/material/<string:chapterID>")
 def get_material_details(chapterID):
 
-    materials = Material.query.filter_by(chapterID=chapterID)
-    if materials:
+    materials = Material.query.filter_by(chapterID=chapterID).all()
+    if len(materials) > 0:
         materialDetails = [
             {
                 "materialID": material.materialID,

@@ -6,7 +6,7 @@ const courseID = urlParams.get('courseID')
 console.log(courseID)
 
 // API end points
-var classDetailsURL = `http://127.0.0.1:5002/class/${courseID}`
+var classDetailsURL = `http://127.0.0.1:5002/classes/${courseID}`
 var courseDetailsURL = `http://127.0.0.1:5003/course/${courseID}`
 var courseURL = 'http://127.0.0.1:5003'
 var chapterDetailsURL = `http://127.0.0.1:5000/chapter/course/${courseID}`

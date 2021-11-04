@@ -1,4 +1,4 @@
-start "all" python backend-api/all.py
+start "all" python backend-api/allDetails.py
 start "chapter" python backend-api/chapter.py
 start "class" python backend-api/class.py
 start "classChapter" python backend-api/classChapter.py

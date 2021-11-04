@@ -58,7 +58,7 @@ def get_chapter(chapterID):
     ), 404
 
 
-# get specific chapter
+# get chapters by course
 @app.route("/chapter/course/<string:courseID>")
 def get_course_chapters(courseID):
     classes = Class.query.filter_by(courseID=courseID).all()

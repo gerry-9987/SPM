@@ -41,12 +41,12 @@ def get_all():
 
 
 # get classes for specific course
-@app.route("/class/<string:courseID>")
+@app.route("/classes/<string:courseID>")
 def get_classes(courseID):
 
 
-    classRows = Class.query.filter_by(courseID=courseID)
-    if classRows:
+    classRows = Class.query.filter_by(courseID=courseID).all() 
+    if len(classRows) > 0:
         allClasses = [
             {
             "classID": eachClass.classID,
@@ -79,8 +79,8 @@ def get_classes(courseID):
 @app.route("/class/<string:classID>")
 def get_class(classID):
 
-    a_class = Class.query.filter(classID=classID)
-    if len(a_class):
+    a_class = Class.query.filter_by(classID=classID).first()
+    if a_class:
         return jsonify(
             {
                 "code": 200,

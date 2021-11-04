@@ -43,30 +43,18 @@ def get_all():
 @app.route("/course/<string:courseID>")
 def get_course_details(courseID):
 
-    courses = Course.query.filter_by(courseID=courseID)
-    if courses:
-        courseDetails = [
-            {
-                "courseID": eachCourse.courseID,
-                "courseName": eachCourse.courseName,
-                "courseCategory": eachCourse.courseCategory,
-                "courseDetails": eachCourse.courseDetails,
-                "prereqCourses": eachCourse.prereqCourses,
-                "noOfClasses": eachCourse.noOfClasses,
-                "students": eachCourse.students
-            }
-            for eachCourse in courses]
-
+    course = Course.query.filter_by(courseID=courseID).first()
+    if course:
         return jsonify(
             {
                 "code": 200,
-                "data": courseDetails
+                "data": course.json()
             }
         )
     return jsonify(
         {
             "code": 404,
-            "message": "Course not found."
+            "message": "Course not found." 
         }
     ), 404
 
@@ -77,15 +65,19 @@ def get_learner_courses(staffID):
     takenCourses = [takenCourse.courseID for takenCourse in takenCourses]
 
     courses = Course.query.filter(Course.courseID.in_(takenCourses)).all()
-    print(courses)
-    
+    if len(courses) > 0:
+        return jsonify(
+            {
+                "code": 200,
+                "data": [course.json() for course in courses]
+            }
+        )
     return jsonify(
         {
-            "code": 200,
-            "data": [course.json() for course in courses]
+            "code": 404,
+            "message": "No courses are taken by this learner"
         }
     )
-
 
 # add new course
 @app.route("/course", methods=['POST'])
