@@ -35,8 +35,8 @@ jobs:
       - name: Set up MySQL
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE spm_proj;' -uroot -proot
-          mysql -e 'SHOW DATABASES;' -uroot -proot
+          mysql -e 'CREATE DATABASE spm_proj;' -u root -p
+          mysql -e 'SHOW DATABASES;' -u root -p
       - name: Test with unittest
         run: |
           python -m unittest test_Chapter.py
