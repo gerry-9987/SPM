@@ -29,7 +29,8 @@ jobs:
       
       - name: Test with unittest
         run: |
+          python -m unittest test_Quiz.py
           python -m unittest test_Chapter.py
           python -m unittest test_Class.py
           python -m unittest test_Material.py
-          python -m unittest test_Quiz.py
+          
