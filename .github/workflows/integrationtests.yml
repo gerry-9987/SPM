@@ -14,25 +14,25 @@ jobs:
   build:
     runs-on: ubuntu-18.04
 
-#     env:
-#       DB_DATABASE: spm_proj
-#       DB_USER: root
-#       DB_HOST: localhost
-#       DB_PASSWORD: ''
+    env:
+      DB_DATABASE: spm_proj
+      DB_USER: root
+      DB_HOST: localhost
+      DB_PASSWORD: ''
 
     # defaults:
     #   run:
     #     working-directory: ./backend-api
     
-    services: 
-      mysql: 
-        image: mysql:5.7
-        env:
-          DB_DATABASE: spm_proj
-          DB_USER: '' 
-          DB_PASSWORD: ''
-        ports:
-            - 3306
+#     services: 
+#       mysql: 
+#         image: mysql:5.7
+#         env:
+#           DB_DATABASE: spm_proj
+#           DB_USER: '' 
+#           DB_PASSWORD: ''
+#         ports:
+#             - 3306
       
     steps:
       - uses: actions/checkout@v2
@@ -56,12 +56,13 @@ jobs:
 #           mysql -e 'SHOW DATABASES;' -u spm -p team9
         run: |
             sudo /etc/init.d/mysql start
-            mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
+            mysql -e 'CREATE DATABASE spm_proj;' -uroot -p''
+            mysql -e 'SHOW DATABASES;' -uroot -p''
       - name: Test with unittest
         run: |
           python -m unittest backend-api/test_Chapter.py
           python -m unittest backend-api/test_Material.py
           python -m unittest backend-api/test_Course_Integration.py
-        env:
-          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+#         env:
+#           DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
