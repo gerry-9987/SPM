@@ -44,25 +44,26 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-#       - name: Start SQL
-#         uses: ./spm_proj.sql
+      - name: Start SQL
+        uses: ./spm_proj.sql
 #         with: mysql:5.7 
       - name: Set up MySQL
-#         run: |
-#           sudo /etc/init.d/mysql start
-#           CREATE USER 'spm'@'localhost' IDENTIFIED BY 'team9';
-#           GRANT ALL ON spm_proj.* TO 'spm'@'localhost';
-#           mysql -e 'CREATE DATABASE spm_proj;' -u spm -p team9
-#           mysql -e 'SHOW DATABASES;' -u spm -p team9
         run: |
-            sudo /etc/init.d/mysql start
-            mysql -e 'CREATE DATABASE spm_proj;' -uroot -proot
-            mysql -e 'SHOW DATABASES;' -uroot -p''
+          sudo /etc/init.d/mysql start
+          CREATE USER 'spm'@'localhost' IDENTIFIED BY 'team9';
+          GRANT ALL ON spm_proj.* TO 'spm'@'localhost';
+          mysql -e 'CREATE DATABASE spm_proj;' -u spm -p team9
+          mysql -e 'SHOW DATABASES;' -u spm -p team9
+#         run: |
+#             sudo /etc/init.d/mysql start
+#             mysql -e 'CREATE DATABASE spm_proj;' -uroot -proot
+#             mysql -e 'SHOW DATABASES;' -uroot -p''
       - name: Test with unittest
         run: |
           python -m unittest backend-api/test_Chapter.py
           python -m unittest backend-api/test_Material.py
           python -m unittest backend-api/test_Course_Integration.py
+          python -m unittest backend-api/test_Quiz_Integration.py
 #         env:
 #           DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
