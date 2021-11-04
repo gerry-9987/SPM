@@ -37,8 +37,8 @@ jobs:
       - name: Set up MySQL
         run: |
           sudo /etc/init.d/mysql start
+          pwd
           mysql –u root –p
-          ls -l
           mysql -e 'CREATE DATABASE spm_proj;' -u root -p
           mysql -e 'SHOW DATABASES;' -u root -p
       - name: Test with unittest
