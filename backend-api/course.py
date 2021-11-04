@@ -16,7 +16,6 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-
 # get the list of all courses
 
 @app.route("/course")
