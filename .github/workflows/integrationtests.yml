@@ -18,7 +18,7 @@ jobs:
       DB_DATABASE: spm_proj
       DB_USER: root
       DB_HOST: localhost
-      DB_PASSWORD: ''
+      DB_PASSWORD: root
 
     # defaults:
     #   run:
