@@ -17,7 +17,7 @@ jobs:
     env:
       DB_DATABASE: spm_proj
       DB_USER: root
-      DB_HOST: 127.0.0.1
+      DB_HOST: localhost
       DB_PASSWORD: ''
 
     # defaults:
@@ -38,9 +38,9 @@ jobs:
         run: |
           sudo /etc/init.d/mysql start
           pwd
-          mysql –u root –p
-          mysql -e 'CREATE DATABASE spm_proj;' -u root -p
-          mysql -e 'SHOW DATABASES;' -u root -p
+          ls
+          mysql -e 'CREATE DATABASE spm_proj;'
+          mysql -e 'SHOW DATABASES;'
       - name: Test with unittest
         run: |
           python -m unittest backend-api/test_Chapter.py
