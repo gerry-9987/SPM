@@ -14,16 +14,26 @@ jobs:
   build:
     runs-on: ubuntu-18.04
 
-    env:
-      DB_DATABASE: spm_proj
-      DB_USER: root
-      DB_HOST: localhost
-      DB_PASSWORD: ''
+#     env:
+#       DB_DATABASE: spm_proj
+#       DB_USER: root
+#       DB_HOST: localhost
+#       DB_PASSWORD: ''
 
     # defaults:
     #   run:
     #     working-directory: ./backend-api
-
+    
+    services: 
+      mysql: 
+        image: mysql:5.7
+        env:
+            MYSQL_ALLOW_EMPTY_PASSWORD: yes
+            MYSQL_DATABASE: spm_proj
+        ports:
+            - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.10
@@ -52,4 +62,6 @@ jobs:
           python -m unittest backend-api/test_Chapter.py
           python -m unittest backend-api/test_Material.py
           python -m unittest backend-api/test_Course_Integration.py
+        env:
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
