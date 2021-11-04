@@ -9,6 +9,14 @@ on:
      
   pull_request:
     
+services:
+  mysql:
+    env:
+      MYSQL_DATABASE: spm_proj
+      MYSQL_USER: root
+    ports:
+      - 3306
+
 
 jobs:
   build:
