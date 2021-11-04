@@ -56,7 +56,7 @@ jobs:
 #           mysql -e 'SHOW DATABASES;' -u spm -p team9
         run: |
             sudo /etc/init.d/mysql start
-            mysql -e 'CREATE DATABASE spm_proj;' -uroot -p''
+            mysql -e 'CREATE DATABASE spm_proj;' -uroot -proot
             mysql -e 'SHOW DATABASES;' -uroot -p''
       - name: Test with unittest
         run: |
