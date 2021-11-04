@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Set up MySQL
         run: |
-          sudo /etc/init.d/mysql start
+          sudo systemctl start mysql
           mysql -e 'CREATE DATABASE spm_proj' -uroot -proot
           mysql -e 'SHOW DATABASES;' -uroot -proot
       - uses: actions/checkout@v2
