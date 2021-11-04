@@ -35,7 +35,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Start SQL
-        uses: spm_proj.sql
+        uses: ./spm_proj.sql
         with: mysql:5.7 
       - name: Set up MySQL
         run: |
