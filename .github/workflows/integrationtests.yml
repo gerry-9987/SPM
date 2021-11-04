@@ -1,49 +1,16 @@
-
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
-
-name: Run Integration Tests
-
-on:
-  push:
-     
-  pull_request:
-    
-
 jobs:
-  build:
+  test-host:
     runs-on: ubuntu-latest
-
-    env:
-      DB_DATABASE: spm_proj
-      DB_USER: root
-      DB_HOST: localhost
-      DB_PASSWORD: ''
-
-    # defaults:
-    #   run:
-    #     working-directory: ./backend-api
-
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+        ports:
+        - 32574:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.10"
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      - name: Set up MySQL
-        run: |
-          sudo /etc/init.d/mysql start
-          sudo CREATE USER 'spm'@'localhost' IDENTIFIED BY 'team9';
-          GRANT ALL ON spm_proj.* TO 'spm'@'localhost';
-          mysql -e 'CREATE DATABASE spm_proj;' -u spm -p team9
-          mysql -e 'SHOW DATABASES;' -u spm -p team9
-      - name: Test with unittest
-        run: |
-          python -m unittest backend-api/test_Chapter.py
-          python -m unittest backend-api/test_Material.py
-          python -m unittest backend-api/test_Course_Integration.py
-
+    - name: Verify MySQL connection from host
+      run: |
+        sudo apt-get install -y mysql-client
+        mysql --host 127.0.0.1 --port 32574 -uroot -ppassword -e "SHOW DATABASES"
