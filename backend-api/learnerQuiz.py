@@ -2,7 +2,7 @@ from os import error
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-
+from sqlalchemy import and_
 from dbModel import *
 
 app = Flask(__name__)
@@ -89,24 +89,20 @@ def add_learner_quiz():
 # Endpoint for updating a quiz score (retake quiz)
 @app.route("/learnerquiz", methods=["PUT"])
 def update_score():
-
-    quizID = request.json.get("quizID")
-    staffID = request.json.get("staffID")
-    quizScore = request.json.get("quizScore")
+    new_quizID = request.json.get("quizID")
+    new_staffID = request.json.get("staffID")
+    new_quizScore = request.json.get("quizScore")
     # quizID = 1
     # staffID = 1
     # quizScore = 8
     # learnerquiz = LearnerQuiz(quizID=quizID, staffID = staffID, quizScore=quizScore)
-
-    learnerquiz = LearnerQuiz.query.filter_by(quizID=quizID, staffID = staffID).first()
-    learnerquiz.quizScore = quizScore
-
+    print(new_quizID, new_staffID, new_quizScore)
+    learnerquiz = LearnerQuiz.query.filter(LearnerQuiz.quizID==new_quizID, LearnerQuiz.staffID==new_staffID).first()
+    learnerquiz.quizScore = new_quizScore
     # learnerquiz = LearnerQuiz.query.filter_by(quizID=quizID, staffID = staffID).update(dict(quizScore))
 
     try:
-        # db.session.add(learnerquiz)
-        db.session.commit()
-        
+        learnerquiz.save_to_db()
     except error:
         return jsonify(
             {

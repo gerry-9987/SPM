@@ -4,8 +4,8 @@ start "class" python backend-api/class.py
 start "classChapter" python backend-api/classChapter.py
 start "course" python backend-api/course.py
 start "quiz" python backend-api/quiz.py
-start "gradedQuiz" python backend-api/gradedQuiz.py
 start "learner" python backend-api/learner.py
+start "learnerQuiz" python backend-api/learnerQuiz.py
 start "material" python backend-api/material.py
 start "staff" python backend-api/staff.py
 start "trainer" python backend-api/trainer.py
