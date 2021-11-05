@@ -48,7 +48,9 @@ def get_material_details(chapterID):
                 "materialType": material.materialType,
                 "materialLink": material.materialLink,
                 "materialLinkBody": material.materialLinkBody,
-                "chapterID": material.chapterID
+                "chapterID": material.chapterID,
+                "classID": material.classID,
+                "courseID": material.courseID
             }
             for material in materials]
 

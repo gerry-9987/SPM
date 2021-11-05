@@ -28,8 +28,8 @@ class Chapter(db.Model):
 
     def __init__(self, chapterID, chapterName, chapterDetails, quizID):
         self.chapterID = chapterID
-        self.chapterName = chapterName,
-        self.chapterDetails = chapterDetails,
+        self.chapterName = chapterName
+        self.chapterDetails = chapterDetails
         self.quizID = quizID
 
 
@@ -198,14 +198,19 @@ class Material(db.Model):
     materialLink = db.Column(db.VARCHAR(255), nullable=False)
     materialLinkBody = db.Column(db.VARCHAR(255), nullable=False)
     chapterID = db.Column(db.Integer(), db.ForeignKey('chapter.chapterID'), nullable=False)
+    classID = db.Column(db.Integer(), db.ForeignKey('class.classID'), nullable=False)
+    courseID = db.Column(db.Integer(), db.ForeignKey('class.courseID'), nullable=False)
 
-    def __init__(self, materialID, materialName, materialType, materialLink, materialLinkBody, chapterID):
+
+    def __init__(self, materialID, materialName, materialType, materialLink, materialLinkBody, chapterID, classID, courseID):
         self.materialID = materialID
         self.materialName = materialName
         self.materialType = materialType
         self.materialLink = materialLink
         self.materialLinkBody = materialLinkBody
         self.chapterID = chapterID
+        self.classID = classID
+        self.courseID = courseID
 
     def json(self):
         return {
@@ -214,10 +219,12 @@ class Material(db.Model):
             "materialType": self.materialType,
             "materialLink": self.materialLink,
             "materialLinkBody": self.materialLinkBody,
-            "chapterID": self.chapterID
+            "chapterID": self.chapterID,
+            "classID": self.classID,
+            "courseID": self.courseID
         }
 
-    def save(self):
+    def save_to_db(self):
         db.session.add(self)
         db.session.commit()
 
