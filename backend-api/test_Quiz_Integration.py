@@ -1,3 +1,5 @@
+#Quiz Class Integration Test lead by Geraldine (refer to Quiz Unit Test too)
+
 import unittest
 
 from dbModel import *
@@ -192,6 +194,45 @@ class QuizTestCase(TestingApp):
     #         "message": "Quiz has been created."
     #     })
 
+    def test_missing_parameter_quiz(self):
+        request_body = {
+            "quizID": 116,
+            "startDate": "01 Jan 2021",
+            "endDate": "03 Jan 2021",
+            "questions": "Happy?, Sad?",
+            "answers": "True, False",
+            "passingScore": 0
+        }
+
+        create_quiz_endpoint = "/quiz/create"
+        response = self.client().post(create_quiz_endpoint,
+                                    data=json.dumps(request_body),
+                                    content_type='application/json' )
+
+        self.assertEqual(response.json, {
+            "code": 500,
+            "data": {
+            },
+            "message": "Missing parameters for the quiz."
+        })
+
+    def test_error_in_quiz_creation(self):
+        request_body =  {
+            "answers": "True",
+            "duration": 10,
+            "endDate": "07 Feb 2021",
+            "passingScore": 0,
+            "questions": "Is baby cute?",
+            "quizID": 5,
+            "startDate": "03 Jan 2021"
+        }
+
+        create_quiz_endpoint = "/quiz/create"
+        response = self.client().post(create_quiz_endpoint,
+                                    data=json.dumps(request_body),
+                                    content_type='application/json' )
+
+        self.assertEqual(response.json, None)
 
 if __name__ == "__main__":
     unittest.main()
