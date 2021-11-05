@@ -28,6 +28,8 @@ class MaterialTestCase(TestingApp):
             "material": [
                 {
                     "chapterID": 1,
+                    "classID": 1,
+                    "courseID": 1,
                     "materialID": 1,
                     "materialLink": "https://cseweb.ucsd.edu/classes/sp15/cse190-c/reports/sp15/048.pdf",
                     "materialLinkBody": "Predicting if income exceeds $50,000 per year based on 1994 US Census Data with\nSimple Classification Techniques",
@@ -35,7 +37,9 @@ class MaterialTestCase(TestingApp):
                     "materialType": "document"
                 },
                 {
-                    "chapterID": 1,
+                    "chapterID": 2,
+                    "classID": 1,
+                    "courseID": 1,
                     "materialID": 2,
                     "materialLink": "https://www.google.com/",
                     "materialLinkBody": "You can learn more about google",
@@ -43,7 +47,9 @@ class MaterialTestCase(TestingApp):
                     "materialType": "link"
                 },
                 {
-                    "chapterID": 2,
+                    "chapterID": 3,
+                    "classID": 1,
+                    "courseID": 1,
                     "materialID": 3,
                     "materialLink": "https://www.youtube.com/embed/mFFXuXjVgkU",
                     "materialLinkBody": "Everything you need to know to get started",
@@ -51,7 +57,9 @@ class MaterialTestCase(TestingApp):
                     "materialType": "video"
                 },
                 {
-                    "chapterID": 1,
+                    "chapterID": 4,
+                    "classID": 1,
+                    "courseID": 1,
                     "materialID": 4,
                     "materialLink": "https://www.youtube.com/embed/yfoY53QXEnI",
                     "materialLinkBody": "We will be looking at styles, selectors, declarations, etc. We will build a CSS cheat sheet that you can keep as a resource and we will also create a basic website layout. ",
@@ -72,27 +80,13 @@ class MaterialTestCase(TestingApp):
         check_data = [
             {
                 "chapterID": 1,
+                "classID": 1,
+                "courseID": 1,
                 "materialID": 1,
                 "materialLink": "https://cseweb.ucsd.edu/classes/sp15/cse190-c/reports/sp15/048.pdf",
                 "materialLinkBody": "Predicting if income exceeds $50,000 per year based on 1994 US Census Data with\nSimple Classification Techniques",
                 "materialName": "Census Income",
                 "materialType": "document"
-            },
-            {
-                "chapterID": 1,
-                "materialID": 2,
-                "materialLink": "https://www.google.com/",
-                "materialLinkBody": "You can learn more about google",
-                "materialName": "About google",
-                "materialType": "link"
-            },
-            {
-                "chapterID": 1,
-                "materialID": 4,
-                "materialLink": "https://www.youtube.com/embed/yfoY53QXEnI",
-                "materialLinkBody": "We will be looking at styles, selectors, declarations, etc. We will build a CSS cheat sheet that you can keep as a resource and we will also create a basic website layout. ",
-                "materialName": "CSS Crash Course For Absolute Beginners",
-                "materialType": "video"
             }
         ]
         self.assertEqual(code, 200)

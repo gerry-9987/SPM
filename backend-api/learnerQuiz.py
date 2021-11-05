@@ -63,20 +63,17 @@ def add_learner_quiz():
     staffID = request.json.get("staffID")
     quizScore = request.json.get("quizScore")
     learnerquiz = LearnerQuiz(quizID=quizID, staffID = staffID, quizScore=quizScore)
-
-    try:
-        db.session.add(learnerquiz)
-        db.session.commit()
-        
-    except error:
+    findlearnerquiz = LearnerQuiz.query.filter(LearnerQuiz.quizID==quizID, LearnerQuiz.staffID==staffID).first()
+    if findlearnerquiz:
         return jsonify(
             {
                 "code": 500,
-                "data": {
-                },
-                "message": "An error occurred adding the learner quiz."
+                "message": "Learner Quiz already exists."
             }
         ), 500
+
+    db.session.add(learnerquiz)
+    db.session.commit()
 
     return jsonify(
         {
@@ -98,27 +95,27 @@ def update_score():
     # learnerquiz = LearnerQuiz(quizID=quizID, staffID = staffID, quizScore=quizScore)
     print(new_quizID, new_staffID, new_quizScore)
     learnerquiz = LearnerQuiz.query.filter(LearnerQuiz.quizID==new_quizID, LearnerQuiz.staffID==new_staffID).first()
-    learnerquiz.quizScore = new_quizScore
+    
     # learnerquiz = LearnerQuiz.query.filter_by(quizID=quizID, staffID = staffID).update(dict(quizScore))
 
-    try:
+    if learnerquiz:
+        learnerquiz.quizScore = new_quizScore
         learnerquiz.save_to_db()
-    except error:
+        return jsonify(
+            {
+                "code": 200,
+                "message": "Learner Quiz has been updated."
+            }
+        ), 200
+
+    else:
         return jsonify(
             {
                 "code": 500,
-                "data": {
-                },
-                "message": "An error occurred updating the learner quiz."
+                "message": "Learner Quiz does not exist."
             }
         ), 500
 
-    return jsonify(
-        {
-            "code": 200,
-            "message": "Learner Quiz has been updated."
-        }
-    ), 201
 
 
 
