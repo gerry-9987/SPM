@@ -1,5 +1,5 @@
 // Varoables quizID = courseID + classID + chapterID
-var quizID = 115
+var quizID = 118
 var quizURL = `http://127.0.0.1:5008`
 // var gradedQuizURL = `http://127.0.0.1:5009`
 
@@ -7,8 +7,8 @@ var app = new Vue({
     el: "#app ",
     computed: {},
     data: {
-        quizStart: "01 Jan 2021",
-        quizEnd: "03 Jan 2021",
+        quizStart: "",
+        quizEnd: "",
         quizIsGraded: "ungraded",
         quizQuestions: [],
         quizAnswers: [],
@@ -25,12 +25,19 @@ var app = new Vue({
         createQuiz: function() {
 
             console.log("Adding quiz...")
-            console.log(this.quizQuestions)
-            console.log(this.quizAnswers)
+
+            var tempStartDate = Date(this.quizStart).toString()
+            var tempDateArray = tempStartDate.split(" ")
+            var startDate = tempDateArray[2] + " " + tempDateArray[1] + " " + tempDateArray[3]
+            var tempEndDate = Date(this.quizEnd).toString()
+            var tempEDateArray = tempEndDate.split(" ")
+            var endDate = tempEDateArray[2] + " " + tempEDateArray[1] + " " + tempEDateArray[3]
+
+
             let jsonData = JSON.stringify({
                 'quizID': quizID,
-                'startDate': this.quizStart,
-                'endDate': this.quizEnd,
+                'startDate': startDate,
+                'endDate': endDate,
                 'questions': this.quizQuestions.join(", "),
                 'answers': this.quizAnswers.join(", "),
                 'duration': this.quizDuration,

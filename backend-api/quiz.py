@@ -107,6 +107,7 @@ def add_quiz():
     try:
         quizID = request.json.get("quizID")
         startDate = request.json.get("startDate")
+        
         endDate = request.json.get("endDate")
         questions = request.json.get("questions")
         answers = request.json.get("answers")
@@ -146,7 +147,7 @@ def add_quiz():
             "code": 200,
             "message": "Quiz has been created."
         }
-    ), 201
+    ), 200
 
 
 if __name__ == '__main__':
