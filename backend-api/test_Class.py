@@ -1,52 +1,147 @@
 import unittest
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from cclass import app, db
 
-import os
+import json
+from ast import literal_eval
 
-# import pytest
-from os import error
-from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
-from datetime import datetime
+class TestingApp(unittest.TestCase):
 
-# from .. import dbModel
-from dbModel import Class
-
-
-class TestClass(unittest.TestCase):
     def setUp(self):
-        self.__class175 = dbModel.Class("1, 175, '01 Feb 2022', '01 May 2022', '10:00:00', '12:00:00', 20, 'Haoyue', 3, 175")
+        self.app = app
+        self.client = self.app.test_client
+        with self.app.app_context():
+            db.create_all()
+        self.assertIsNotNone(self.app, "Failed to load app")
+        self.assertIsNotNone(self.client, "Failed to load client")
 
     def tearDown(self):
-        self.__class175 = None
+        db.session.remove()
+        db.drop_all()
 
-    def test_get(self):
-        print("Hello")
+class ClassTestCase(TestingApp):
 
-# class TestClass(unittest.TestCase):
+    def test_get_all_classes(self):
+        class_endpoint = "/class"
+        response = self.client().get(class_endpoint)
+        code = response.status_code
+        # decode bytes to string
+        print(response.data)
+        data = json.loads(response.data.decode("utf-8").replace("'", "\""))["data"]
+        check_data = {
+                "classes": [
+                    {
+                        "classID": 1,
+                        "classSize": 4,
+                        "courseID": 1,
+                        "endDate": "03 Feb 2021",
+                        "endTime": "23:30:00",
+                        "staffID": 3,
+                        "startDate": "01 Jan 2021",
+                        "startTime": "22:30:00",
+                        "trainerName": "Haoyue"
+                    },
+                    {
+                        "classID": 2,
+                        "classSize": 4,
+                        "courseID": 1,
+                        "endDate": "03 Feb 2021",
+                        "endTime": "01:30:00",
+                        "staffID": 3,
+                        "startDate": "01 Jan 2021",
+                        "startTime": "12:30:00",
+                        "trainerName": "Haoyue"
+                    },
+                    {
+                        "classID": 3,
+                        "classSize": 4,
+                        "courseID": 2,
+                        "endDate": "07 May 2021",
+                        "endTime": "02:30:00",
+                        "staffID": 3,
+                        "startDate": "03 Feb 2021",
+                        "startTime": "01:30:00",
+                        "trainerName": "Haoyue"
+                    },
+                    {
+                        "classID": 4,
+                        "classSize": 4,
+                        "courseID": 2,
+                        "endDate": "07 May 2021",
+                        "endTime": "03:30:00",
+                        "staffID": 3,
+                        "startDate": "03 Feb 2021",
+                        "startTime": "02:30:00",
+                        "trainerName": "Haoyue"
+                    },
+                    {
+                        "classID": 5,
+                        "classSize": 4,
+                        "courseID": 2,
+                        "endDate": "07 May 2021",
+                        "endTime": "23:30:00",
+                        "staffID": 4,
+                        "startDate": "03 Feb 2021",
+                        "startTime": "22:30:00",
+                        "trainerName": "Jewel"
+                    },
+                    {
+                        "classID": 6,
+                        "classSize": 4,
+                        "courseID": 2,
+                        "endDate": "07 May 2021",
+                        "endTime": "02:30:00",
+                        "staffID": 4,
+                        "startDate": "03 Feb 2021",
+                        "startTime": "12:30:00",
+                        "trainerName": "Jewel"
+                    },
+                    {
+                        "classID": 7,
+                        "classSize": 4,
+                        "courseID": 3,
+                        "endDate": "07 May 2021",
+                        "endTime": "02:30:00",
+                        "staffID": 4,
+                        "startDate": "04 Mar 2021",
+                        "startTime": "01:30:00",
+                        "trainerName": "Jewel"
+                    }
+                    ]
+        }
+        self.assertEqual(code, 200)
+        self.assertEqual(data, check_data)
 
-#     engine = create_engine('sqlite:///:memory:')
-#     Session = sessionmaker(bind=engine)
-#     session = Session()
-
-#     def setUp(self):
-#         Class.metadata.create_all(self.engine)
-#         self.session.add(dbModel.Class("1, 175, '01 Feb 2022', '01 May 2022', '10:00:00', '12:00:00', 20, 'Haoyue', 3, 175"))
-#         self.session.commit()
-
-#     def tearDown(self):
-#         dbModel.Class.metadata.drop_all(self.engine)
-
-#     def test_query_panel(self):
-#         self.assertEqual("hello", "hello")
-        # expected = [dbModel.Class("1, 175, '01 Feb 2022', '01 May 2022', '10:00:00', '12:00:00', 20, 'Haoyue', 3, 175")]
-        # result = self.session.query(dbModel.Class).all()
-        # self.assertEqual(result, expected)
-
-if __name__ == "__main__":
-    unittest.main()
-
-
-
+    def test_get_specific_class(self):
+        specific_class_endpoint = "/class/1"
+        response = self.client().get(specific_class_endpoint)
+        code = response.status_code
+        # decode bytes to string
+        data = json.loads(response.data.decode("utf-8").replace("'", "\""))["data"]
+        check_data = [
+                        {
+                        "classID": 1,
+                        "classSize": 4,
+                        "courseID": 1,
+                        "endDate": "03 Feb 2021",
+                        "endTime": "23:30:00",
+                        "quizID": 1,
+                        "staffID": 3,
+                        "startDate": "01 Jan 2021",
+                        "startTime": "22:30:00",
+                        "trainerName": "Haoyue"
+                        },
+                        {
+                        "classID": 2,
+                        "classSize": 4,
+                        "courseID": 1,
+                        "endDate": "03 Feb 2021",
+                        "endTime": "01:30:00",
+                        "quizID": 2,
+                        "staffID": 3,
+                        "startDate": "01 Jan 2021",
+                        "startTime": "12:30:00",
+                        "trainerName": "Haoyue"
+                        }
+                    ]
+        self.assertEqual(code, 200)
+        self.assertEqual(data, check_data)
