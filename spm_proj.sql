@@ -95,6 +95,8 @@ CREATE TABLE CLASS_CHAPTER
     courseID int(11) NOT NULL,
     classID int(11) NOT NULL,
     chapterID int(11) NOT NULL,
+    quizID int(11) NOT NULL,
+
     CONSTRAINT class_chapter_pk PRIMARY KEY (courseID, classID, chapterID),
     CONSTRAINT class_chapter_fk FOREIGN KEY (courseID, classID) REFERENCES CLASS(courseID, classID),
     CONSTRAINT class_chapter_fk2 FOREIGN KEY (chapterID) REFERENCES CHAPTER(chapterID)
@@ -289,12 +291,12 @@ INSERT INTO CLASS VALUES
 -- (18, 8, '21 Dec 2021', '28 Feb 2022', '22:30:00', '23:30:00', 2, 'Jewel', 4);
 
 INSERT INTO CLASS_CHAPTER VALUES
-(1, 1, 1),
-(1, 1, 2),
-(1, 1, 3),
-(2, 5, 4),
-(2, 6, 7),
-(3, 7, 8);
+(1, 1, 1, 1),
+(1, 1, 2,2),
+(1, 1, 3,3),
+(1, 1, 4,4),
+(2, 6, 7,11),
+(3, 7, 8,12);
 -- (4, 8, 8),
 -- (4, 10, 3),
 -- (5, 11, 5),

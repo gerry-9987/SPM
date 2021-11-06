@@ -9,6 +9,7 @@ console.log(courseID)
 var classDetailsURL = `http://127.0.0.1:5002/classes/${courseID}`
 var courseDetailsURL = `http://127.0.0.1:5003/course/${courseID}`
 var courseURL = 'http://127.0.0.1:5003'
+var takeClassURL = 'http://127.0.0.1:5007'
 var chapterDetailsURL = `http://127.0.0.1:5000/chapter/course/${courseID}`
 var studentID = 13
 
@@ -32,6 +33,7 @@ var app = new Vue({
         courseChaptersArray: [],
         courseStudents: [],
         isEnrolled: false,
+        selectedClass: 0
     },
     created: function() {
         this.getCourseDetails(),
@@ -63,10 +65,12 @@ var app = new Vue({
             }
 
             let jsonData = JSON.stringify({
-                'studentID': studentID,
-                'courseID': courseID
+                'staffID': studentID,
+                'courseID': courseID,
+                'courseName': this.courseName,
+                'classID': this.selectedClass
             });
-            fetch(`${courseURL}/signup`, {
+            fetch(`${takeClassURL}/take_class`, {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"
@@ -84,7 +88,44 @@ var app = new Vue({
                             this.isEnrolled = true
                             alert("Scuessfully Enrolled!");
                             break;
-                        case 400:
+                        case 300:
+                            alert('Enroll already lah')
+                        case 500:
+                            console.log('failure')
+                            break;
+                        default:
+                            throw `${data.code}: ${data.message}`;
+                    }
+                })
+        },
+        withdraw: function() {
+            console.log('withdrawal has been clicked')
+
+            let jsonData = JSON.stringify({
+                'staffID': studentID,
+                'courseID': courseID,
+                'courseName': this.courseName,
+                'classID': this.selectedClass
+            });
+            fetch(`${takeClassURL}/withdraw`, {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: jsonData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    result = data.data;
+                    console.log(result);
+                    // 3 cases
+                    switch (data.code) {
+                        case 200:
+                            console.log('success')
+                            alert("Withdrawal success");
+                            break;
+                        case 300:
+                            alert('Not enrolled lah')
                         case 500:
                             console.log('failure')
                             break;

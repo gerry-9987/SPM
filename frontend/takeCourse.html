@@ -80,15 +80,14 @@
                     <a v-if="materialType[selectedNum-1] == 'document'" class="btn btn-primary mb-2" v-bind:href="materials[selectedNum-1]" role="button">Download</a>
                     <a v-else-if="materialType[selectedNum-1] == 'link'" class="btn btn-primary mb-2" v-bind:href="materials[selectedNum-1]" role="button">Go to Website</a>
                     <iframe v-else-if="materialType[selectedNum-1] == 'video'" v-bind:src="materials[selectedNum-1]"></iframe>
+                    <a class="btn btn-success mb-2" @click='redirectQuizPage(quizIDs[selectedNum-1])' ole="button">Do quiz</a>
                     <p>
+
                         <input type="checkbox" v-model="finish" name="finish[]" :id="selectedNum" v-bind:value=" selectedNum "><label :for='selectedNum' class='ml-2'> Click when done with the learning material</label></p>
                 </div>
             </div>
         </div>
-        <div class="border border-grey rounded p-3 mt-2">
-            <a href="takeQuiz.html " class="btn btn-info " role="button ">Take End Of Chapter Quiz</a></p>
-        </div>
-
+        <button v-if="completedChapters-1 == chapters.length" @click='redirectQuizPage(quizID)' class="btn btn-danger m-3">View Final Quiz</button>
     </div>
 
     <!-- Optional JavaScript -->

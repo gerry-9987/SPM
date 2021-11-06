@@ -112,18 +112,21 @@ class ClassChapter(db.Model):
     courseID = db.Column(db.Integer(), db.ForeignKey('class.courseID'), primary_key=True, nullable=False)
     classID = db.Column(db.Integer(), db.ForeignKey('class.classID'), primary_key=True, nullable=False)
     chapterID = db.Column(db.Integer(), db.ForeignKey('chapter.chapterID'), primary_key=True, autoincrement=True)
+    quizID = db.Column(db.Integer(), db.ForeignKey('quiz.quizID'), primary_key=True, autoincrement=True)
 
-    def __init__(self, courseID, classID, chapterID):
+    def __init__(self, courseID, classID, chapterID, quizID):
         self.courseID = courseID
         self.classID = classID
         self.chapterID = chapterID
+        self.quizID = quizID
 
 
     def json(self):
         return {
             "courseID": self.courseID,
             "classID": self.classID,
-            "chapterID": self.chapterID
+            "chapterID": self.chapterID,
+            "quizID": self.quizID
         }
 
     def save_to_db(self):

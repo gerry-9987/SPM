@@ -101,8 +101,15 @@ def add_class_taken():
 
     class_taken = Take_Class(staffID, courseID, courseName, classID)
 
-    print(class_taken)
-
+    findClassTaken = Take_Class.query.filter(Take_Class.staffID==staffID, Take_Class.courseID==courseID, Take_Class.classID==classID).first()
+    if findClassTaken:
+        return jsonify(
+        {
+            "code": 300,
+            "message": 'already have this entry'
+        }
+    ), 300
+        
     try:
         db.session.add(class_taken)
         db.session.commit()
@@ -118,11 +125,51 @@ def add_class_taken():
 
     return jsonify(
         {
-            "code": 201,
+            "code": 200,
             "data": class_taken.json()
         }
-    ), 201
+    ), 200
 
+# Withdraw from a class
+@app.route("/withdraw", methods=['POST'])
+def withdraw():
+
+    staffID = request.json.get("staffID")
+    courseID = request.json.get("courseID")
+    courseName = request.json.get("courseName")
+    classID = request.json.get("classID")
+
+    class_taken = Take_Class(staffID, courseID, courseName, classID)
+
+    findClassTaken = Take_Class.query.filter(Take_Class.staffID==staffID, Take_Class.courseID==courseID, Take_Class.classID==classID).first()
+    if not findClassTaken:
+        return jsonify(
+        {
+            "code": 300,
+            "message": 'Not enrolled at the moment'
+        }
+    ), 300
+        
+    try:
+        Take_Class.query.filter(Take_Class.staffID==staffID, Take_Class.courseID==courseID, Take_Class.classID==classID).delete()
+        db.session.commit()
+        
+    except error:
+        return jsonify(
+            {
+                "code": 500,
+                "data": {
+                },
+                "message": "An error occurred withdrawing from the class."
+            }
+        ), 500
+
+    return jsonify(
+        {
+            "code": 200,
+            "data": class_taken.json()
+        }
+    ), 200
 
 if __name__ == '__main__':
     app.run(port=5007, debug=True)

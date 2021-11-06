@@ -79,6 +79,29 @@ def get_course_class_chapter(courseID, classID, chapterID):
         }
     ), 404
 
+# get quizzes from a specific class and course
+@app.route("/find_quizes", methods=['POST'])
+def find_quizes():
+
+    classID = request.json.get("classID")
+    courseID = request.json.get("courseID")
+    print(classID, courseID)
+
+    findclasses = ClassChapter.query.filter(ClassChapter.classID==classID, ClassChapter.courseID==courseID).all()
+    print(findclasses)
+    
+    res = []
+    for findclass in findclasses:
+        res.append(findclass.quizID)
+
+
+    return jsonify(
+        {
+            "code": 200,
+            "data": res
+        }
+    ), 200
+    
 
 if __name__ == '__main__':
     app.run(port=5001, debug=True)

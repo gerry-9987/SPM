@@ -44,7 +44,6 @@ def get_details(staffID):
             if classDetail not in singleDetails:
                 singleDetails[classDetail] = classDetails[classDetail]
         
-        print()
         print(singleDetails)
         classChapters = ClassChapter.query.filter(
             and_(ClassChapter.courseID==courseID,

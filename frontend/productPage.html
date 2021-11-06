@@ -73,11 +73,11 @@
                         <p>
                             <h5>Class</h5>
                             <div class="form-check form-check-inline" v-for="section in courseClassArray">
-                                <input class="form-check-input" type="radio" name="class" id="classid1" value="option1">
-                                <label class="form-check-label" for="inlineRadio1">{{section}}</label>
+                                <input class="form-check-input" type="radio" :name="section" :id="section" :value="section" v-model="selectedClass ">
+                                <label class="form-check-label " :for="section ">{{section}}</label>
                             </div>
-                            <button @click='signUpCourse()' type="submit" class="btn btn-success px-5 mt-3 btn-block">Self-Enroll</button>
-                            <button type="submit" class="btn btn-success px-5 mt-3 btn-block disabled">Withdraw</button>
+                            <button @click='signUpCourse()' type="submit " class="btn btn-success px-5 mt-3 btn-block ">Self-Enroll</button>
+                            <button @click='withdraw()' class="btn btn-success px-5 mt-3 btn-block">Withdraw</button>
                         </p>
                     </div>
                 </div>
@@ -86,21 +86,21 @@
         <!-- Course Outline-->
         <!-- #TODO: fix chapter details -->
 
-        <div class="container-fluid section-wrapper">
+        <div class="container-fluid section-wrapper ">
             <h2>Course Outline</h2>
 
             <div>
-                <div class="card" v-for="(courseChapter, num) in courseChaptersArray">
-                    <div class="card-header" id="num">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" :data-target="'#chapter'+num" aria-expanded="false" aria-controls="collapseOn">
+                <div class="card " v-for="(courseChapter, num) in courseChaptersArray ">
+                    <div class="card-header " id="num ">
+                        <h5 class="mb-0 ">
+                            <button class="btn btn-link collapsed " data-toggle="collapse " :data-target=" ' #chapter '+num " aria-expanded="false " aria-controls="collapseOn ">
                                 Chapter {{num+1}}
                             </button>
                         </h5>
                     </div>
 
-                    <div :id="'chapter'+num" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body">
+                    <div :id=" 'chapter '+num " class="collapse " aria-labelledby="headingOne " data-parent="#accordion ">
+                        <div class="card-body ">
                             {{ courseChapter.chapterDetails }}
                         </div>
                     </div>
@@ -114,9 +114,9 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js " integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN " crossorigin="anonymous "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js " integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q " crossorigin="anonymous "></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js " integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl " crossorigin="anonymous "></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
     <style>
         .section-wrapper {
@@ -124,18 +124,18 @@
         }
     </style>
 
-    <script src="productPage.js" async defer></script>
+    <script src="productPage.js " async defer></script>
 
     <script>
         var app = new Vue({
             el: "#accordion ",
             computed: {},
             data: {
-                title: "Python Course for Repair Engineers",
-                description: "Learn Python like a Professional Start from the basics and go all the way to creating your own applications and games. You will learn a lot in this course",
-                course: "Python Course",
-                date: "2 Feb 2022 to 15 Mar 2022",
-                prerequisites: "Intro to programming",
+                title: "Python Course for Repair Engineers ",
+                description: "Learn Python like a Professional Start from the basics and go all the way to creating your own applications and games. You will learn a lot in this course ",
+                course: "Python Course ",
+                date: "2 Feb 2022 to 15 Mar 2022 ",
+                prerequisites: "Intro to programming ",
                 size: 10,
                 chapter: 5,
                 ungraded: 5,
@@ -143,14 +143,14 @@
                     1, 2, 3
                 ],
                 trainers: [
-                    "Kelly", "Alan", "Ryan"
+                    "Kelly ", "Alan ", "Ryan "
                 ],
                 chapter_details: [
-                    "Be familiar with engineering graphing, drawing, and sketching techniques",
-                    "Explain what dependent and independent variables are, notation used, and how relationships are developed between them",
-                    "Be familiar with the unit systems used in engineering, specifically for this course",
-                    "Understand unit analysis and be able to use units effectively in calculations and in checking your final answer for correctness",
-                    "Use exact numbers and significant figures correctly in calculations",
+                    "Be familiar with engineering graphing, drawing, and sketching techniques ",
+                    "Explain what dependent and independent variables are, notation used, and how relationships are developed between them ",
+                    "Be familiar with the unit systems used in engineering, specifically for this course ",
+                    "Understand unit analysis and be able to use units effectively in calculations and in checking your final answer for correctness ",
+                    "Use exact numbers and significant figures correctly in calculations ",
                 ]
 
             },

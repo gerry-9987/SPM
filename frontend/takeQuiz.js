@@ -1,3 +1,8 @@
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const quizID = urlParams.get('quizID')
+console.log(quizID)
+
 const now = Date.now()
 const start = new Date(now)
 console.log(now)
@@ -6,7 +11,7 @@ const classID = 1
 const quizID = 1
 var quizURL = `http://127.0.0.1:5008/quiz/${quizID}`
 var questionsURL = `http://127.0.0.1:5008/quiz/${quizID}/questions`
-var answersURL =  `http://127.0.0.1:5008/quiz/${quizID}/answers`
+var answersURL = `http://127.0.0.1:5008/quiz/${quizID}/answers`
 var allquizURL = `http://127.0.0.1:5008/quiz`
 var learnerquizURL = `http://127.0.0.1:5010/learnerquiz`;
 var app = new Vue({
@@ -14,12 +19,12 @@ var app = new Vue({
     data: {
         classID: 1,
         // DO NOT USE 1 and 2 for StaffID, learers are staffID 1,2,6,7,8,9
-        staffID: 6,       
+        staffID: 6,
         duration: 0,
         questions: [],
         answers: [],
         tookQuiz: [],
-        response:[],
+        response: [],
         learnerAnswer: [],
         // questions_answers: [],       
         score: 0,
@@ -28,15 +33,15 @@ var app = new Vue({
     },
     created: function() {
         this.getQuestions(),
-        this.getAnswers(),
-        this.takenQuiz(),
-        this.getDuration(),
-        this.timeAlert(),
-        this.getLearnerAnswers()
-        // this.getQuiz()
-        // this.getQuiz(),
-        // this.getAnswers(),
-        // this.postAnswers()
+            this.getAnswers(),
+            this.takenQuiz(),
+            this.getDuration(),
+            this.timeAlert(),
+            this.getLearnerAnswers()
+            // this.getQuiz()
+            // this.getQuiz(),
+            // this.getAnswers(),
+            // this.postAnswers()
     },
 
     methods: {
@@ -90,7 +95,7 @@ var app = new Vue({
                 })
         },
 
-        
+
         takenQuiz: function() {
             console.log('Getting learners who have taken this quiz')
             fetch(learnerquizURL)
@@ -102,9 +107,9 @@ var app = new Vue({
                     switch (data.code) {
                         case 200:
                             console.log('success')
-                            for (var quiz of result){
+                            for (var quiz of result) {
                                 // console.log(quiz.quizID)
-                                if (quiz.quizID == quizID){
+                                if (quiz.quizID == quizID) {
                                     this.tookQuiz.push(quiz.staffID)
                                 }
                             }
@@ -128,23 +133,23 @@ var app = new Vue({
                     console.log(data)
                     this.duration = data.data.duration
                 })
-                console.log(typeof(now))
-            console.log(now + 60*(this.duration))
-            this.endDate = new Date(now + 60*this.duration)
-            // var endDate = new Date(now + 60*this.duration)
+            console.log(typeof(now))
+            console.log(now + 60 * (this.duration))
+            this.endDate = new Date(now + 60 * this.duration)
+                // var endDate = new Date(now + 60*this.duration)
             console.log('END DATE')
             console.log(this.endDate)
         },
 
         timeAlert: function() {
-            
-            if (now == this.endDate){
+
+            if (now == this.endDate) {
                 console.log('Times up!')
                 console.log(now)
                 alert("Your Time Is Up! Submit your quiz NOW!")
             }
         },
-        
+
         getLearnerAnswers: function() {
             let inputs = document.getElementsByClassName('answer')
             for (var an_input of inputs) {
@@ -161,17 +166,17 @@ var app = new Vue({
         },
 
 
-        checkAnswers: function(){
+        checkAnswers: function() {
             // TODO: you can retrieve the /quiz/<quizID>/answers API endpoint to check against this.learnerAnswer
             // we managed to retrieve the list of answers that the learner entered
             console.log('Check answers!')
             console.log(this.answers)
             console.log(this.learnerAnswer)
-            // console.log(this.answers[0])
-            // console.log(this.answers[0])
-            for(var i=0; i<this.answers.length; i++){
+                // console.log(this.answers[0])
+                // console.log(this.answers[0])
+            for (var i = 0; i < this.answers.length; i++) {
                 // console.log(i)
-                if (this.learnerAnswer[i]==this.answers[i]){
+                if (this.learnerAnswer[i] == this.answers[i]) {
                     this.score++
                 }
             }
@@ -181,28 +186,27 @@ var app = new Vue({
 
             console.log(this.score);
             // this.checkedAnswers = true;
-            if (!this.tookQuiz.includes(this.staffID)){
+            if (!this.tookQuiz.includes(this.staffID)) {
                 console.log('Post Answers')
                 this.postAnswers();
-            } else{
+            } else {
                 console.log('Retake Quiz')
                 this.retakeQuiz()
             }
-            
+
         },
 
-        postAnswers: function(){
-            
-            if((this.learnerAnswer.length == this.questions.length)){
+        postAnswers: function() {
+
+            if ((this.learnerAnswer.length == this.questions.length)) {
 
                 console.log('Conditions satisfied, post answers!')
-                
-                let jsonData = JSON.stringify(
-                    {
-                        "quizID" : quizID,
-                        "staffID" : this.staffID,
-                        "quizScore" : this.score,
-                    });
+
+                let jsonData = JSON.stringify({
+                    "quizID": quizID,
+                    "staffID": this.staffID,
+                    "quizScore": this.score,
+                });
 
                 console.log(jsonData);
 
@@ -246,25 +250,23 @@ var app = new Vue({
                     .catch(error => {
                         console.log("Problem in posting quiz Score " + error);
                     })
-            }
-            else{
-                this.alertMessage='You cannot submit this quiz before you have finished all the questions!';
+            } else {
+                this.alertMessage = 'You cannot submit this quiz before you have finished all the questions!';
             }
         },
 
 
-        retakeQuiz: function(){
+        retakeQuiz: function() {
 
-            if((this.learnerAnswer.length == this.questions.length)){
+            if ((this.learnerAnswer.length == this.questions.length)) {
 
                 console.log('Conditions satisfied, post answers for retake quiz!')
-                
-                let jsonData = JSON.stringify(
-                    {
-                        "quizID" : this.classID,
-                        "staffID" : this.staffID,
-                        "quizScore" : this.score,
-                    });
+
+                let jsonData = JSON.stringify({
+                    "quizID": this.classID,
+                    "staffID": this.staffID,
+                    "quizScore": this.score,
+                });
 
                 console.log(jsonData);
 
@@ -308,9 +310,8 @@ var app = new Vue({
                     .catch(error => {
                         console.log("Problem in posting quiz Score " + error);
                     })
-            }
-            else{
-                this.alertMessage='You cannot submit this quiz before you have finished all the questions!';
+            } else {
+                this.alertMessage = 'You cannot submit this quiz before you have finished all the questions!';
             }
         }
     }
