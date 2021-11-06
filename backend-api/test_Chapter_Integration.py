@@ -138,3 +138,6 @@ class ChapterTestCase(TestingApp):
         }
         self.assertEqual(code, 200)
         self.assertEqual(data, check_data)
+
+    # TODO: get specific chapter endpoint
+    # TODO: get chapters by course
