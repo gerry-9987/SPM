@@ -50,8 +50,8 @@ jobs:
       - name: Set up MySQL
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e "SELECT host, user, password FROM mysql.user;"
-          
+          mysql -e "SELECT host, user, password FROM mysql.user;" -u root -p root
+
 #         run: |
 #             sudo /etc/init.d/mysql start
 #             mysql -e 'CREATE DATABASE spm_proj;' -uroot -proot
