@@ -50,10 +50,11 @@ jobs:
       - name: Set up MySQL
         run: |
           sudo /etc/init.d/mysql start
-          sudo mysql -e "CREATE USER 'spm'@'localhost' IDENTIFIED BY 'team9';"
-          sudo mysql -e "GRANT ALL ON spm_proj.* TO 'spm'@'localhost';"
-          mysql -e 'CREATE DATABASE spm_proj;' -u spm -p team9
-          mysql -e 'SHOW DATABASES;' -u spm -p team9
+          sudo mysql -u root
+          CREATE USER 'spm'@'localhost' IDENTIFIED BY 'team9';
+          GRANT CREATE, DROP, INSERT, UPDATE, DELETE, SELECT ON spm_proj.* TO 'spm'@'localhost';
+          CREATE DATABASE spm_proj;
+          SHOW DATABASES;
 #         run: |
 #             sudo /etc/init.d/mysql start
 #             mysql -e 'CREATE DATABASE spm_proj;' -uroot -proot
@@ -61,12 +62,12 @@ jobs:
       - name: Test with unittest
         run: |
           python -m unittest backend-api/test_Chapter_Integration.py
+          python -m unittest backend-api/test_Learner_Integration.py
           python -m unittest backend-api/test_Material_Integration.py
-          python -m unittest backend-api/test_Course_Integration.py
           python -m unittest backend-api/test_Quiz_Integration.py
           python -m unittest backend-api/test_Staff_Integration.py
-          python -m unittest backend-api/test_Learner_Integration.py
           python -m unittest backend-api/test_Trainer_Integration.py
+#          python -m unittest backend-api/test_Course_Integration.py
 #         env:
 #           DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
