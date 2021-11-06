@@ -62,6 +62,7 @@ jobs:
       - name: Test with unittest
         run: |
           python -m unittest backend-api/test_Chapter_Integration.py
+          python -m unittest backend-api/test_Class_Integration.py
           python -m unittest backend-api/test_Learner_Integration.py
           python -m unittest backend-api/test_Material_Integration.py
           python -m unittest backend-api/test_Quiz_Integration.py
