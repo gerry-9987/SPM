@@ -64,8 +64,9 @@ jobs:
           python -m unittest backend-api/test_Material.py
           python -m unittest backend-api/test_Course_Integration.py
           python -m unittest backend-api/test_Quiz_Integration.py
-          python -m unittest backend-api/test_Staff.py
-          python -m unittest backend-api/test_Learner.py
+          python -m unittest backend-api/test_Staff_Integration.py
+          python -m unittest backend-api/test_Learner_Integration.py
+          python -m unittest backend-api/test_Trainer_Integration.py
 #         env:
 #           DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
