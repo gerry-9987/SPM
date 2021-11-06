@@ -1,5 +1,6 @@
 import unittest
 from cclass import app, db
+from textwrap import wrap
 
 import json
 from ast import literal_eval
@@ -9,6 +10,7 @@ class TestingApp(unittest.TestCase):
     def setUp(self):
         self.app = app
         self.client = self.app.test_client
+        self.maxDiff = None
         with self.app.app_context():
             db.create_all()
         self.assertIsNotNone(self.app, "Failed to load app")
@@ -25,7 +27,6 @@ class ClassTestCase(TestingApp):
         response = self.client().get(class_endpoint)
         code = response.status_code
         # decode bytes to string
-        print(response.data)
         data = json.loads(response.data.decode("utf-8").replace("'", "\""))["data"]
         check_data = {
             "classes": [
