@@ -1,140 +1,90 @@
 import unittest
-from chapter import app, db
-
+from unittest import mock
 import json
-from ast import literal_eval
+import os
 
-class TestingApp(unittest.TestCase):
+from dbModel import *
 
+def mocked_requests_get(*args, **kwargs):
+    class MockResponse:
+        def __init__(self, json_data, status_code):
+            self.json_data = json_data
+            self.status_code = status_code
+
+        def json(self):
+            return self.json_data
+
+    if args[0] == "backend-api/tdd_mockfiles/testChapters.json":
+        return MockResponse({"message": "Successfully retrieved all chapters"}, 200)
+    elif args[0] == "backend-api/tdd_mockfiles/testChapter.json":
+        return MockResponse({"message": "Successfully retrieved based on chapterID"}, 200)
+
+    return MockResponse(None, 404)
+
+class test_Chapter(unittest.TestCase):
     def setUp(self):
-        self.app = app
-        self.client = self.app.test_client
-        with self.app.app_context():
-            db.create_all()
+        self.chapter = Chapter(7, "Week 7 TDD", "Learn about test-driven development", 5)
 
     def tearDown(self):
-        db.session.remove()
-        db.drop_all()
+        self.chapter = None
 
-class ChapterTestCase(TestingApp):
+    def test_chapter_details(self):
+        chapterDetails = self.chapter.json()
+        print(chapterDetails)
+        checkChapter = {
+            "chapterID": 7,
+            "chapterName": 'Week 7 TDD',
+            "chapterDetails": 'Learn about test-driven development',
+            "quizID": 5
+            }
+        self.assertEqual(chapterDetails, checkChapter)
 
-    def test_get_all_chapters(self):
-        chapter_endpoint = "/chapter"
-        response = self.client().get(chapter_endpoint)
-        code = response.status_code
-        # decode bytes to string
-        data = json.loads(response.data.decode("utf-8").replace("'", "\""))["data"]
-        check_data = {
-            "chapters": [
+    def fetch_json(self, testfile):
+        with open(testfile, "r") as myfile:
+            response = json.load(myfile)
+        data = response["data"]
+        code = response["code"]
+        return data, code
+
+
+    @mock.patch('requests.get', side_effect=mocked_requests_get)
+    def test_get_all_chapters(self, mock_get):
+        print(os.getcwd())
+        mychapter = test_Chapter()
+        json_data, code = mychapter.fetch_json("backend-api/tdd_mockfiles/testChapters.json")
+        mocked_requests_get
+        check_data = [
                 {
-                    "chapterDetails": "A cat is running away",
                     "chapterID": 1,
-                    "chapterName": "CAT",
+                    "chaperName": "Happy",
+                    "chapterDetails": "Be Happy",
                     "quizID": 1
                 },
                 {
-                    "chapterDetails": "A dog is running away",
                     "chapterID": 2,
-                    "chapterName": "DOG",
-                    "quizID": 2
-                },
-                {
-                    "chapterDetails": "A turtle is running away",
-                    "chapterID": 3,
-                    "chapterName": "TURTLE",
+                    "chaperName": "Anger",
+                    "chapterDetails": "Manage your anger",
                     "quizID": 3
-                },
-                {
-                    "chapterDetails": "My life is great",
-                    "chapterID": 4,
-                    "chapterName": "LIFE",
-                    "quizID": 4
-                },
-                {
-                    "chapterDetails": "A foetus is growing",
-                    "chapterID": 5,
-                    "chapterName": "foetus",
-                    "quizID": 5
-                },
-                {
-                    "chapterDetails": "A baby is crawling away",
-                    "chapterID": 6,
-                    "chapterName": "baby",
-                    "quizID": 6
-                },
-                {
-                    "chapterDetails": "yay diluc",
-                    "chapterID": 7,
-                    "chapterName": "diluc",
-                    "quizID": 7
-                },
-                {
-                    "chapterDetails": "yay zhongli",
-                    "chapterID": 8,
-                    "chapterName": "zhongli",
-                    "quizID": 8
-                },
-                {
-                    "chapterDetails": "yay cutest",
-                    "chapterID": 9,
-                    "chapterName": "cutest",
-                    "quizID": 1
-                },
-                {
-                    "chapterDetails": "yay cuter",
-                    "chapterID": 10,
-                    "chapterName": "cuter",
-                    "quizID": 2
-                },
-                {
-                    "chapterDetails": "AAA yummy",
-                    "chapterID": 11,
-                    "chapterName": "AAA",
-                    "quizID": 3
-                },
-                {
-                    "chapterDetails": "BBB happy",
-                    "chapterID": 12,
-                    "chapterName": "BBB",
-                    "quizID": 4
-                },
-                {
-                    "chapterDetails": "BBV bumble bee",
-                    "chapterID": 13,
-                    "chapterName": "BBV",
-                    "quizID": 5
-                },
-                {
-                    "chapterDetails": "CCC bumble bee",
-                    "chapterID": 14,
-                    "chapterName": "CCC",
-                    "quizID": 6
-                },
-                {
-                    "chapterDetails": "DDD bumble bee",
-                    "chapterID": 15,
-                    "chapterName": "DDD",
-                    "quizID": 7
-                },
-                {
-                    "chapterDetails": "EEE bumble bee",
-                    "chapterID": 16,
-                    "chapterName": "EEE",
-                    "quizID": 8
-                },
-                {
-                    "chapterDetails": "FFF bumble bee",
-                    "chapterID": 17,
-                    "chapterName": "FFF",
-                    "quizID": 9
-                },
-                {
-                    "chapterDetails": "GGG bumble bee",
-                    "chapterID": 18,
-                    "chapterName": "GGG",
-                    "quizID": 9
                 }
             ]
+        self.assertEqual(code, 200)
+        self.assertEqual(json_data, check_data)
+
+    @mock.patch('requests.get', side_effect=mocked_requests_get)
+    def test_get_specific_chapter(self, mock_get):
+        print(os.getcwd())
+        mychapter = test_Chapter()
+        json_data, code = mychapter.fetch_json("backend-api/tdd_mockfiles/testChapter.json")
+        check_data = {
+            "chapterDetails": "A cat is running away",
+            "chapterID": 1,
+            "chapterName": "CAT",
+            "quizID": 1
         }
         self.assertEqual(code, 200)
-        self.assertEqual(data, check_data)
+        self.assertEqual(json_data, check_data)
+
+
+
+if __name__ == "__main__":
+    unittest.main()

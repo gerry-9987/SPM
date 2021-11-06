@@ -1,0 +1,9 @@
+{
+    "code": 200,
+    "data": {
+        "chapterDetails": "A cat is running away",
+        "chapterID": 1,
+        "chapterName": "CAT",
+        "quizID": 1
+    }
+}

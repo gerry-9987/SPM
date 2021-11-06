@@ -122,28 +122,25 @@ def create_class():
         staffID=staffID,
         quizID= quizID
     )
+    findclass = Class.query.filter(Class.classID==classID, Class.courseID==courseID).first()
 
-    print(a_class.json())
-
-    try:
+    if not findclass:
         db.session.add(a_class)
         db.session.commit()
-    except error:
+        return jsonify(
+            {
+                "code": 201,
+                "data": a_class.json()
+            }
+        ), 201
+    else:
         return jsonify(
             {
                 "code": 500,
-                "data": {
-                },
-                "message": "An error occurred creating the class."
+                "message": "The class already exists in this course."
             }
         ), 500
 
-    return jsonify(
-        {
-            "code": 201,
-            "data": a_class.json()
-        }
-    ), 201
 
 
 if __name__ == '__main__':

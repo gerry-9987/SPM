@@ -28,8 +28,8 @@ class Chapter(db.Model):
 
     def __init__(self, chapterID, chapterName, chapterDetails, quizID):
         self.chapterID = chapterID
-        self.chapterName = chapterName,
-        self.chapterDetails = chapterDetails,
+        self.chapterName = chapterName
+        self.chapterDetails = chapterDetails
         self.quizID = quizID
 
 
@@ -41,7 +41,7 @@ class Chapter(db.Model):
             "quizID": self.quizID
         }
 
-    def save(self):
+    def save_to_db(self):
         db.session.add(self)
         db.session.commit()
 
@@ -94,8 +94,15 @@ class Class(db.Model):
             "trainerName": self.trainerName,
             "staffID": self.staffID,
             "quizID": self.quizID
-
         }
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 
 class ClassChapter(db.Model):
@@ -119,13 +126,14 @@ class ClassChapter(db.Model):
             "chapterID": self.chapterID
         }
 
-    def save(self):
+    def save_to_db(self):
         db.session.add(self)
         db.session.commit()
 
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
 
 class Course(db.Model):
 
@@ -167,6 +175,14 @@ class Course(db.Model):
         else:
             return "Student is already enrolled in this course"
 
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 
 class Learner(db.Model):
 
@@ -186,6 +202,14 @@ class Learner(db.Model):
             "numberOfClassesPassed": self.numberOfClassesPassed,
         }
 
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 
 class Material(db.Model):
 
@@ -197,14 +221,19 @@ class Material(db.Model):
     materialLink = db.Column(db.VARCHAR(255), nullable=False)
     materialLinkBody = db.Column(db.VARCHAR(255), nullable=False)
     chapterID = db.Column(db.Integer(), db.ForeignKey('chapter.chapterID'), nullable=False)
+    classID = db.Column(db.Integer(), db.ForeignKey('class.classID'), nullable=False)
+    courseID = db.Column(db.Integer(), db.ForeignKey('class.courseID'), nullable=False)
 
-    def __init__(self, materialID, materialName, materialType, materialLink, materialLinkBody, chapterID):
+
+    def __init__(self, materialID, materialName, materialType, materialLink, materialLinkBody, chapterID, classID, courseID):
         self.materialID = materialID
         self.materialName = materialName
         self.materialType = materialType
         self.materialLink = materialLink
         self.materialLinkBody = materialLinkBody
         self.chapterID = chapterID
+        self.classID = classID
+        self.courseID = courseID
 
     def json(self):
         return {
@@ -213,10 +242,12 @@ class Material(db.Model):
             "materialType": self.materialType,
             "materialLink": self.materialLink,
             "materialLinkBody": self.materialLinkBody,
-            "chapterID": self.chapterID
+            "chapterID": self.chapterID,
+            "classID": self.classID,
+            "courseID": self.courseID
         }
 
-    def save(self):
+    def save_to_db(self):
         db.session.add(self)
         db.session.commit()
 
@@ -257,6 +288,14 @@ class Quiz(db.Model):
             "duration": self.duration,
             "passingScore": self.passingScore
         }
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 # class GradedQuiz(db.Model):
 
@@ -302,6 +341,15 @@ class LearnerQuiz(db.Model):
             "quizScore": self.quizScore
         }
 
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
 class Staff(db.Model):
 
 
@@ -325,6 +373,14 @@ class Staff(db.Model):
             "staffName": self.staffName,
             "department": self.department,
         }
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 
 class Take_Class(db.Model):
@@ -360,6 +416,14 @@ class Take_Class(db.Model):
             "classID": self.classID
         }
 
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 class Trainer(db.Model):
 
 
@@ -377,6 +441,14 @@ class Trainer(db.Model):
             "staffID": self.staffID,
             "numberOfClasses": self.numberOfClasses,
         }
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 
 # %%

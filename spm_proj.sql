@@ -141,11 +141,10 @@ CREATE TABLE MATERIAL
     chapterID int(11) NOT NULL,
     classID int(11) NOT NULL,
     courseID int(11) NOT NULL,
-
     CONSTRAINT material_pk PRIMARY KEY (materialID),
     CONSTRAINT material_fk FOREIGN KEY (chapterID) REFERENCES CHAPTER(chapterID),
-    CONSTRAINT material_fk2 FOREIGN KEY (classID) REFERENCES CLASS(classID),
-    CONSTRAINT material_fk3 FOREIGN KEY (courseID) REFERENCES COURSE(courseID)
+    CONSTRAINT material_fk2 FOREIGN KEY (courseID, classID) REFERENCES CLASS(courseID, classID)
+    -- CONSTRAINT material_fk3 FOREIGN KEY (courseID) REFERENCES COURSE(courseID)
 
 
 );

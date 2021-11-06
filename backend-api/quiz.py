@@ -107,6 +107,7 @@ def add_quiz():
     try:
         quizID = request.json.get("quizID")
         startDate = request.json.get("startDate")
+        
         endDate = request.json.get("endDate")
         questions = request.json.get("questions")
         answers = request.json.get("answers")
@@ -124,29 +125,27 @@ def add_quiz():
             ), 500 
 
     quiz = Quiz(quizID=quizID, startDate=startDate, endDate=endDate, questions=questions, answers=answers, duration=duration, passingScore=passingScore)
-    print(quiz.json())
+    findquiz = Quiz.query.filter(Quiz.quizID==quizID).first()
 
-    try:
+    if not findquiz:
         db.session.add(quiz)
         db.session.commit()
+        return jsonify(
+            {
+                "code": 200,
+                "message": "Quiz has been created."
+            }
+        ), 200
 
-    except error:
+    else:
         print('Failed to push quiz to database')
         return jsonify(
             {
                 "code": 500,
-                "data": {
-                },
-                "message": "An error occurred adding the quiz."
+                "message": "Quiz already exists."
             }
         ), 500
 
-    return jsonify(
-        {
-            "code": 200,
-            "message": "Quiz has been created."
-        }
-    ), 201
 
 
 if __name__ == '__main__':
