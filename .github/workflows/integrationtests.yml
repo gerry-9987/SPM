@@ -50,7 +50,7 @@ jobs:
       - name: Set up MySQL
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e "SELECT host, user, password FROM mysql.user;" -u root -p root
+          sudo mysql -e "SELECT host, user, password FROM mysql.user;" -u root
 
 #         run: |
 #             sudo /etc/init.d/mysql start
