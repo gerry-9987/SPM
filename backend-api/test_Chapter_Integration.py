@@ -19,8 +19,8 @@ class TestingApp(unittest.TestCase):
 class ChapterTestCase(TestingApp):
 
     def test_get_all_chapters(self):
-        chapter_endpoint = "/chapter"
-        response = self.client().get(chapter_endpoint)
+        chapters_endpoint = "/chapter"
+        response = self.client().get(chapters_endpoint)
         code = response.status_code
         # decode bytes to string
         data = json.loads(response.data.decode("utf-8").replace("'", "\""))["data"]
@@ -139,5 +139,59 @@ class ChapterTestCase(TestingApp):
         self.assertEqual(code, 200)
         self.assertEqual(data, check_data)
 
-    # TODO: get specific chapter endpoint
-    # TODO: get chapters by course
+    def test_get_specific_chapter_success(self):
+        get_chapter_endpoint = "/chapter/1"
+        response = self.client().get(get_chapter_endpoint)
+        code = response.status_code
+        # decode bytes to string
+        data = json.loads(response.data.decode("utf-8").replace("'", "\""))["data"]
+        check_data = {
+                    "chapterDetails": "A cat is running away",
+                    "chapterID": 1,
+                    "chapterName": "CAT",
+                    "quizID": 1
+                }
+        self.assertEqual(code, 200)
+        self.assertEqual(data, check_data)
+
+    def test_get_specific_chapter_failure(self):
+        get_chapter_endpoint = "/chapter/20"
+        response = self.client().get(get_chapter_endpoint)
+        code = response.status_code
+        # decode bytes to string
+        message = json.loads(response.data.decode("utf-8").replace("'", "\""))["message"]
+        self.assertEqual(code, 404)
+        self.assertEqual(message, "Chapter not found.")
+
+    def test_get_course_chapters_success(self):
+        course_chapters_endpoint = "/chapter/course/2"
+        response = self.client().get(course_chapters_endpoint)
+        code = response.status_code
+        # decode bytes to string
+        data = json.loads(response.data.decode("utf-8").replace("'", "\""))["data"]
+        check_data = [
+            {
+                "chapterDetails": "My life is great",
+                "chapterID": 4,
+                "chapterName": "LIFE",
+                "quizID": 4
+            },
+            {
+                "chapterDetails": "yay diluc",
+                "chapterID": 7,
+                "chapterName": "diluc",
+                "quizID": 7
+            }
+        ]
+        self.assertEqual(code, 200)
+        self.assertEqual(data, check_data)
+
+    def test_get_course_chapters_failure(self):
+        course_chapters_endpoint = "/chapter/course/20"
+        response = self.client().get(course_chapters_endpoint)
+        code = response.status_code
+        # decode bytes to string
+        message = json.loads(response.data.decode("utf-8").replace("'", "\""))["message"]
+
+        self.assertEqual(code, 404)
+        self.assertEqual(message, "Chapters not found.")
