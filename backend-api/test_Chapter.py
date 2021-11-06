@@ -1,5 +1,6 @@
 import unittest
 from unittest import mock
+from unittest.mock import patch
 import json
 import os
 
@@ -14,9 +15,9 @@ def mocked_requests_get(*args, **kwargs):
         def json(self):
             return self.json_data
 
-    if args[0] == "backend-api/tdd_mockfiles/testChapters.json":
+    if args[0] == "tdd_mockfiles/testChapters.json":
         return MockResponse({"message": "Successfully retrieved all chapters"}, 200)
-    elif args[0] == "backend-api/tdd_mockfiles/testChapter.json":
+    elif args[0] == "tdd_mockfiles/testChapter.json":
         return MockResponse({"message": "Successfully retrieved based on chapterID"}, 200)
 
     return MockResponse(None, 404)
@@ -47,12 +48,16 @@ class test_Chapter(unittest.TestCase):
         return data, code
 
 
-    @mock.patch('requests.get', side_effect=mocked_requests_get)
+    @patch('requests.get', side_effect=mocked_requests_get)
     def test_get_all_chapters(self, mock_get):
-        print(os.getcwd())
+        if 'backend-api' not in os.getcwd():
+            os.chdir("./backend-api")
         mychapter = test_Chapter()
-        json_data, code = mychapter.fetch_json("backend-api/tdd_mockfiles/testChapters.json")
-        mocked_requests_get
+        try:
+            json_data, code = mychapter.fetch_json("tdd_mockfiles/testChapters.json")
+        except:
+            json_data, code = mychapter.fetch_json("backend-api/tdd_mockfiles/testChapters.json")
+
         check_data = [
                 {
                     "chapterID": 1,
@@ -70,11 +75,16 @@ class test_Chapter(unittest.TestCase):
         self.assertEqual(code, 200)
         self.assertEqual(json_data, check_data)
 
-    @mock.patch('requests.get', side_effect=mocked_requests_get)
+    @patch('requests.get', side_effect=mocked_requests_get)
     def test_get_specific_chapter(self, mock_get):
-        print(os.getcwd())
+        if 'backend-api' not in os.getcwd():
+            os.chdir("./backend-api")
+
         mychapter = test_Chapter()
-        json_data, code = mychapter.fetch_json("backend-api/tdd_mockfiles/testChapter.json")
+        try:
+            json_data, code = mychapter.fetch_json("tdd_mockfiles/testChapter.json")
+        except:
+            json_data, code = mychapter.fetch_json("backend-api/tdd_mockfiles/testChapter.json")
         check_data = {
             "chapterDetails": "A cat is running away",
             "chapterID": 1,

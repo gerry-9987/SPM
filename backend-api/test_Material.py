@@ -1,5 +1,6 @@
 import unittest
 from unittest import mock
+from unittest.mock import patch
 import json
 import os
 
@@ -51,10 +52,17 @@ class test_Material(unittest.TestCase):
         return data, code
 
 
-    @mock.patch('requests.get', side_effect=mocked_requests_get)
+    @patch('requests.get', side_effect=mocked_requests_get)
     def test_get_all_materials(self, mock_get):
+        if 'backend-api' not in os.getcwd():
+            os.chdir("./backend-api")
+
         mymaterial = test_Material()
-        json_data, code = mymaterial.fetch_json("backend-api/tdd_mockfiles/testMaterials.json")
+        try:
+            json_data, code = mymaterial.fetch_json("tdd_mockfiles/testMaterials.json")
+        except:
+            json_data, code = mymaterial.fetch_json("backend-api/tdd_mockfiles/testMaterials.json")
+
         check_data = {
             "material": [
                 {
@@ -82,10 +90,17 @@ class test_Material(unittest.TestCase):
         self.assertEqual(code, 200)
         self.assertEqual(json_data, check_data)
 
-    @mock.patch('requests.get', side_effect=mocked_requests_get)
+    @patch('requests.get', side_effect=mocked_requests_get)
     def test_get_specific_material(self, mock_get):
+        if 'backend-api' not in os.getcwd():
+            os.chdir("./backend-api")
+
         mymaterial = test_Material()
-        json_data, code = mymaterial.fetch_json("backend-api/tdd_mockfiles/testMaterial.json")
+        try:
+            json_data, code = mymaterial.fetch_json("tdd_mockfiles/testMaterial.json")
+        except:
+            json_data, code = mymaterial.fetch_json("backend-api/tdd_mockfiles/testMaterial.json")
+
         check_data = [
             {
                 "chapterID": 1,
