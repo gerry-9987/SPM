@@ -49,8 +49,7 @@ jobs:
 #         with: mysql:5.7 
       - name: Set up MySQL
         run: |
-          sudo apt-get install mysql-client
-          sudo /var/lib/mysql/mysql start
+          sudo /etc/init.d/mysql start
           mysql -e "SELECT host, user, password FROM mysql.user;"
           
 #         run: |
