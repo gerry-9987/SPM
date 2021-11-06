@@ -99,6 +99,15 @@ def create_course():
         noOfClasses=noOfClasses,
         students=students)
 
+    course_exists = Course.query.filter_by(courseID=courseID).first()
+    if course_exists: return jsonify(
+        {
+            "code": 300,
+            "message":"Course already exists"
+        }
+    ), 300
+
+
     print(course.json())
 
     try:
@@ -123,8 +132,6 @@ def create_course():
 
 # Sign up
 # TODO: Test this method
-
-
 @app.route("/signup", methods=['POST'])
 def signup():
 

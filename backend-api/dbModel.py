@@ -137,7 +137,6 @@ class ClassChapter(db.Model):
 
 class Course(db.Model):
 
-
     __tablename__ = 'course'
     courseID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
     courseName = db.Column(db.VARCHAR(255), nullable=False)
