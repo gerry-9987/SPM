@@ -25,15 +25,10 @@ class TestApp(flask_testing.TestCase):
 
 class TestCourse(TestApp):
 
-    # Test if adding new course works properly
-    def test_add_course(self):
-        # c1 = Course(courseID=100, courseName='SPM', courseCategory='IS',
-        #             courseDetails='Learn about software project management', prereqCourses='IS111', noOfClasses=5, students='1,2,3,4,5')
-        # db.session.add(c1)
-        # db.session.commit()
+    def test_add_course_success(self):
 
         request_body = {
-            'courseID': 101110,
+            'courseID': 555,
             'courseCategory': 'IS',
             'courseName': 'SPM',
             'courseDetails': 'Learn about software project management',
@@ -50,31 +45,28 @@ class TestCourse(TestApp):
                              "code": 200,
                              "data": request_body
                          })
-        def test_get_course(self):
-            # c1 = Course(courseID=100, courseName='SPM', courseCategory='IS',
-            #             courseDetails='Learn about software project management', prereqCourses='IS111', noOfClasses=5, students='1,2,3,4,5')
-            # db.session.add(c1)
-            # db.session.commit()
-
-            request_body = {
-                'courseID': 101110,
-                'courseCategory': 'IS',
-                'courseName': 'SPM',
-                'courseDetails': 'Learn about software project management',
-                'prereqCourses': 'IS111',
-                'noOfClasses': 5,
-                'students': '1,2,3,4,5'
-            }
-
-            response = self.client.post("/course",
-                                        data=json.dumps(request_body),
-                                        content_type='application/json')
-            self.assertEqual(response.json,
-                            {
-                                "code": 200,
-                                "data": request_body
-                            })
         
+    def test_add_course_duplicated(self):
+
+        request_body = {
+            'courseID': 1,
+            'courseCategory': 'IS',
+            'courseName': 'SPM',
+            'courseDetails': 'Learn about software project management',
+            'prereqCourses': 'IS111',
+            'noOfClasses': 5,
+            'students': '1,2,3,4,5'
+        }
+
+        response = self.client.post("/course",
+                                    data=json.dumps(request_body),
+                                    content_type='application/json')
+        self.assertEqual(response.json,
+                        {
+                            "code": 300,
+                            "message": "Course already exists"
+                        })
+    
         
 
 
