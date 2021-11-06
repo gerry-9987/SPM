@@ -232,7 +232,7 @@ class QuizTestCase(TestingApp):
                                     data=json.dumps(request_body),
                                     content_type='application/json' )
 
-        self.assertEqual(response.json, None)
+        self.assertEqual(response.json, {'code': 500, 'message': 'Quiz already exists.'})
 
 if __name__ == "__main__":
     unittest.main()

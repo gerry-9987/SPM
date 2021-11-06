@@ -29,85 +29,92 @@ class ClassTestCase(TestingApp):
         # decode bytes to string
         data = json.loads(response.data.decode("utf-8").replace("'", "\""))["data"]
         check_data = {
-                "classes": [
-                    {
-                        "classID": 1,
-                        "classSize": 4,
-                        "courseID": 1,
-                        "endDate": "03 Feb 2021",
-                        "endTime": "23:30:00",
-                        "staffID": 3,
-                        "startDate": "01 Jan 2021",
-                        "startTime": "22:30:00",
-                        "trainerName": "Haoyue"
-                    },
-                    {
-                        "classID": 2,
-                        "classSize": 4,
-                        "courseID": 1,
-                        "endDate": "03 Feb 2021",
-                        "endTime": "01:30:00",
-                        "staffID": 3,
-                        "startDate": "01 Jan 2021",
-                        "startTime": "12:30:00",
-                        "trainerName": "Haoyue"
-                    },
-                    {
-                        "classID": 3,
-                        "classSize": 4,
-                        "courseID": 2,
-                        "endDate": "07 May 2021",
-                        "endTime": "02:30:00",
-                        "staffID": 3,
-                        "startDate": "03 Feb 2021",
-                        "startTime": "01:30:00",
-                        "trainerName": "Haoyue"
-                    },
-                    {
-                        "classID": 4,
-                        "classSize": 4,
-                        "courseID": 2,
-                        "endDate": "07 May 2021",
-                        "endTime": "03:30:00",
-                        "staffID": 3,
-                        "startDate": "03 Feb 2021",
-                        "startTime": "02:30:00",
-                        "trainerName": "Haoyue"
-                    },
-                    {
-                        "classID": 5,
-                        "classSize": 4,
-                        "courseID": 2,
-                        "endDate": "07 May 2021",
-                        "endTime": "23:30:00",
-                        "staffID": 4,
-                        "startDate": "03 Feb 2021",
-                        "startTime": "22:30:00",
-                        "trainerName": "Jewel"
-                    },
-                    {
-                        "classID": 6,
-                        "classSize": 4,
-                        "courseID": 2,
-                        "endDate": "07 May 2021",
-                        "endTime": "02:30:00",
-                        "staffID": 4,
-                        "startDate": "03 Feb 2021",
-                        "startTime": "12:30:00",
-                        "trainerName": "Jewel"
-                    },
-                    {
-                        "classID": 7,
-                        "classSize": 4,
-                        "courseID": 3,
-                        "endDate": "07 May 2021",
-                        "endTime": "02:30:00",
-                        "staffID": 4,
-                        "startDate": "04 Mar 2021",
-                        "startTime": "01:30:00",
-                        "trainerName": "Jewel"
-                    }
-                    ]
+            "classes": [
+                {
+                    "classID": 1,
+                    "classSize": 4,
+                    "courseID": 1,
+                    "endDate": "03 Feb 2021",
+                    "endTime": "23:30:00",
+                    "quizID": 1,
+                    "staffID": 3,
+                    "startDate": "01 Jan 2021",
+                    "startTime": "22:30:00",
+                    "trainerName": "Haoyue"
+                },
+                {
+                    "classID": 2,
+                    "classSize": 4,
+                    "courseID": 1,
+                    "endDate": "03 Feb 2021",
+                    "endTime": "01:30:00",
+                    "quizID": 2,
+                    "staffID": 3,
+                    "startDate": "01 Jan 2021",
+                    "startTime": "12:30:00",
+                    "trainerName": "Haoyue"
+                },
+                {
+                    "classID": 3,
+                    "classSize": 4,
+                    "courseID": 2,
+                    "endDate": "07 May 2021",
+                    "endTime": "02:30:00",
+                    "quizID": 3,
+                    "staffID": 3,
+                    "startDate": "03 Feb 2021",
+                    "startTime": "01:30:00",
+                    "trainerName": "Haoyue"
+                },
+                {
+                    "classID": 4,
+                    "classSize": 4,
+                    "courseID": 2,
+                    "endDate": "07 May 2021",
+                    "endTime": "03:30:00",
+                    "quizID": 4,
+                    "staffID": 3,
+                    "startDate": "03 Feb 2021",
+                    "startTime": "02:30:00",
+                    "trainerName": "Haoyue"
+                },
+                {
+                    "classID": 5,
+                    "classSize": 4,
+                    "courseID": 2,
+                    "endDate": "07 May 2021",
+                    "endTime": "23:30:00",
+                    "quizID": 5,
+                    "staffID": 4,
+                    "startDate": "03 Feb 2021",
+                    "startTime": "22:30:00",
+                    "trainerName": "Jewel"
+                },
+                {
+                    "classID": 6,
+                    "classSize": 4,
+                    "courseID": 2,
+                    "endDate": "07 May 2021",
+                    "endTime": "02:30:00",
+                    "quizID": 6,
+                    "staffID": 4,
+                    "startDate": "03 Feb 2021",
+                    "startTime": "12:30:00",
+                    "trainerName": "Jewel"
+                },
+                {
+                    "classID": 7,
+                    "classSize": 4,
+                    "courseID": 3,
+                    "endDate": "07 May 2021",
+                    "endTime": "02:30:00",
+                    "quizID": 7,
+                    "staffID": 4,
+                    "startDate": "04 Mar 2021",
+                    "startTime": "01:30:00",
+                    "trainerName": "Jewel"
+                }
+            ]
         }
         self.assertEqual(code, 200)
         self.assertEqual(data, check_data)
@@ -118,31 +125,17 @@ class ClassTestCase(TestingApp):
         code = response.status_code
         # decode bytes to string
         data = json.loads(response.data.decode("utf-8").replace("'", "\""))["data"]
-        check_data = [
-                        {
-                        "classID": 1,
-                        "classSize": 4,
-                        "courseID": 1,
-                        "endDate": "03 Feb 2021",
-                        "endTime": "23:30:00",
-                        "quizID": 1,
-                        "staffID": 3,
-                        "startDate": "01 Jan 2021",
-                        "startTime": "22:30:00",
-                        "trainerName": "Haoyue"
-                        },
-                        {
-                        "classID": 2,
-                        "classSize": 4,
-                        "courseID": 1,
-                        "endDate": "03 Feb 2021",
-                        "endTime": "01:30:00",
-                        "quizID": 2,
-                        "staffID": 3,
-                        "startDate": "01 Jan 2021",
-                        "startTime": "12:30:00",
-                        "trainerName": "Haoyue"
-                        }
-                    ]
+        check_data = {
+            "classID": 1,
+            "classSize": 4,
+            "courseID": 1,
+            "endDate": "03 Feb 2021",
+            "endTime": "23:30:00",
+            "quizID": 1,
+            "staffID": 3,
+            "startDate": "01 Jan 2021",
+            "startTime": "22:30:00",
+            "trainerName": "Haoyue"
+        }
         self.assertEqual(code, 200)
         self.assertEqual(data, check_data)

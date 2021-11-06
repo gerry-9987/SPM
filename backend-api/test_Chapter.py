@@ -1,6 +1,7 @@
 import unittest
 from unittest import mock
-import requests
+import json
+import os
 
 from dbModel import *
 
@@ -13,9 +14,9 @@ def mocked_requests_get(*args, **kwargs):
         def json(self):
             return self.json_data
 
-    if args[0] == "test/testChapters.json":
-        return MockResponse({"message": "Success retrieval"}, 200)
-    elif args[0] == "test/testChapter.json":
+    if args[0] == "backend-api/test/testChapters.json":
+        return MockResponse({"message": "Successfully retrieved all chapters"}, 200)
+    elif args[0] == "backend-api/test/testChapter.json":
         return MockResponse({"message": "Successfully retrieved based on chapterID"}, 200)
 
     return MockResponse(None, 404)
@@ -38,17 +39,21 @@ class test_Chapter(unittest.TestCase):
             }
         self.assertEqual(chapterDetails, checkChapter)
 
-    def fetch_json(self, url):
-        response = requests.get(url)
-        data = response.data
-        code = response.code
-        return data.json(), code
+    def fetch_json(self, testfile):
+        with open(testfile, "r") as myfile:
+            response = json.load(myfile)
+        data = response["data"]
+        code = response["code"]
+        print(data)
+        print(code)
+        return data, code
 
-    
+
     @mock.patch('requests.get', side_effect=mocked_requests_get)
     def test_get_all_chapters(self, mock_get):
+        print(os.getcwd())
         mychapter = test_Chapter()
-        json_data, code = mychapter.fetch_json("test/testChapters.json")
+        json_data, code = mychapter.fetch_json("backend-api/test/testChapters.json")
         check_data = [
                 {
                     "chapterID": 1,
