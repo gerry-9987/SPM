@@ -71,7 +71,7 @@ class MaterialTestCase(TestingApp):
         self.assertEqual(code, 200)
         self.assertEqual(data, check_data)
 
-    def test_get_material_by_chapter(self):
+    def test_get_material_by_chapter_success(self):
         material_by_chapter_endpoint = "/material/1"
         response = self.client().get(material_by_chapter_endpoint)
         code = response.status_code
@@ -91,3 +91,120 @@ class MaterialTestCase(TestingApp):
         ]
         self.assertEqual(code, 200)
         self.assertEqual(data, check_data)
+
+    def test_get_material_by_chapter_failure(self):
+        material_by_chapter_endpoint = "/material/20"
+        response = self.client().get(material_by_chapter_endpoint)
+        code = response.status_code
+        # decode bytes to string
+        message = json.loads(response.data.decode("utf-8").replace("'", "\""))["message"]
+        check_message = "Materials not found."
+        self.assertEqual(code, 404)
+        self.assertEqual(message, check_message)
+        
+    def test_add_new_material_success(self):
+        request_body = {
+            "chapterID": 2,
+            "classID": 2,
+            "courseID": 1,
+            "materialID": 5,
+            "materialLink": "https://www.helpguide.org/articles/sleep/getting-better-sleep.htm",
+            "materialLinkBody": "How to improve on sleepy",
+            "materialName": "Sleep",
+            "materialType": "link"
+        }
+        create_material_endpoint = "/material"
+        response = self.client().post(create_material_endpoint,
+                                    data=json.dumps(request_body),
+                                    content_type="application/json")
+        response_code = response.json["code"]
+        response_data = response.json["data"]
+        self.assertEqual(response_code, 201)
+        self.assertEqual(response_data,
+            {
+                "chapterID": 2,
+                "classID": 2,
+                "courseID": 1,
+                "materialID": 5,
+                "materialLink": "https://www.helpguide.org/articles/sleep/getting-better-sleep.htm",
+                "materialLinkBody": "How to improve on sleepy",
+                "materialName": "Sleep",
+                "materialType": "link"
+            }
+        )
+
+    def test_add_new_material_failure(self):
+        request_body = {
+            "chapterID": 2,
+            "classID": 1,
+            "courseID": 1,
+            "materialID": 1,
+            "materialLink": "https://www.helpguide.org/articles/sleep/getting-better-sleep.htm",
+            "materialLinkBody": "How to improve on sleep",
+            "materialName": "Sleep",
+            "materialType": "link"
+        }
+        create_material_endpoint = "/material"
+        response = self.client().post(create_material_endpoint,
+                                    data=json.dumps(request_body),
+                                    content_type="application/json")
+        response_code = response.json["code"]
+        response_message = response.json["message"]
+        self.assertEqual(response_code, 500)
+        self.assertEqual(response_message, "Material already exists.")
+
+    def test_update_material_success(self):
+        request_body = {
+            "chapterID": 3,
+            "classID": 1,
+            "courseID": 1,
+            "materialID": 3,
+            "materialLink": "https://www.helpguide.org/articles/sleep/getting-better-sleep.htm",
+            "materialLinkBody": "How to improve on sleep",
+            "materialName": "Sleep",
+            "materialType": "link"
+        }
+        update_material_endpoint = "/material"
+        response = self.client().put(update_material_endpoint,
+                                    data=json.dumps(request_body),
+                                    content_type="application/json")
+        response_code = response.json["code"]
+        response_data = response.json["data"]
+        self.assertEqual(response_code, 200)
+        self.assertEqual(response_data,
+            {
+                "chapterID": 3,
+                "classID": 1,
+                "courseID": 1,
+                "materialID": 3,
+                "materialLink": "https://www.helpguide.org/articles/sleep/getting-better-sleep.htm",
+                "materialLinkBody": "How to improve on sleep",
+                "materialName": "Sleep",
+                "materialType": "link"
+            }
+        )
+
+    def test_update_material_failure(self):
+        request_body = {
+            "chapterID": 6,
+            "classID": 1,
+            "courseID": 3,
+            "materialID": 6,
+            "materialLink": "https://www.helpguide.org/articles/sleep/getting-better-sleep.htm",
+            "materialLinkBody": "How to improve on sleep",
+            "materialName": "Sleep",
+            "materialType": "link"
+        }
+        update_material_endpoint = "/material"
+        response = self.client().put(update_material_endpoint,
+                                    data=json.dumps(request_body),
+                                    content_type="application/json")
+        response_code = response.json["code"]
+        response_message = response.json["message"]
+        self.assertEqual(response_code, 500)
+        self.assertEqual(response_message, "Material does not exist yet."
+        )
+
+
+if __name__ == "__main__":
+    unittest.main()

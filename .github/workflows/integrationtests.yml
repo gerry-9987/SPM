@@ -60,8 +60,8 @@ jobs:
 #             mysql -e 'SHOW DATABASES;' -uroot -p''
       - name: Test with unittest
         run: |
-          python -m unittest backend-api/test_Chapter.py
-          python -m unittest backend-api/test_Material.py
+          python -m unittest backend-api/test_Chapter_Integration.py
+          python -m unittest backend-api/test_Material_Integration.py
           python -m unittest backend-api/test_Course_Integration.py
           python -m unittest backend-api/test_Quiz_Integration.py
           python -m unittest backend-api/test_Staff_Integration.py
