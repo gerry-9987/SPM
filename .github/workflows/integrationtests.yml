@@ -50,8 +50,8 @@ jobs:
       - name: Set up MySQL
         run: |
           sudo /etc/init.d/mysql start
-          sudo mysql -u root
-          CREATE USER 'spm'@'localhost' IDENTIFIED BY 'team9';
+          SELECT host, user, password FROM mysql.user;
+          CREATE USER 'spm'@'localhost';
           GRANT CREATE, DROP, INSERT, UPDATE, DELETE, SELECT ON spm_proj.* TO 'spm'@'localhost';
           CREATE DATABASE spm_proj;
           SHOW DATABASES;
