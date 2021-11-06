@@ -25,6 +25,7 @@ class TestApp(flask_testing.TestCase):
 
 class TestCourse(TestApp):
 
+    # Add course
     def test_add_course_success(self):
 
         request_body = {
@@ -45,7 +46,8 @@ class TestCourse(TestApp):
                              "code": 200,
                              "data": request_body
                          })
-        
+       
+    # Course is duplicated
     def test_add_course_duplicated(self):
 
         request_body = {

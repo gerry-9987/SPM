@@ -98,7 +98,8 @@ var app = new Vue({
             fetch(courseDetailsURL)
                 .then(response => response.json())
                 .then(data => {
-                    result = data.data[0];
+                    console.log(data);
+                    result = data.data;
                     console.log(result);
                     // 3 cases
                     switch (data.code) {

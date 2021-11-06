@@ -1,4 +1,4 @@
-var URL = 'localhost:5003'
+var URL = 'http://127.0.0.1:5003'
 
 // Define a new component called button-counter
 Vue.component('nav-bar', {
@@ -11,7 +11,6 @@ Vue.component('nav-bar', {
 })
 
 
-
 var vm = new Vue({
     el: '#nav-bar'
 });
@@ -21,9 +20,10 @@ var app = new Vue({
     computed: {},
     data: {
         course_categories: [
-            "Mechanical Engineer ",
-            "Computer Engineer ",
-            "Chemical Engineer ",
+            "IBM",
+            "HP",
+            "XENON ",
+            "Canon",
         ],
         trainers: [
             "Wesley", "Jewel", "Gerry", "HaoYue", "LY"
@@ -47,7 +47,8 @@ var app = new Vue({
                 form_course_trainers: this.form_course_trainers
             });
 
-            fetch(`${'URL'}`, {
+            console.log(URL)
+            fetch(`${URL}/course`, {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"
@@ -61,7 +62,7 @@ var app = new Vue({
                     console.log(result);
                     // 3 cases
                     switch (data.code) {
-                        case 201:
+                        case 200:
                             console.log('success')
                             break;
                         case 400:

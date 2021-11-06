@@ -1,7 +1,8 @@
 // Varoables quizID = courseID + classID + chapterID
-var quizID = 118
+var quizID = 1010
+console.log(quizID)
 var quizURL = `http://127.0.0.1:5008`
-// var gradedQuizURL = `http://127.0.0.1:5009`
+    // var gradedQuizURL = `http://127.0.0.1:5009`
 
 var app = new Vue({
     el: "#app ",
@@ -61,11 +62,11 @@ var app = new Vue({
                     switch (data.code) {
                         case 200:
                             console.log('success')
-            //                 if (this.quizIsGraded == 'graded') {
-            //                     this.addGradedQuiz()
-            //                 } else {
-            //                     alert("Scuessfully added quiz!");
-            //                 }
+                                //                 if (this.quizIsGraded == 'graded') {
+                                //                     this.addGradedQuiz()
+                                //                 } else {
+                                //                     alert("Scuessfully added quiz!");
+                                //                 }
                             break;
                         case 500:
                             alert("Failed to add quiz!");
