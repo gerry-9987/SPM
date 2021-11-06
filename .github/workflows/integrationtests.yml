@@ -49,12 +49,10 @@ jobs:
 #         with: mysql:5.7 
       - name: Set up MySQL
         run: |
-          sudo /etc/init.d/mysql start
-          SELECT host, user, password FROM mysql.user;
-          CREATE USER 'spm'@'localhost';
-          GRANT CREATE, DROP, INSERT, UPDATE, DELETE, SELECT ON spm_proj.* TO 'spm'@'localhost';
-          CREATE DATABASE spm_proj;
-          SHOW DATABASES;
+          sudo apt-get install mysql-client
+          sudo /var/lib/mysql/mysql start
+          mysql -e "SELECT host, user, password FROM mysql.user;"
+          
 #         run: |
 #             sudo /etc/init.d/mysql start
 #             mysql -e 'CREATE DATABASE spm_proj;' -uroot -proot
@@ -72,3 +70,7 @@ jobs:
 #         env:
 #           DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
+#           mysql -e "CREATE USER 'spm'@'localhost';"
+#           mysql -e "GRANT CREATE, DROP, INSERT, UPDATE, DELETE, SELECT ON spm_proj.* TO 'spm'@'localhost';"
+#           mysql -e "CREATE DATABASE spm_proj;"
+#           mysql -e "SHOW DATABASES;"
