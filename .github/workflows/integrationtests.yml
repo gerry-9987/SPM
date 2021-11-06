@@ -50,8 +50,8 @@ jobs:
       - name: Set up MySQL
         run: |
           sudo /etc/init.d/mysql start
-          CREATE USER 'spm'@'localhost' IDENTIFIED BY 'team9';
-          GRANT ALL ON spm_proj.* TO 'spm'@'localhost';
+          sudo mysql -e "CREATE USER 'spm'@'localhost' IDENTIFIED BY 'team9';"
+          sudo mysql -e "GRANT ALL ON spm_proj.* TO 'spm'@'localhost';"
           mysql -e 'CREATE DATABASE spm_proj;' -u spm -p team9
           mysql -e 'SHOW DATABASES;' -u spm -p team9
 #         run: |
