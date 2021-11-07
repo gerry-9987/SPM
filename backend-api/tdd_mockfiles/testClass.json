@@ -1,0 +1,18 @@
+{
+    "code": 200,
+    "data": {
+        "classes": [
+            {
+                "classID": 1,
+                "classSize": 4,
+                "courseID": 1,
+                "endDate": "03 Feb 2021",
+                "endTime": "23:30:00",
+                "staffID": 3,
+                "startDate": "01 Jan 2021",
+                "startTime": "22:30:00",
+                "trainerName": "Haoyue"
+            }
+    ]
+    }
+    }
