@@ -1,3 +1,5 @@
+# Material class Integration Test led by Jewel Tan (refer to Material Unit Test, Chapter Unit Test, Chapter Integration test too)
+
 import unittest
 from material import app, db
 
