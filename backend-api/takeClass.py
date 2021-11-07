@@ -99,48 +99,48 @@ def add_take_class():
     ), 200
     
 # Take class
-@app.route('/take_class2', methods=["POST"])
-def add_take_class2():
+# @app.route('/take_class2', methods=["POST"])
+# def add_take_class2():
    
-    print("I am inside the POST end point /take_class")
-    staffID = request.json.get("staffID")
-    courseID = request.json.get("courseID")
-    courseName = request.json.get("courseName")
-    classID = request.json.get("classID")
-    class_taken = Take_Class(staffID, courseID, courseName, classID)
-    print(class_taken)
+#     print("I am inside the POST end point /take_class")
+#     staffID = request.json.get("staffID")
+#     courseID = request.json.get("courseID")
+#     courseName = request.json.get("courseName")
+#     classID = request.json.get("classID")
+#     class_taken = Take_Class(staffID, courseID, courseName, classID)
+#     print(class_taken)
 
-    findClassTaken = Take_Class.query.filter(Take_Class.staffID==staffID, Take_Class.courseID==courseID, Take_Class.classID==classID).first()
-    if findClassTaken:
-        return jsonify(
-        {
-            "code": 300,
-            "message": 'already have this entry'
-        }
-    ), 300
+#     findClassTaken = Take_Class.query.filter(Take_Class.staffID==staffID, Take_Class.courseID==courseID, Take_Class.classID==classID).first()
+#     if findClassTaken:
+#         return jsonify(
+#         {
+#             "code": 300,
+#             "message": 'already have this entry'
+#         }
+#     ), 300
         
-    try:
-        db.session.add(class_taken)
-        db.session.commit()
-    except error:
-        return jsonify(
-            {
-                "code": 500,
-                "data": {
-                },
-                "message": "An error occurred adding the class taken."
-            }
-        ), 500
+#     try:
+#         db.session.add(class_taken)
+#         db.session.commit()
+#     except error:
+#         return jsonify(
+#             {
+#                 "code": 500,
+#                 "data": {
+#                 },
+#                 "message": "An error occurred adding the class taken."
+#             }
+#         ), 500
 
-    return jsonify(
-        {
-            "code": 200,
-            "data": class_taken.json()
-        }
-    ), 200
+#     return jsonify(
+#         {
+#             "code": 200,
+#             "data": class_taken.json()
+#         }
+#     ), 200
 
 # Withdraw from a class
-@app.route("/withdraw", methods=['POST'])
+@app.route("/withdraw", methods=['DELETE'])
 def withdraw():
 
     staffID = request.json.get("staffID")
