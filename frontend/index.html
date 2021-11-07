@@ -34,7 +34,7 @@
 
         <div class="px-4 py-5 my-5 text-center" v-if='showWelcomeMessage'>
             <img class="d-block mx-auto" src="https://t3.ftcdn.net/jpg/03/90/45/84/240_F_390458464_c2oKzb2yXAVQrgLPG1N5mfRqqdEuOaLq.jpg" alt="" width="400" height="400">
-            <h1 class="display-5 fw-bold">Welcome to Engineering CMS</h1>
+            <h1 class="display-5 fw-bold">Welcome to Engineering LMS</h1>
             <div class="col-lg-6 mx-auto">
                 <p class="lead mb-4">Click on any of the following to get started</p>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
@@ -51,25 +51,26 @@
                 <div class="p-5 mb-4 bg-light rounded-3">
                     <div class="container-fluid py-5">
                         <h1 class="display-5 fw-bold">Create Course</h1>
-                        <p class="col-md-8 fs-4">Create courses</p>
-                        <a href='frontend/createCourse' class="btn btn-primary btn-lg" type="button">Create courses</a>
+                        <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
+                        <a href='createCourse' class="btn btn-primary btn-lg" type="button">Example button</a>
                     </div>
                 </div>
 
                 <div class="row align-items-md-stretch">
                     <div class="col-md-6">
                         <div class="h-100 p-5 text-white bg-dark rounded-3">
-                            <h2>Create Quizes</h2>
-                            <p>Create grade/ungraded quizes</p>
-                            <a href='frontend/createQuiz' class="btn btn-outline-light" type="button">Create Quizes</a>
+                            <h2>Manage Course</h2>
+                            <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look. Then, mix and match with additional component themes and more.</p>
+                            <a href='manageCourse' class="btn btn-outline-light" type="button">Example button</a>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="h-100 p-5 bg-light border rounded-3">
                             <h2>Assign Learners</h2>
-                            <p>Assign Learners to selected classes
+                            <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure to look under the hood at the source HTML here as we' ve adjusted the alignment and sizing of both column 's content for
+                                equal-height.
                             </p>
-                            <a href='frontend/assignLearners' class="btn btn-outline-secondary" type="button">Assign Learners</a>
+                            <a href='assignLearners' class="btn btn-outline-secondary" type="button">Example button</a>
                         </div>
                     </div>
                 </div>
@@ -78,17 +79,7 @@
         <!-- Tools box -->
         <div id='learner-toolbar ' v-if='showLearnerTools '>
             <learner-toolbar></learner-toolbar>
-            <div class="container py-4 mb-4">
-                <div class="p-5 mb-4 bg-light rounded-3">
-                    <div class="container-fluid py-5">
-                        <h1 class="display-5 fw-bold">View Courses</h1>
-                        <p class="col-md-8 fs-4"> View enrolled courses and sign up from a variety of available courses</p>
-                        <a href='frontend/cataloguePage' class="btn btn-primary btn-lg" type="button">Courses</a>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
 
     </div>
     <!-- Scripts -->
@@ -99,8 +90,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js " integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl " crossorigin="anonymous ">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
-    <script src="frontend/index.js "></script>
-    <script src="frontend/vue.js "></script>
+    <script src="index.js "></script>
+    <script src="vue.js "></script>
 
 </body>
 
