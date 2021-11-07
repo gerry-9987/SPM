@@ -20,7 +20,7 @@ from dbModel import *
 Take_Class = dbModel.Take_Class
 
 # get the list of all classes taken
-@app.route("/take_class")
+@app.route("/take_class/")
 def get_all():
     take_class_list = Take_Class.query.all()
     if len(take_class_list):
@@ -43,7 +43,7 @@ def get_all():
 # get specific class taken
 # @app.route("/take_class/<string:staffID>")
 # def get_class_taken(staffID):
-#     class_taken = Take_Class.query.filter_by(staffID=staffID).first()
+#     class_taken = Take_Class.query.filter_by(staffID=staffID).all()
 #     if class_taken:
 #         return jsonify(
 #             {
@@ -58,22 +58,22 @@ def get_all():
 #         }
 #     ), 404
 
-# @app.route("/take_class/course/<string:courseID>")
-# def get_class_taken_course(courseID):
-#     class_taken = Take_Class.query.filter_by(courseID=courseID).first()
-#     if class_taken:
-#         return jsonify(
-#             {
-#                 "code": 200,
-#                 "data": class_taken.json()
-#             }
-#         )
-#     return jsonify(
-#         {
-#             "code": 404,
-#             "message": "Class taken not found."
-#         }
-#     ), 404
+@app.route("/take_class/course/<string:courseID>")
+def get_class_taken_course(courseID):
+    class_taken = Take_Class.query.filter_by(courseID=courseID).first()
+    if class_taken:
+        return jsonify(
+            {
+                "code": 200,
+                "data": class_taken.json()
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Class taken not found."
+        }
+    ), 404
 
 # add new class taken
 @app.route("/take_class", methods=['POST'])

@@ -8,65 +8,23 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
 
     <title>LMS</title>
 </head>
 
 <body>
+
     <!-- navbar -->
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand">Course Management System</a>
-            <a href="">Home</a>
-        </div>
-    </nav>
-    <!-- Tools box -->
-    <div class="container-fluid section-wrapper">
-        <h2>Tools for Trainers</h2>
-        <div class="border border-grey rounded">
-            <div class="row m-4">
-                <!-- tool 1-->
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text text-center "><a href="">Upload Course Materials</a></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- tool 2-->
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text text-center"><a href="createQuiz.html">Create Quiz</a></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of tools-->
-                <!-- tool 3-->
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text text-center"><a href="">Forum</a></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of tools-->
-                <!-- tool 4-->
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text text-center"><a href="">View Students' Grades</a></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of tools-->
-            </div>
-        </div>
+    <div id='nav-bar'>
+        <nav-bar></nav-bar>
     </div>
+    <!-- Tools box -->
+    <div id='admin-toolbar'>
+        <admin-toolbar></admin-toolbar>
+    </div>
+
+
     <!-- Manage Course -->
     <div class="container-fluid section-wrapper" id="app">
         <h2>Create Quiz</h2>
@@ -139,11 +97,4 @@
     <script src="createQuiz.js" async defer></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-    <style>
-        .section-wrapper {
-            padding: 10px 45px 10px 45px;
-        }
-    </style>
-</body>
-
-</html>
+    <script src="vue.js"></script>
