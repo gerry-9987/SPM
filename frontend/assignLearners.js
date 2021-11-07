@@ -28,8 +28,8 @@ var app = new Vue({
     created: function(){
         this.getNumClasses(),
         this.getClassCapacity(),
-        this.getAllClassTaken(),
-        this.getLearners()
+        this.getAllClassTaken()
+        // this.getLearners()
         // this.assignAllLearners(),
         // this.assignLearners()
     },
@@ -96,7 +96,7 @@ var app = new Vue({
         },
 
         getAllClassTaken: function() {
-            const response =
+                console.log('get all classes taken')
                 fetch(takeclassURL)
                 .then(response => response.json())
                 .then(data => {
@@ -104,22 +104,16 @@ var app = new Vue({
                         this.message = data.message;
                     } else {
                         this.classes_taken = data.data.classes_taken;
-                        // console.log("=====Classes Taken=====")
-                        // console.log(this.classes_taken)
                         for(var class_taken of this.classes_taken){
-                            // console.log('FOR in get all classes taken')
-                            // console.log(class_taken.classID)
                             console.log(this.setClassNo)
-                            if (class_taken.classID == this.setClassNo){
-                                // console.log('IF in get all classes taken')
-                                
-                                this.already_assigned.push(class_taken.staffID)
-                        
+                            if (class_taken.classID == this.setClassNo){                                
+                                this.already_assigned.push(class_taken.staffID)                       
                             }
 
                         }
                         console.log('##### Already Assigned:')
                         console.log(this.already_assigned)
+                        this.getLearners()
                     }
                 })
                 .catch(error => {
@@ -135,24 +129,20 @@ var app = new Vue({
                 .then(response => response.json())
                 .then(data => {
                     result = data.data.staff;
+                    console.log('Staff')
                     console.log(result);
                     // 3 cases
                     switch (data.code) {
                         case 200:
                             for (var staff of result) {
-
-                                if (staff.department == "Learner" && this.already_assigned.includes(staff.staffID)) {
-                                    this.learners.push([staff.staffName, staff.staffID, '- Already Assigned']);
-                                    // this.learners.push(staff.staffName)
-                                    // this.learnersID.push(staff.staffID)
-                                    console.log(staff.staffName);
-                                    console.log(staff.staffID);
-                                    } else {
-                                    //  block of code to be executed if the condition is false
-                                    this.learners.push([staff.staffName, staff.staffID, '- Not Assigned']);
-                                    }
-
+                                if (staff.department == "Learner") {
+                                    if (this.already_assigned.includes(staff.staffID))
+                                        this.learners.push([staff.staffName, staff.staffID, '- Already Assigned']);
+                                    else{
+                                        this.learners.push([staff.staffName, staff.staffID, '- Not Assigned']);
+                                    }                    
                                 
+                                }                               
                             }
                             console.log('Learners!')
                             console.log(this.learners)
@@ -169,95 +159,89 @@ var app = new Vue({
                 })
         },
 
-        assignLearners: function(){
-                // staffIDs = [name[1] for name in this.checkedNames],
-                console.log('in assign learners')
-                console.log(this.checkedNames[0][1])
-                console.log(this.checkedNames[0][1], this.courseID, this.courseName, this.setClassNo)
-
-                if (assigned_already.includes(this.checkedNames[0][1])){
-                    this.status = 'Learner has already been assigned!'
-                    alert( `${this.checkedNames[0][1]} has already been assigned! Refresh and try again.`)
-                }
-
-                else if(!this.checkedNames){
-                    alert("No learners selected!")
-                }
-
-                else{
-                    let jsonData = JSON.stringify(
-                                {
-                                    "staffID" : this.checkedNames[0][1],
-                                    "courseID" : this.courseID,
-                                    "courseName" : this.courseName,
-                                    "classID" : this.setClassNo,
-                                });
-
-                    // console.log(typeof(jsonData));
-
-                        // fetch(takeclassURL,
-                        fetch(`http://127.0.0.1:5007/take_class`, {
-                                method: "POST",
-                                mode: "cors",
-                                headers: {
-                                    "Content-type": "application/json",
-                                    'Accept': 'application/json'
-                                },
-
-                                body: jsonData
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log(data);
-                                result = data.data;
-                                console.log('HELLO');
-                                console.log(result);
-                                // 3 cases
-                                switch (data.code) {
-                                    case 200:
-                                        // 201
-                                        this.assignSuccessful = true;
-                                        console.log('200 - Assigned learners successfully!');
-                                        alert('Assigned learners successfully!')
-                                        break;
-
-                                    case 400:
-                                        // 400
-                                        this.assignSuccessful = false;
-                                        break;
-                                    case 500:
-                                        // 500
-                                        console.log(data.message);
-                                        break;
-                                    default:
-                                        throw `${data.code}: ${data.message}`;
-
-                                } // switch
-                                this.PostLearners = true;
-                            })
-                            .catch(error => {
-                                console.log("Problem in assigning learners " + error);
-                            })
-                }
-
                 
-                }
-
-            
-
-
-
         // if there is more than one learner selected
         // assignAllLearners: function(){
+        //     console.log(this.checkedNames)
         //     var numLearners = this.checkedNames.length();
         //     var staffID = "";
         //     for (var i=0; i<numLearners+1; i++) {
-        //       staffID = checkedNames[i][0];
-        //       console.log(staffID);
-        //       this.assignLearners(staffID);
+        //         staffID = checkedNames[i][0];
+        //         console.log(staffID);
+        //         this.assignLearners(staffID);
         //     };
 
         // },
+
+        assignLearners: function() {
+            // var temp = this.checkedNames
+            // alert(`${temp}`)
+            console.log('in assign learners')
+            if (this.checkedNames) {
+
+                console.log('Conditions satisfied, post new learners!')
+                console.log(this.checkedNames[0][1], this.courseID, this.courseName, this.setClassNo)
+
+                let jsonData = JSON.stringify(
+                    {
+                        "staffID" : this.checkedNames[0][1],
+                        "courseID" : this.courseID,
+                        "courseName" : this.courseName,
+                        "classID" : this.setClassNo,
+                    });
+
+                console.log(jsonData);
+
+                fetch("http://127.0.0.1:5007/take_class", {
+                        method: "POST",
+                        mode: "cors",
+                        headers: {
+                            "Content-type": "application/json",
+                            'Accept': 'application/json'
+                        },
+
+                        body: jsonData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        result = data.code;
+                        console.log(result);
+                        // 3 cases
+                        switch (result) {
+                            case 200:
+                                // 201
+                                this.assignSuccessful = true;
+                                console.log('200 - assigned learners successfully!');
+                                alert('Assigned learners successfully!');
+                                break;
+                            case 300:
+                                alert('Learner already assigned!');
+                            case 400:
+                                // 400
+                                this.assignSuccessful = false;
+                                break;
+                            case 500:
+                                // 500
+                                console.log(data.message);
+                                break;
+                            default:
+                                throw `${data.code}: ${data.message}`;
+
+                        } // switch
+                        this.assignSuccessful = true;
+                    })
+                    .catch(error => {
+                        console.log("Problem in assigning learners" + error);
+                    })
+            }
+
+            else{
+                alert('No learners selected!')
+            }
+        }
+
+
 
 
 

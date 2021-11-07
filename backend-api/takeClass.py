@@ -20,7 +20,7 @@ from dbModel import *
 Take_Class = dbModel.Take_Class
 
 # get the list of all classes taken
-@app.route("/take_class/")
+@app.route("/take_class")
 def get_all():
     take_class_list = Take_Class.query.all()
     if len(take_class_list):
