@@ -11,7 +11,7 @@ var courseDetailsURL = `http://127.0.0.1:5003/course/${courseID}`
 var courseURL = 'http://127.0.0.1:5003'
 var takeClassURL = 'http://127.0.0.1:5007'
 var chapterDetailsURL = `http://127.0.0.1:5000/chapter/course/${courseID}`
-var studentID = 13
+var studentID = 1
 
 // VUE JS
 console.log(courseDetailsURL)
@@ -72,6 +72,7 @@ var app = new Vue({
             });
 
             console.log(jsonData)
+            console.log(`${takeClassURL}/take_class`)
 
             fetch(`${takeClassURL}/take_class`, {
                     method: "POST",
@@ -125,6 +126,7 @@ var app = new Vue({
                     switch (data.code) {
                         case 200:
                             console.log('success')
+                            this.checkIsEnrolled = false
                             alert("Withdrawal success");
                             break;
                         case 300:
