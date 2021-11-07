@@ -57,6 +57,9 @@ var app = new Vue({
         },
         redirectTakeCoursePage: function(courseID, classID) {
             window.location.href = `takeCourse?courseID=${courseID}&classID=${classID}`;
+        },
+        scrolldown: function() {
+            return window.scrollTo(0, document.body.scrollHeight);
         }
     }
 });
