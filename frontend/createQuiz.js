@@ -62,6 +62,7 @@ var app = new Vue({
                     switch (data.code) {
                         case 200:
                             console.log('success')
+                            alert('Successfully added quiz!')
                                 //                 if (this.quizIsGraded == 'graded') {
                                 //                     this.addGradedQuiz()
                                 //                 } else {

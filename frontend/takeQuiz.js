@@ -1,7 +1,8 @@
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const quizID = urlParams.get('quizID')
-console.log(quizID)
+// const queryString = window.location.search;
+// const urlParams = new URLSearchParams(queryString);
+// const quizID = urlParams.get('quizID')
+// console.log('QuizID!')
+// console.log(quizID)
 
 const now = Date.now()
 const start = new Date(now)
@@ -26,6 +27,7 @@ var app = new Vue({
         tookQuiz: [],
         response: [],
         learnerAnswer: [],
+        endDate: 1,
         // questions_answers: [],       
         score: 0,
         alertMessage: "",
@@ -36,7 +38,8 @@ var app = new Vue({
             this.getAnswers(),
             this.takenQuiz(),
             this.getDuration(),
-            this.timeAlert(),
+            // this.timer(),
+            // this.timeAlert(),
             this.getLearnerAnswers()
             // this.getQuiz()
             // this.getQuiz(),
@@ -132,22 +135,55 @@ var app = new Vue({
                 .then(data => {
                     console.log(data)
                     this.duration = data.data.duration
+                    console.log(this.duration)
+                    console.log(typeof(now))
+                    console.log(now)
+                    var oldDateObj = now;
+                    var endTime = new Date();
+                    endTime.setTime(oldDateObj + (this.duration * 60 * 1000));
+                    console.log(this.duration)
+                    console.log(this.duration * 60 * 1000)
+                    this.endDate = endTime;
+                        // var endDate = new Date(now + 60*this.duration)
+                    console.log('END DATE')
+                    console.log(this.endDate)
+
+                    this.timer()
                 })
-            console.log(typeof(now))
-            console.log(now + 60 * (this.duration))
-            this.endDate = new Date(now + 60 * this.duration)
-                // var endDate = new Date(now + 60*this.duration)
-            console.log('END DATE')
-            console.log(this.endDate)
         },
 
-        timeAlert: function() {
+        timer: function(){
+            // Set the date we're counting down to
+            console.log('in timer!')
+            console.log(this.endDate)
+            var countDownDate = new Date(this.endDate).getTime();
 
-            if (now == this.endDate) {
-                console.log('Times up!')
-                console.log(now)
+            // Update the count down every 1 second
+            var x = setInterval(function() {
+
+            // Get today's date and time
+            var now = new Date().getTime();
+                
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+                
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+            // Output the result in an element with id="demo"
+            document.getElementById("timer").innerHTML = days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s ";
+                
+            // If the count down is over, write some text 
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("timer").innerHTML = "Time's Up!";
                 alert("Your Time Is Up! Submit your quiz NOW!")
             }
+            }, 1000);
         },
 
         getLearnerAnswers: function() {
@@ -169,29 +205,35 @@ var app = new Vue({
         checkAnswers: function() {
             // TODO: you can retrieve the /quiz/<quizID>/answers API endpoint to check against this.learnerAnswer
             // we managed to retrieve the list of answers that the learner entered
-            console.log('Check answers!')
-            console.log(this.answers)
-            console.log(this.learnerAnswer)
-                // console.log(this.answers[0])
-                // console.log(this.answers[0])
-            for (var i = 0; i < this.answers.length; i++) {
-                // console.log(i)
-                if (this.learnerAnswer[i] == this.answers[i]) {
-                    this.score++
-                }
+
+            if (!(this.learnerAnswer.length == this.questions.length)){
+                alert('You cannot submit the quiz until you have completed all the questions.')
             }
-
-            // this.score = this.score-1;
-            console.log('Score is here!');
-
-            console.log(this.score);
-            // this.checkedAnswers = true;
-            if (!this.tookQuiz.includes(this.staffID)) {
-                console.log('Post Answers')
-                this.postAnswers();
-            } else {
-                console.log('Retake Quiz')
-                this.retakeQuiz()
+            else{
+                console.log('Check answers!')
+                console.log(this.answers)
+                console.log(this.learnerAnswer)
+                    // console.log(this.answers[0])
+                    // console.log(this.answers[0])
+                for (var i = 0; i < this.answers.length; i++) {
+                    // console.log(i)
+                    if (this.learnerAnswer[i] == this.answers[i]) {
+                        this.score++
+                    }
+                }
+    
+                // this.score = this.score-1;
+                console.log('Score is here!');
+    
+                console.log(this.score);
+                // this.checkedAnswers = true;
+                if (!this.tookQuiz.includes(this.staffID)) {
+                    console.log('Post Answers')
+                    this.postAnswers();
+                } else {
+                    console.log('Retake Quiz')
+                    this.retakeQuiz()
+                }
             }
 
         },
@@ -223,14 +265,15 @@ var app = new Vue({
                     .then(response => response.json())
                     .then(data => {
                         console.log(data);
-                        result = data.data;
+                        result = data.code;
                         console.log(result);
                         // 3 cases
-                        switch (data.code) {
-                            case 201:
+                        switch (result) {
+                            case 200:
                                 // 201
                                 this.postSuccessfull = true;
-                                console.log('201 - Posted quiz score successfully!');
+                                console.log('200 - Posted quiz score successfully!');
+                                alert('Quiz submitted successfully!');
                                 break;
 
                             case 400:
@@ -283,14 +326,15 @@ var app = new Vue({
                     .then(response => response.json())
                     .then(data => {
                         console.log(data);
-                        result = data.data;
+                        result = data.code;
                         console.log(result);
                         // 3 cases
-                        switch (data.code) {
-                            case 201:
+                        switch (result) {
+                            case 200:
                                 // 201
                                 this.postSuccessfull = true;
-                                console.log('201 - Posted quiz score successfully!');
+                                console.log('200 - Posted quiz score successfully!');
+                                alert('Quiz retaken successfully!');                              
                                 break;
 
                             case 400:
