@@ -14,48 +14,14 @@
 
 <body>
     <!-- navbar -->
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand">Course Management System</a>
-        </div>
-    </nav>
-    <!-- Tools box -->
-    <div class="container-fluid section-wrapper">
-        <h2>Tools for Administrators</h2>
-        <div class="border border-grey rounded">
-            <div class="row m-4">
-                <!-- tool 1-->
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text text-center "><a href="createCourse.html">Create Course</a></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- tool 2-->
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text text-center"><a href="manageCourse.html">Manage Course</a></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of tools-->
-                <!-- tool 3-->
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text text-center"><a href="assignLearners.html">Assign Learners</a></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of tools-->
-            </div>
-        </div>
+    <div id='nav-bar'>
+        <nav-bar></nav-bar>
     </div>
+    <!-- Tools box -->
+    <div id='admin-toolbar'>
+        <admin-toolbar></admin-toolbar>
+    </div>
+
     <!-- Manage Course -->
     <div class="container-fluid section-wrapper">
         <h2>Assign Learners</h2>
@@ -80,8 +46,7 @@
                 </div>
             </div>
             <div class="my-3">
-                {{assigned}}/{{capacity}} assigned
-                {{status}}
+                {{assigned}}/{{capacity}} assigned {{status}}
             </div>
             <div>
                 <ul class="container list-group infinite-scroll m-0" id="basic-example" style="max-height: 261px; overflow-y: scroll;">
@@ -98,7 +63,7 @@
     </div>
 
     <script>
-        if(document.getElementById('button').clicked == true){
+        if (document.getElementById('button').clicked == true) {
             alert("button was clicked");
         }
     </script>
@@ -110,11 +75,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
     <script src="assignLearners.js" async defer></script>
+    <SCRIPT src="vue.js"></SCRIPT>
     <style>
         .section-wrapper {
             padding: 10px 45px 10px 45px;
         }
     </style>
-</body>
-
-</html>

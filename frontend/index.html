@@ -59,9 +59,9 @@
                 <div class="row align-items-md-stretch">
                     <div class="col-md-6">
                         <div class="h-100 p-5 text-white bg-dark rounded-3">
-                            <h2>Manage Course</h2>
-                            <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look. Then, mix and match with additional component themes and more.</p>
-                            <a href='manageCourse' class="btn btn-outline-light" type="button">Example button</a>
+                            <h2>Create Quiz</h2>
+                            <p>Create graded/ungraded TF quiz. Set timer and answers</p>
+                            <a href='createQuiz' class="btn btn-outline-light" type="button">Create Quiz</a>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -79,8 +79,16 @@
         <!-- Tools box -->
         <div id='learner-toolbar ' v-if='showLearnerTools '>
             <learner-toolbar></learner-toolbar>
+            <div class="container py-4 mb-4">
+                <div class="p-5 mb-4 bg-light rounded-3">
+                    <div class="container-fluid py-5">
+                        <h1 class="display-5 fw-bold">Courses</h1>
+                        <p class="col-md-8 fs-4">View enrolled courses, take new courses and take quizes</p>
+                        <a href='cataloguePage' class="btn btn-primary btn-lg" type="button">Courses</a>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </div>
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js " integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN " crossorigin="anonymous ">

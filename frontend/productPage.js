@@ -41,6 +41,48 @@ var app = new Vue({
             this.getChapterDetails()
     },
     methods: {
+        signupCourse2: function() {
+            console.log('Signing up 2')
+
+            let jsonData = JSON.stringify({
+                "staffID": studentID,
+                "courseID": courseID,
+                "courseName": this.courseName,
+                "classID": this.selectedClass
+            });
+            var signupCourse2URL = 'http://127.0.0.1:5007/take_class'
+            console.log(signupCourse2URL)
+
+            fetch(signupCourse2URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: jsonData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    result = data.data;
+                    console.log(result);
+                    // 3 cases
+                    switch (data.code) {
+                        case 200:
+                            console.log('success')
+                            alert('Sucessfully created course');
+                            break;
+                        case 300:
+                            alert('Course already exisits! Please change name');
+                        case 500:
+                            console.log('failure')
+                            alert('Failed to create course');
+                            break;
+                        default:
+                            console.log('error')
+                            throw `${data.code}: ${data.message}`;
+                    }
+                })
+        },
         checkIsEnrolled: function() {
             console.log(this.courseStudents)
             if (this.courseStudents == 'No students') {
@@ -168,7 +210,7 @@ var app = new Vue({
                             this.courseClassArray = classArray
 
                             // Check if student is already enrolled 
-                            this.checkIsEnrolled()
+                            // this.checkIsEnrolled()
                             break;
                         case 400:
                         case 500:
