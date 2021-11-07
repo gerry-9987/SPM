@@ -1,5 +1,3 @@
-var URL = 'http://127.0.0.1:5003'
-
 // Define a new component called button-counter
 Vue.component('nav-bar', {
     data: function() {
@@ -15,64 +13,83 @@ var vm = new Vue({
     el: '#nav-bar'
 });
 
-var app = new Vue({
-    el: "#app ",
-    computed: {},
-    data: {
-        course_categories: [
-            "IBM",
-            "HP",
-            "XENON ",
-            "Canon",
-        ],
-        trainers: [
-            "Wesley", "Jewel", "Gerry", "HaoYue", "LY"
-        ],
-        form_course_name: 'Enter course name',
-        form_course_category: 0,
-        form_number_of_classes: 0,
-        form_course_capacity: 0,
-        form_course_trainers: []
-    },
-    methods: {
-        submit_new_course: function() {
-            console.log('I am clicked')
-            console.log(this.form_course_name, this.form_course_category, this.form_number_of_classes, this.form_course_capacity, this.form_course_trainers)
-
-            let jsonData = JSON.stringify({
-                form_course_name: this.form_course_name,
-                form_course_category: this.form_course_category,
-                form_number_of_classes: this.form_number_of_classes,
-                form_course_capacity: this.form_course_capacity,
-                form_course_trainers: this.form_course_trainers
-            });
-
-            console.log(URL)
-            fetch(`${URL}/course`, {
-                    method: "POST",
-                    headers: {
-                        "Content-type": "application/json"
-                    },
-                    body: jsonData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    result = data.data;
-                    console.log(result);
-                    // 3 cases
-                    switch (data.code) {
-                        case 200:
-                            console.log('success')
-                            break;
-                        case 400:
-                        case 500:
-                            console.log('failure')
-                            break;
-                        default:
-                            throw `${data.code}: ${data.message}`;
-                    }
-                })
+// Define a new component called button-counter
+Vue.component('admin-toolbar', {
+    data: function() {
+        return {
+            count: 0
         }
-    }
+    },
+    template: `<div class="container-fluid section-wrapper">
+                    <h2>Tools for Administrators</h2>
+                    <div class="border border-grey rounded">
+                        <div class="row m-4">
+                            <!-- tool 1-->
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="..." />
+                                    <div class="card-body">
+                                        <p class="card-text text-center "><a href="createCourse">Create Course</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- tool 2-->
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="..." />
+                                    <div class="card-body">
+                                        <p class="card-text text-center"><a href="manageCourse">Manage Course</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end of tools-->
+                            <!-- tool 3-->
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                    <p class="card-text text-center"><a href="assignLearners">Assign Learners</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end of tools-->
+                        </div>
+                    </div>
+                </div>`
+})
+
+
+var vm = new Vue({
+    el: '#admin-toolbar'
+});
+
+// User tool bar
+Vue.component('admin-toolbar', {
+    data: function() {
+        return {
+            count: 0
+        }
+    },
+    template: `<div class="container-fluid section-wrapper">
+                    <h2>Tools for Administrators</h2>
+                    <div class="border border-grey rounded">
+                        <div class="row m-4">
+                            <!-- tool 1-->
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="..." />
+                                    <div class="card-body">
+                                        <p class="card-text text-center "><a href="cataloguePage">cataloguePage</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end of tools-->
+                        </div>
+                    </div>
+                </div>`
+})
+
+
+var vm = new Vue({
+    el: '#admin-toolbar'
 });
