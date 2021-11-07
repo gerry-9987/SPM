@@ -70,6 +70,9 @@ var app = new Vue({
                 'courseName': this.courseName,
                 'classID': this.selectedClass
             });
+
+            console.log(jsonData)
+
             fetch(`${takeClassURL}/take_class`, {
                     method: "POST",
                     headers: {
