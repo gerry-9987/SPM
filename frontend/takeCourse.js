@@ -8,6 +8,7 @@ var app = new Vue({
     el: "#app ",
     data: {
         courseID: 1,
+        courseName: 'Placeholder',
         classID: 1,
         courseIndex: 0,
         courseDetails: "",
@@ -59,6 +60,8 @@ var app = new Vue({
                             details = result[this.courseIndex]
                             chapters = details.chapters
                             this.courseDetails = details.courseDetails
+                            console.log(details.courseName)
+                            this.courseName = details.courseName
                             console.log(chapters)
                             for (var chapter in chapters) {
                                 this.chapters.push(chapters[chapter].chapterID)
