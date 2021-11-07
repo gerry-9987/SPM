@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -10,14 +11,17 @@
 
     <title>LMS</title>
 </head>
+
 <body>
     <!-- navbar -->
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid" >
-            <a class="navbar-brand">Course Management System</a>
-            <a href="">Home</a>
-        </div>
-    </nav>
+    <div id='nav-bar'>
+        <nav-bar></nav-bar>
+    </div>
+    <!-- Tools box -->
+    <div id='learner-toolbar'>
+        <learner-toolbar></learner-toolbar>
+    </div>
+
 
     <!-- Manage Course -->
     <div class="container-fluid section-wrapper" id="app">
@@ -36,12 +40,12 @@
                             <label class="form-check-label" for="option">{{ option }}</label>
                         </div> -->
                         <div class="form-check">
-                            <input class="form-check-input answer" type="radio" v-bind:name="num+1" value="True">
-                            <label class="form-check-label" for="flexRadioDefault1">True</label>
+                            <input class="form-check-input answer" type="radio" v-bind:name="num+1" :id="'t'+num+1" value="True">
+                            <label class="form-check-label" :for="'t'+num+1">True</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input answer" type="radio" v-bind:name="num+1" value="False">
-                            <label class="form-check-label" for="flexRadioDefault2">False</label>
+                            <input class="form-check-input answer" type="radio" v-bind:name="num+1" :id="'f'+num+1" value="False">
+                            <label class="form-check-label" :for="'f'+num+1">False</label>
                         </div>
                     </div>
                 </div>
@@ -67,7 +71,6 @@
         //     console.log("hi")
         //     return "Bye"
         // }
-        
     </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -75,11 +78,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
+    <script src="takeQuiz.js"></script>
+    <script src='vue.js'></script>
     <style>
         .section-wrapper {
-            padding: 10px 45px 10px 45px;
+            padding: 10 px 45 px 10 px 45 px;
         }
-    </style>
-    <script src="takeQuiz.js"></script>
-</body>
-</html>
+        
+        < /style></body></html>
