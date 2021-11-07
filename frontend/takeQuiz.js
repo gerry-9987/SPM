@@ -9,7 +9,7 @@ const start = new Date(now)
 console.log(now)
 console.log(start)
 const classID = 1
-const quizID = 1
+// const quizID = 1
 var quizURL = `http://127.0.0.1:5008/quiz/${quizID}`
 var questionsURL = `http://127.0.0.1:5008/quiz/${quizID}/questions`
 var answersURL = `http://127.0.0.1:5008/quiz/${quizID}/answers`

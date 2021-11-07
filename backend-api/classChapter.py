@@ -80,8 +80,8 @@ def get_course_class_chapter(courseID, classID, chapterID):
     ), 404
 
 # get quizzes from a specific class and course
-@app.route("/find_quizes", methods=['POST'])
-def find_quizes():
+@app.route("/find_quizzes", methods=['POST'])
+def find_quizzes():
 
     classID = request.json.get("classID")
     courseID = request.json.get("courseID")

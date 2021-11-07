@@ -142,26 +142,26 @@ def create_class():
         ), 500
 
 # get quizzes from a specific class and course
-@app.route("/find_quizes", methods=['POST'])
-def find_quizes():
+# @app.route("/find_quizzes", methods=['POST'])
+# def find_quizzes():
 
-    classID = request.json.get("classID")
-    courseID = request.json.get("courseID")
+#     classID = request.json.get("classID")
+#     courseID = request.json.get("courseID")
 
-    findclasses = Class.query.filter(Class.classID==classID, Class.courseID==courseID).all()
-    print(findclasses)
+#     findclasses = Class.query.filter(Class.classID==classID, Class.courseID==courseID).all()
+#     print(findclasses)
     
-    res = []
-    for findclass in findclasses:
-        res.append(findclass.quizID)
+#     res = []
+#     for findclass in findclasses:
+#         res.append(findclass.quizID)
 
 
-    return jsonify(
-        {
-            "code": 200,
-            "data": res
-        }
-    ), 200
+#     return jsonify(
+#         {
+#             "code": 200,
+#             "data": res
+#         }
+#     ), 200
 
 
 if __name__ == '__main__':

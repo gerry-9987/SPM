@@ -32,10 +32,8 @@ var app = new Vue({
         quizIDs: []
     },
     created: function() {
-        // this.getDetails()
         this.getQuizDetails()
-        this.getDetails2()
-
+        this.getDetails()
     },
     computed: {
         completedChapters() {
@@ -50,44 +48,6 @@ var app = new Vue({
             console.log(this.finish.length)
             this.completedChapters = this.finish.length
         },
-        getDetails: function() {
-            fetch(detailsURL)
-                .then(response => response.json())
-                .then(data => {
-                    result = data.data;
-                    console.log(result);
-                    switch (data.code) {
-                        case 200:
-                            console.log(result)
-                            for (var each in result) {
-                                courseID = result[each].courseID
-                                if (courseID == this.courseID) {
-                                    this.courseIndex = each
-                                    console.log(each)
-                                }
-                            }
-                            console.log(result[this.courseIndex])
-                            details = result[this.courseIndex]
-                            chapters = details.chapters
-                            this.courseDetails = details.courseDetails
-                            console.log(details.courseName)
-                            this.courseName = details.courseName
-                            console.log(chapters)
-                            for (var chapter in chapters) {
-                                this.chapters.push(chapters[chapter].chapterID)
-                                this.chapterContent.push(chapters[chapter].chapterDetails)
-                            }
-
-                            break;
-                        case 400:
-                        case 500:
-                            console.log('failure')
-                            break;
-                        default:
-                            throw `${data.code}: ${data.message}`;
-                    }
-                })
-        },
         getQuizDetails: function() {
 
             console.log('Finding Quizes')
@@ -97,7 +57,7 @@ var app = new Vue({
                 'classID': this.classID
             });
 
-            fetch(`http://127.0.0.1:5001/find_quizes`, {
+            fetch(`http://127.0.0.1:5001/find_quizzes`, {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"
@@ -111,7 +71,7 @@ var app = new Vue({
                     // 3 cases
                     switch (data.code) {
                         case 200:
-                            console.log('successfully gotten quizes')
+                            console.log('successfully gotten quizzes')
                             this.quizIDs = result
                             break;
                         case 300:
@@ -124,7 +84,7 @@ var app = new Vue({
                     }
                 })
         },
-        getDetails2: function() {
+        getDetails: function() {
             console.log('Getting details 2.0')
 
             let jsonData = JSON.stringify({
