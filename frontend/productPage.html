@@ -16,8 +16,8 @@
     <!-- navbar -->
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand">Course Management System</a>
-            <a href="">Home</a>
+            <a href="index" class="navbar-brand">Course Management System</a>
+            <a href="index">Home</a>
         </div>
     </nav>
     <div id="app">
@@ -76,7 +76,7 @@
                                 <input class="form-check-input" type="radio" :name="section" :id="section" :value="section" v-model="selectedClass ">
                                 <label class="form-check-label " :for="section ">{{section}}</label>
                             </div>
-                            <button @click='signUpCourse()' type="submit " class="btn btn-success px-5 mt-3 btn-block ">Self-Enroll</button>
+                            <button @click='signUpCourse2()' class="btn btn-success px-5 mt-3 btn-block ">Self-Enroll</button>
                             <button @click='withdraw()' class="btn btn-success px-5 mt-3 btn-block">Withdraw</button>
                         </p>
                     </div>
@@ -86,7 +86,7 @@
         <!-- Course Outline-->
         <!-- #TODO: fix chapter details -->
 
-        <div class="container-fluid section-wrapper ">
+        <div class=" container-fluid section-wrapper ">
             <h2>Course Outline</h2>
 
             <div>

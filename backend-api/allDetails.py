@@ -75,7 +75,41 @@ def get_details(staffID):
             "data": allDetails
         }
     )
-
+    
+@app.route("/all", methods=['POST'])
+def get_details2():
+    
+    
+    print("I am inside get all details")
+    
+    classID = request.json.get("classID")
+    courseID = request.json.get("courseID")
+    
+    res = {'chapters':[],'quizIDs':[],'materials':[]}
+    
+    # Get chapter details
+    course = Course.query.filter(Course.courseID==courseID).first()
+    res['courseName'] = course.courseName
+    res['courseDetails'] = course.courseDetails
+    print(res)
+    
+    # Get all the quizIDs
+    chapters = ClassChapter.query.filter(ClassChapter.courseID==courseID, ClassChapter.classID==classID).all()
+    for chapter in chapters:
+        print(chapter.json())
+        res['chapters'].append(chapter.chapterID)
+        res['quizIDs'].append(chapter.quizID)
+    # Get all the materials
+    materials = Material.query.filter(Material.courseID==courseID, Material.classID==classID).all()
+    for material in materials:
+        print(material.json())
+        res['materials'].append(material.json())
+    return jsonify(
+        {
+            "code": 200,
+            "data": res
+        }
+    ) 
 
 if __name__ == '__main__':
     app.run(port=5011, debug=True)

@@ -10,86 +10,68 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    <script src="styles.css"></script>
 
     <title>LMS</title>
 </head>
 
 <body>
     <!-- navbar -->
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand">Course Management System</a>
-            <a href="">Home</a>
-        </div>
-    </nav>
+    <div id='nav-bar'>
+        <nav-bar></nav-bar>
+    </div>
     <!-- Tools box -->
-    <div class="container-fluid section-wrapper">
-        <h2>Learning Tools</h2>
-        <div class="border border-grey rounded">
-            <div class="row m-4">
-                <!-- tool 1-->
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text text-center "><a href="">Course content</a></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- tool 2-->
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text text-center"><a href="">Quizzes</a></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of tools-->
-                <!-- tool 3-->
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text text-center"><a href="">Forum</a></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of tools-->
-            </div>
-        </div>
+    <div id='learner-toolbar'>
+        <learner-toolbar></learner-toolbar>
     </div>
-    <!-- Take Course -->
-    <div class="container-fluid section-wrapper" id="app">
-        <h2>Course Progression - {{Math.round((finish.length/chapterContent.length)*100)+'%'}}</h2>
-        <div class="mb-2"></div>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" :style="'width: '+(finish.length/chapterContent.length)*100+'%'" v-bind:aria-valuenow="progressPercentage" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
 
-        <!-- <div class="form-group mt-3">
-            <select class="form-control" id="chapters" v-model="selectedNum" placeholder='Select Chapter'>
-              <option v-for="chapter in chapters" v-bind:value="chapter"> Chapter {{ chapter }}</option>
-            </select>
-        </div> -->
-        <div class="border border-grey rounded p-3">
-            <div class="border border-grey rounded p-3" v-for="selectedNum in chapters.slice(0,completedChapters)">
-                <label class="font-weight-bold">Chapter: {{selectedNum}} {{materialName[selectedNum-1]}}</label>
-                <p>{{materialBody[selectedNum-1]}}</p>
-                <div>
-                    <a v-if="materialType[selectedNum-1] == 'document'" class="btn btn-primary mb-2" v-bind:href="materials[selectedNum-1]" role="button">Download</a>
-                    <a v-else-if="materialType[selectedNum-1] == 'link'" class="btn btn-primary mb-2" v-bind:href="materials[selectedNum-1]" role="button">Go to Website</a>
-                    <iframe v-else-if="materialType[selectedNum-1] == 'video'" v-bind:src="materials[selectedNum-1]"></iframe>
-                    <a class="btn btn-success mb-2" @click='redirectQuizPage(quizIDs[selectedNum-1])' ole="button">Do quiz</a>
-                    <p>
-
-                        <input type="checkbox" v-model="finish" name="finish[]" :id="selectedNum" v-bind:value=" selectedNum "><label :for='selectedNum' class='ml-2'> Click when done with the learning material</label></p>
+    <div id='app'>
+        <!--Course title-->
+        <div class="container-fluid bg-dark text-white section-wrapper p-4">
+            <div class="row m-2">
+                <div class="col-10">
+                    <h4>{{ courseName }}</h4>
+                    <br>{{ courseDetails }}
+                </div>
+                <div class="col-2">
+                    <img src="../images/course.jpg" class="card-img-top" alt="...">
                 </div>
             </div>
         </div>
-        <button v-if="completedChapters-1 == chapters.length" @click='redirectQuizPage(quizID)' class="btn btn-danger m-3">View Final Quiz</button>
-    </div>
 
+        <!-- Take Course -->
+        <div class="container-fluid section-wrapper mt-4">
+
+
+            <h2>Course Progression - {{Math.round((finish.length/chapters.length)*100)+'%'}}</h2>
+            <div class="mb-2"></div>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" :style="'width: '+(finish.length/chapters.length)*100+'%'" v-bind:aria-valuenow="progressPercentage" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+            <!-- <div class="form-group mt-3">
+        <select class="form-control" id="chapters" v-model="selectedNum" placeholder='Select Chapter'>
+          <option v-for="chapter in chapters" v-bind:value="chapter"> Chapter {{ chapter }}</option>
+        </select>
+    </div> -->
+            <div class="p-3">
+                <div class="border border-grey rounded p-3 my-2" v-for="selectedNum in chapters.slice(0,completedChapters)">
+                    <label class="font-weight-bold">Chapter: {{selectedNum}} {{materialName[selectedNum-1]}}</label>
+                    <p>{{materialBody[selectedNum-1]}}</p>
+                    <div>
+                        <a v-if="materialType[selectedNum-1] == 'document'" class="btn btn-primary mb-2" v-bind:href="materials[selectedNum-1]" role="button">Download</a>
+                        <a v-else-if="materialType[selectedNum-1] == 'link'" class="btn btn-primary mb-2" v-bind:href="materials[selectedNum-1]" role="button">Go to Website</a>
+                        <iframe v-else-if="materialType[selectedNum-1] == 'video'" v-bind:src="materials[selectedNum-1]"></iframe>
+                        <a class="btn btn-success mb-2" @click='redirectQuizPage(quizIDs[selectedNum-1])' ole="button">Do quiz</a>
+                        <p>
+
+                            <input type="checkbox" v-model="finish" name="finish[]" :id="selectedNum" v-bind:value=" selectedNum "><label :for='selectedNum' class='ml-2'> Click when done with the learning material</label></p>
+                    </div>
+                </div>
+            </div>
+            <button v-if="completedChapters-1 == chapters.length" @click='redirectQuizPage(quizID)' class="btn btn-danger m-3">View Final Quiz</button>
+        </div>
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js " integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN " crossorigin="anonymous "></script>
@@ -98,16 +80,3 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
     <script src="takeCourse.js"></script>
     <script src="vue.js "></script>
-
-
-    <style>
-        .section-wrapper {
-            padding: 10 px 45 px 10 px 45 px;
-            margin-top: 10px;
-        }
-        
-        .btn {
-            width: 200 px;
-        }
-        
-        < /style>< / body>< /html>

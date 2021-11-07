@@ -40,24 +40,6 @@ def get_all():
     ), 404
 
 
-# get specific class taken
-# @app.route("/take_class/<string:staffID>")
-# def get_class_taken(staffID):
-#     class_taken = Take_Class.query.filter_by(staffID=staffID).all()
-#     if class_taken:
-#         return jsonify(
-#             {
-#                 "code": 200,
-#                 "data": class_taken.json()
-#             }
-#         )
-#     return jsonify(
-#         {
-#             "code": 404,
-#             "message": "Class taken not found."
-#         }
-#     ), 404
-
 @app.route("/take_class/course/<string:courseID>")
 def get_class_taken_course(courseID):
     class_taken = Take_Class.query.filter_by(courseID=courseID).first()
@@ -75,31 +57,17 @@ def get_class_taken_course(courseID):
         }
     ), 404
 
-# add new class taken
+# Take class
 @app.route("/take_class", methods=['POST'])
 def add_class_taken():
-    # {
-    #     "staffID": 3,
-    #     "courseID": 1,
-    #     "courseName": "IBM 102",
-    #     "classID": 2
-    # }
-    # print(request.json)
+   
+    print("I am inside the POST end point /take_class")
     staffID = request.json.get("staffID")
-    print(staffID)
     courseID = request.json.get("courseID")
     courseName = request.json.get("courseName")
     classID = request.json.get("classID")
-
-    #hardcode test
-    # staffID =1
-    # courseID = 1
-    # courseName = "IBM 102"
-    # classID =2
-
-    # print(staffID, courseID, courseName, classID)
-
     class_taken = Take_Class(staffID, courseID, courseName, classID)
+    print(class_taken)
 
     findClassTaken = Take_Class.query.filter(Take_Class.staffID==staffID, Take_Class.courseID==courseID, Take_Class.classID==classID).first()
     if findClassTaken:

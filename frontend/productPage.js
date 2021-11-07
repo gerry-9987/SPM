@@ -2,7 +2,7 @@
 // var courseID = 2
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const courseID = urlParams.get('courseID')
+const courseID = parseInt(urlParams.get('courseID'))
 console.log(courseID)
 
 // API end points
@@ -11,7 +11,7 @@ var courseDetailsURL = `http://127.0.0.1:5003/course/${courseID}`
 var courseURL = 'http://127.0.0.1:5003'
 var takeClassURL = 'http://127.0.0.1:5007'
 var chapterDetailsURL = `http://127.0.0.1:5000/chapter/course/${courseID}`
-var studentID = 13
+var studentID = 1
 
 // VUE JS
 console.log(courseDetailsURL)
@@ -41,6 +41,48 @@ var app = new Vue({
             this.getChapterDetails()
     },
     methods: {
+        signUpCourse2: function() {
+            console.log('Signing up 2')
+
+            let jsonData = JSON.stringify({
+                "staffID": studentID,
+                "courseID": courseID,
+                "courseName": this.courseName,
+                "classID": this.selectedClass
+            });
+            var signupCourse2URL = 'http://127.0.0.1:5007/take_class'
+            console.log(signupCourse2URL)
+
+            fetch(signupCourse2URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: jsonData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    result = data.data;
+                    console.log(result);
+                    // 3 cases
+                    switch (data.code) {
+                        case 200:
+                            console.log('success')
+                            alert('Sucessfully created course');
+                            break;
+                        case 300:
+                            alert('Course already exisits! Please change name');
+                        case 500:
+                            console.log('failure')
+                            alert('Failed to create course');
+                            break;
+                        default:
+                            console.log('error')
+                            throw `${data.code}: ${data.message}`;
+                    }
+                })
+        },
         checkIsEnrolled: function() {
             console.log(this.courseStudents)
             if (this.courseStudents == 'No students') {
@@ -70,6 +112,10 @@ var app = new Vue({
                 'courseName': this.courseName,
                 'classID': this.selectedClass
             });
+
+            console.log(jsonData)
+            console.log(`${takeClassURL}/take_class`)
+
             fetch(`${takeClassURL}/take_class`, {
                     method: "POST",
                     headers: {
@@ -122,6 +168,7 @@ var app = new Vue({
                     switch (data.code) {
                         case 200:
                             console.log('success')
+                            this.checkIsEnrolled = false
                             alert("Withdrawal success");
                             break;
                         case 300:
@@ -163,7 +210,7 @@ var app = new Vue({
                             this.courseClassArray = classArray
 
                             // Check if student is already enrolled 
-                            this.checkIsEnrolled()
+                            // this.checkIsEnrolled()
                             break;
                         case 400:
                         case 500:
