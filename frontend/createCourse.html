@@ -8,7 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-    <link rel="stylesheet" href="styles.css" />
+    <link href='styles.css' rel="stylesheet">
 
     <title>LMS</title>
 </head>
@@ -30,47 +30,59 @@
         </div>
         <!-- start of form -->
         <form class="mt-3" id="app">
-            <!-- 1st row Course Name and Number of Classes-->
             <div class="form-row">
-                <div class="form-group col-6">
+                <div class="form-group col-12">
                     <label for="course-name">Course Name</label>
                     <input v-model="form_course_name" type="text" class="form-control" id="course-name" placeholder="Course name goes here" />
                 </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12">
+                    <label for="form_course_details">Course Details</label>
+                    <input v-model=" form_course_details " type="text " class="form-control " id="form_course_details " placeholder="Course details " />
+                </div>
+            </div>
+            <!-- 1st row Course Name and Number of Classes-->
+            <div class="form-row ">
+                <div class="form-group col-6 ">
+                    <label for="form_required_courses ">Prerequisites</label>
+                    <input v-model="form_required_courses " type="text " class="form-control " id="form_required_courses " placeholder=" No spaces seperated by commar I.E 'IBM101,IBM102' " />
+                </div>
 
-                <div class="form-group col-6">
-                    <label for="number-of-classes">Number of Classes</label>
-                    <select class="form-control" id="number-of-classes" v-model="form_number_of_classes">
-                        <option v-for="num in [1,2,3,4,5]" > {{ num }} </option>
+                <div class="form-group col-6 ">
+                    <label for="number-of-classes ">Number of Classes</label>
+                    <select class="form-control " id="number-of-classes " v-model="form_number_of_classes ">
+                        <option v-for="num in [1,2,3,4,5] " > {{ num }} </option>
                     </select>
                 </div>
             </div>
             <!-- 2nd row Course Category and Class Capacity-->
-            <div class="form-row">
-                <div class="form-group col-6">
-                    <label for="course-category">Course Category</label>
-                    <select class="form-control" id="course-category" v-model="form_course_category">
-                        <option v-for="course_category in course_categories">
+            <div class="form-row ">
+                <div class="form-group col-6 ">
+                    <label for="course-category ">Course Category</label>
+                    <select class="form-control " id="course-category " v-model="form_course_category ">
+                        <option v-for="course_category in course_categories ">
                             {{ course_category }}
                         </option>
                     </select>
                 </div>
-                <div class="form-group col-6">
-                    <label for="class-capacity">Class Capacity</label>
-                    <select class="form-control" id="class-capacity" v-model="form_course_capacity">
-                        <option v-for="num in [1,2,3,4,5]" > {{ num }} </option>
+                <div class="form-group col-6 ">
+                    <label for="class-capacity ">Class Capacity</label>
+                    <select class="form-control " id="class-capacity " v-model="form_course_capacity ">
+                        <option v-for="num in [1,2,3,4,5] " > {{ num }} </option>
                     </select>
                 </div>
             </div>
             <!-- Assign learners-->
-            <h2>Assign Trainers</h2>
+            <!-- <h2>Assign Trainers</h2>
             <div>
-                <ul class="container list-group infinite-scroll m-0" id="basic-example" style="max-height: 261px; overflow-y: scroll">
-                    <li class="list-group-item" v-for="trainer in trainers">
-                        <input :id="trainer" class="form-check-input me-1" type="checkbox" :value="trainer" aria-label="..." v-model="form_course_trainers"> {{ trainer }}
+                <ul class="container list-group infinite-scroll m-0 " id="basic-example " style="max-height: 261px; overflow-y: scroll ">
+                    <li class="list-group-item " v-for="trainer in trainers ">
+                        <input :id="trainer " class="form-check-input me-1 " type="checkbox " :value="trainer " aria-label="... " v-model="form_course_trainers "> {{ trainer }}
                     </li>
                 </ul>
-            </div>
-            <input type="button" @click="submit_new_course()" class="btn btn-primary" value="Create" style="margin: 10px;">
+            </div> -->
+            <input type="button " @click="submit_new_course() " class="btn btn-primary " value="Create ">
         </form>
     </div>
 
@@ -84,7 +96,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
     <script src="vue.js "></script>
-    <script src="createCourse.js"></script>
+    <script src="createCourse.js "></script>
 </body>
 
 </html>

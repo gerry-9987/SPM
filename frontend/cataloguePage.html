@@ -8,18 +8,20 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="styles.css">
     <title>LMS</title>
 </head>
 
 <body>
     <!-- navbar -->
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand">Learning Management System</a>
-            <a href="">Home</a>
-        </div>
-    </nav>
+    <div id='nav-bar'>
+        <nav-bar></nav-bar>
+    </div>
+    <!-- Tools box -->
+    <div id='admin-toolbar'>
+        <admin-toolbar></admin-toolbar>
+    </div>
+
     <div id="app">
         <!-- Enrolled courses -->
         <div class="container-fluid section-wrapper">
@@ -31,7 +33,7 @@
                         <img src="../images/course.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h6 class="card-text font-weight-bold">{{class_taken.courseName}}</h6>
-                            <button type="submit" class="btn btn-success px-5 mt-3 btn-block">View Course</button>
+                            <button @click="redirectTakeCoursePage(class_taken.courseID, class_taken.classID)" class="btn btn-success px-5 mt-3 btn-block">View Course</button>
                         </div>
                     </div>
                 </div>
@@ -72,71 +74,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
-    <style>
-        .section-wrapper {
-            padding: 10px 45px 10px 45px;
-        }
-    </style>
-    <script>
-        var get_course_url = "http://127.0.0.1:5003/course"
-        var get_classes_taken = "http://127.0.0.1:5007/take_class"
-        var app = new Vue({
-            el: "#app ",
-            created: function() {
-                this.getAllCourse()
-                this.getAllClassTaken()
-            },
-            data: {
-                message: "",
-                courses: [],
-                classes_taken: [],
-                courseCategories: ['IBM', 'HP', 'Xerox', 'Canon']
-            },
-            methods: {
-                getAllCourse: function() {
-                    const response =
-                        fetch(get_course_url)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.code === 404) {
-                                this.message = data.message;
-                            } else {
-                                this.courses = data.data.courses;
-                                console.log(this.courses)
-                            }
-                        })
-                        .catch(error => {
-                            // Errors when calling the service; such as network error, 
-                            // service offline, etc
-                            console.log(this.message + error);
-                        });
-                },
-
-                getAllClassTaken: function() {
-                    const response =
-                        fetch(get_classes_taken)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.code === 404) {
-                                this.message = data.message;
-                            } else {
-                                this.classes_taken = data.data.classes_taken;
-                                console.log("=====Classes Taken=====")
-                                console.log(this.classes_taken)
-                            }
-                        })
-                        .catch(error => {
-                            // Errors when calling the service; such as network error,
-                            // service offline, etc
-                            console.log(this.message + error);
-                        });
-                },
-                redirectProductPage: function(courseID) {
-                    window.location.href = `productPage?courseID=${courseID}`;
-                }
-            }
-        });
+    <script src='cataloguePage.js'></script>
+    <script src='vue.js'>
     </script>
-</body>
 
 </html>

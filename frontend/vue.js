@@ -5,7 +5,7 @@ Vue.component('nav-bar', {
             count: 0
         }
     },
-    template: '<nav class="navbar navbar-light bg-light"><div class = "container-fluid" ><a class = "navbar-brand" > Course Management System </a></div ></nav >'
+    template: ''
 })
 
 
@@ -20,41 +20,20 @@ Vue.component('admin-toolbar', {
             count: 0
         }
     },
-    template: `<div class="container-fluid section-wrapper">
-                    <h2>Tools for Administrators</h2>
-                    <div class="border border-grey rounded">
-                        <div class="row m-4">
-                            <!-- tool 1-->
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="..." />
-                                    <div class="card-body">
-                                        <p class="card-text text-center "><a href="createCourse">Create Course</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- tool 2-->
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="..." />
-                                    <div class="card-body">
-                                        <p class="card-text text-center"><a href="manageCourse">Manage Course</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end of tools-->
-                            <!-- tool 3-->
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                    <p class="card-text text-center"><a href="assignLearners">Assign Learners</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end of tools-->
-                        </div>
-                    </div>
+    template: `<div class="container">
+                    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+                        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                            <svg class="bi me-2" width="40" height="32"></svg>
+                            <span class="fs-4">LMS</span>
+                        </a>
+
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a href="index" class="nav-link">Home</a></li>
+                            <li class="nav-item"><a href="createCourse" class="nav-link">Course</a></li>
+                            <li class="nav-item"><a href="createQuiz" class="nav-link">Quiz</a></li>
+                            <li class="nav-item"><a href="assignLearners" class="nav-link">Assign</a></li>
+                        </ul>
+                    </header>
                 </div>`
 })
 
@@ -64,32 +43,28 @@ var vm = new Vue({
 });
 
 // User tool bar
-Vue.component('admin-toolbar', {
+Vue.component('learner-toolbar', {
     data: function() {
         return {
             count: 0
         }
     },
-    template: `<div class="container-fluid section-wrapper">
-                    <h2>Tools for Administrators</h2>
-                    <div class="border border-grey rounded">
-                        <div class="row m-4">
-                            <!-- tool 1-->
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <img src="../images/Rectangle 13.jpg" class="card-img-top" alt="..." />
-                                    <div class="card-body">
-                                        <p class="card-text text-center "><a href="cataloguePage">cataloguePage</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end of tools-->
-                        </div>
-                    </div>
+    template: `<div class="container">
+                    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+                        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                            <svg class="bi me-2" width="40" height="32"></svg>
+                            <span class="fs-4">LMS</span>
+                        </a>
+
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a href="index" class="nav-link">Home</a></li>
+                            <li class="nav-item"><a href="cataloguePage" class="nav-link">Courses</a></li>
+                        </ul>
+                    </header>
                 </div>`
 })
 
 
 var vm = new Vue({
-    el: '#admin-toolbar'
+    el: '#learner-toolbar'
 });

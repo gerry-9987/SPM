@@ -99,7 +99,8 @@ def create_course():
         noOfClasses=noOfClasses,
         students=students)
 
-    course_exists = Course.query.filter_by(courseID=courseID).first()
+    print(course)
+    course_exists = Course.query.filter_by(courseName=courseName).first()
     if course_exists: return jsonify(
         {
             "code": 300,

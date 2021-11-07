@@ -17,19 +17,23 @@ var app = new Vue({
         form_course_category: 0,
         form_number_of_classes: 0,
         form_course_capacity: 0,
-        form_course_trainers: []
+        form_course_trainers: [],
+        form_required_courses: 'None',
+        form_course_details: ''
     },
     methods: {
         submit_new_course: function() {
-            console.log('I am clicked')
+            console.log('Adding new course')
             console.log(this.form_course_name, this.form_course_category, this.form_number_of_classes, this.form_course_capacity, this.form_course_trainers)
 
             let jsonData = JSON.stringify({
-                form_course_name: this.form_course_name,
-                form_course_category: this.form_course_category,
-                form_number_of_classes: this.form_number_of_classes,
-                form_course_capacity: this.form_course_capacity,
-                form_course_trainers: this.form_course_trainers
+                courseName: this.form_course_name,
+                courseCategory: this.form_course_category,
+                courseDetails: this.form_course_details,
+                noOfclasses: this.form_number_of_classes,
+                prereqCourses: this.form_required_courses,
+                noOfClasses: this.form_number_of_classes,
+                students: ''
             });
 
             console.log(URL)
@@ -49,12 +53,16 @@ var app = new Vue({
                     switch (data.code) {
                         case 200:
                             console.log('success')
+                            alert('Sucessfully created course');
                             break;
-                        case 400:
+                        case 300:
+                            alert('Course already exisits! Please change name');
                         case 500:
                             console.log('failure')
+                            alert('Failed to create course');
                             break;
                         default:
+                            console.log('error')
                             throw `${data.code}: ${data.message}`;
                     }
                 })
