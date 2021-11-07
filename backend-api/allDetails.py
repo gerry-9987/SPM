@@ -79,7 +79,6 @@ def get_details(staffID):
 @app.route("/all", methods=['POST'])
 def get_details2():
     
-    
     print("I am inside get all details")
     
     classID = request.json.get("classID")
@@ -99,11 +98,14 @@ def get_details2():
         print(chapter.json())
         res['chapters'].append(chapter.chapterID)
         res['quizIDs'].append(chapter.quizID)
+        
     # Get all the materials
     materials = Material.query.filter(Material.courseID==courseID, Material.classID==classID).all()
     for material in materials:
         print(material.json())
         res['materials'].append(material.json())
+        
+    # Return 
     return jsonify(
         {
             "code": 200,

@@ -3,7 +3,6 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const courseID = parseInt(urlParams.get('courseID'))
-console.log(courseID)
 
 // API end points
 var classDetailsURL = `http://127.0.0.1:5002/classes/${courseID}`
@@ -12,6 +11,8 @@ var courseURL = 'http://127.0.0.1:5003'
 var takeClassURL = 'http://127.0.0.1:5007'
 var chapterDetailsURL = `http://127.0.0.1:5000/chapter/course/${courseID}`
 var studentID = 1
+    // let cors = require('cors')
+    // app.use(cors())
 
 // VUE JS
 console.log(courseDetailsURL)
@@ -36,9 +37,10 @@ var app = new Vue({
         selectedClass: 0
     },
     created: function() {
-        this.getCourseDetails(),
-            this.getClassDetails(),
-            this.getChapterDetails()
+        this.getCourseDetails()
+        this.getClassDetails()
+        this.getChapterDetails()
+        this.testFunc()
     },
     methods: {
         signUpCourse2: function() {
@@ -55,8 +57,11 @@ var app = new Vue({
 
             fetch(signupCourse2URL, {
                     method: "POST",
+                    credentials: 'include',
+                    // mode: 'no-cors',
                     headers: {
-                        "Content-type": "application/json"
+                        "Content-type": "application/json",
+                        // 'Access-Control-Allow-Methods': ['GET', "POST", "OPTIONS"]
                     },
                     body: jsonData
                 })
@@ -265,6 +270,26 @@ var app = new Vue({
                         case 200:
                             this.courseChapters = result.length
                             this.courseChaptersArray = result
+                            break;
+                        case 400:
+                        case 500:
+                            console.log('failure')
+                            break;
+                        default:
+                            throw `${data.code}: ${data.message}`;
+                    }
+                })
+        },
+        testFunc: function() {
+            fetch('http://127.0.0.1:5007/take_class')
+                .then(response => response.json())
+                .then(data => {
+                    result = data.data;
+                    console.log(result);
+                    switch (data.code) {
+                        case 200:
+                            console.log('TEST WORKS')
+                            console.log(result)
                             break;
                         case 400:
                         case 500:
