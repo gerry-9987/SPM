@@ -43,10 +43,10 @@
         <div class="container-fluid section-wrapper mt-4">
 
 
-            <h2>Course Progression - {{Math.round((finish.length/chapterContent.length)*100)+'%'}}</h2>
+            <h2>Course Progression - {{Math.round((finish.length/chapters.length)*100)+'%'}}</h2>
             <div class="mb-2"></div>
             <div class="progress">
-                <div class="progress-bar" role="progressbar" :style="'width: '+(finish.length/chapterContent.length)*100+'%'" v-bind:aria-valuenow="progressPercentage" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar" role="progressbar" :style="'width: '+(finish.length/chapters.length)*100+'%'" v-bind:aria-valuenow="progressPercentage" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
 
             <!-- <div class="form-group mt-3">

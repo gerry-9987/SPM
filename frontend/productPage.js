@@ -2,7 +2,7 @@
 // var courseID = 2
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const courseID = urlParams.get('courseID')
+const courseID = parseInt(urlParams.get('courseID'))
 console.log(courseID)
 
 // API end points
@@ -41,7 +41,7 @@ var app = new Vue({
             this.getChapterDetails()
     },
     methods: {
-        signupCourse2: function() {
+        signUpCourse2: function() {
             console.log('Signing up 2')
 
             let jsonData = JSON.stringify({
