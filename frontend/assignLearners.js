@@ -107,7 +107,8 @@ var app = new Vue({
                         for(var class_taken of this.classes_taken){
                             console.log(this.setClassNo)
                             if (class_taken.classID == this.setClassNo){                                
-                                this.already_assigned.push(class_taken.staffID)                       
+                                this.already_assigned.push(class_taken.staffID)
+                                this.assigned = this.already_assigned.length                     
                             }
 
                         }
