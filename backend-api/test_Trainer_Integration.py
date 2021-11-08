@@ -1,3 +1,5 @@
+#Trainer Integration Test lead by Ley Yi (refer to Trainer Test, Staff Test, Staff Integration Test, Learner Test and Learner Integration Test too)
+
 import unittest
 from trainer import app, db
 
