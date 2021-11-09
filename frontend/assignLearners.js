@@ -3,7 +3,7 @@ const base_url ="http://ec2-54-205-2-225.compute-1.amazonaws.com"
 var staffURL = `${base_url}:5005/staff`;
 var courseURL = `${base_url}:5003/course`;
 var classURL = `${base_url}:5002/class`;
-var takeclassURL = `${base_url}/take_class`;
+var takeclassURL = `${base_url}:5007/take_class`;
 
 var app = new Vue({
     el: "#app ",
@@ -195,7 +195,7 @@ var app = new Vue({
 
                 console.log(jsonData);
 
-                fetch("http://127.0.0.1:5007/take_class", {
+                fetch(takeclassURL, {
                         method: "POST",
                         mode: "cors",
                         headers: {
