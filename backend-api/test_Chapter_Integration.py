@@ -1,13 +1,11 @@
 # Chapter class Integration Test led by Jewel Tan (refer to Chapter Unit Test, Material Unit Test, Material Integration test too)
-
 import unittest
-from chapter import app, db
-
 import json
 from ast import literal_eval
+from dbModel import Chapter
+from chapter import app, db
 
 class TestingApp(unittest.TestCase):
-
     def setUp(self):
         self.app = app
         self.client = self.app.test_client
@@ -172,12 +170,6 @@ class ChapterTestCase(TestingApp):
         # decode bytes to string
         data = json.loads(response.data.decode("utf-8").replace("'", "\""))["data"]
         check_data = [
-            {
-                "chapterDetails": "My life is great",
-                "chapterID": 4,
-                "chapterName": "LIFE",
-                "quizID": 4
-            },
             {
                 "chapterDetails": "yay diluc",
                 "chapterID": 7,

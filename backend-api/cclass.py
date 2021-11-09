@@ -14,7 +14,6 @@ app = Flask(__name__)
 import decouple
 from decouple import config
 
-db_password = config("DB_PASSWORD")
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:' + db_password + db_url
 
