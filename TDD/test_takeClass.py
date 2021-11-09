@@ -17,9 +17,9 @@ def mocked_requests_get(*args, **kwargs):
         def json(self):
             return self.json_data
 
-    if args[0] == 'backend-api/tdd_mockfiles/testTake_Classes.json':
+    if args[0] == 'TDD/tdd_mockfiles/testTake_Classes.json':
         return MockResponse({"message": "All classes taken have been retrieved!"}, 200)
-    elif args[0] == 'backend-api/tdd_mockfiles/testTake_Class.json':
+    elif args[0] == 'TDD/tdd_mockfiles/testTake_Class.json':
         return MockResponse({"message": "A specific class taken has been retrieved!"}, 200)
 
     return MockResponse({"Message": "There are no classes taken."}, 404)
@@ -53,15 +53,15 @@ class test_Take_Class(unittest.TestCase):
     @patch('requests.get', side_effect=mocked_requests_get)
     def test_class_taken(self, mock_get):
 
-        if 'backend-api' not in os.getcwd():
-            os.chdir("./backend-api")
+        if 'TDD' not in os.getcwd():
+            os.chdir("./TDD")
 
         aclasstaken = test_Take_Class()
 
         try:
             json_data, code = aclasstaken.fetch_json('tdd_mockfiles/testTake_Class.json')
         except:
-            json_data, code = aclasstaken.fetch_json('backend-api/tdd_mockfiles/testTake_Class.json')
+            json_data, code = aclasstaken.fetch_json('TDD/tdd_mockfiles/testTake_Class.json')
 
         check_data = {
             "classes_taken": [
@@ -80,15 +80,15 @@ class test_Take_Class(unittest.TestCase):
     @patch('requests.get', side_effect=mocked_requests_get)
     def test_get_classes_taken(self, mock_get):
 
-        if 'backend-api' not in os.getcwd():
-            os.chdir("./backend-api")
+        if 'TDD' not in os.getcwd():
+            os.chdir("./TDD")
 
         aclasstaken = test_Take_Class()
         
         try:
             json_data, code = aclasstaken.fetch_json('tdd_mockfiles/testTake_Classes.json')
         except:
-            json_data, code = aclasstaken.fetch_json('backend-api/tdd_mockfiles/testTake_Classes.json')
+            json_data, code = aclasstaken.fetch_json('TDD/tdd_mockfiles/testTake_Classes.json')
 
         check_data = {
             "classes_taken": [

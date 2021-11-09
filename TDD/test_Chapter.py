@@ -52,13 +52,13 @@ class test_Chapter(unittest.TestCase):
 
     @patch('requests.get', side_effect=mocked_requests_get)
     def test_get_all_chapters(self, mock_get):
-        if 'backend-api' not in os.getcwd():
-            os.chdir("./backend-api")
+        if 'TDD' not in os.getcwd():
+            os.chdir("./TDD")
         mychapter = test_Chapter()
         try:
             json_data, code = mychapter.fetch_json("tdd_mockfiles/testChapters.json")
         except:
-            json_data, code = mychapter.fetch_json("backend-api/tdd_mockfiles/testChapters.json")
+            json_data, code = mychapter.fetch_json("TDD/tdd_mockfiles/testChapters.json")
 
         check_data = [
                 {
@@ -79,14 +79,14 @@ class test_Chapter(unittest.TestCase):
 
     @patch('requests.get', side_effect=mocked_requests_get)
     def test_get_specific_chapter(self, mock_get):
-        if 'backend-api' not in os.getcwd():
-            os.chdir("./backend-api")
+        if 'TDD' not in os.getcwd():
+            os.chdir("./TDD")
 
         mychapter = test_Chapter()
         try:
             json_data, code = mychapter.fetch_json("tdd_mockfiles/testChapter.json")
         except:
-            json_data, code = mychapter.fetch_json("backend-api/tdd_mockfiles/testChapter.json")
+            json_data, code = mychapter.fetch_json("TDD/tdd_mockfiles/testChapter.json")
         check_data = {
             "chapterDetails": "A cat is running away",
             "chapterID": 1,

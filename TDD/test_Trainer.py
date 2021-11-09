@@ -16,7 +16,7 @@ def mocked_requests_get(*args, **kwargs):
         def json(self):
             return self.json_data
 
-    if args[0] == "backend-api/tdd_mockfiles/testTrainer.json":
+    if args[0] == "TDD/tdd_mockfiles/testTrainer.json":
         return MockResponse({"message": "Successfully retrieved all trainer"}, 200)
 
     return MockResponse(None, 404)
@@ -47,14 +47,14 @@ class test_Trainer(unittest.TestCase):
 
     @patch('requests.get', side_effect=mocked_requests_get)
     def test_get_all_trainer(self, mock_get):
-        if 'backend-api' not in os.getcwd():
-            os.chdir("./backend-api")
+        if 'TDD' not in os.getcwd():
+            os.chdir("./TDD")
 
         trainer = test_Trainer()
         try:
             json_data, code = trainer.fetch_json("tdd_mockfiles/testTrainer.json")
         except:
-            json_data, code = trainer.fetch_json("backend-api/tdd_mockfiles/testTrainer.json")
+            json_data, code = trainer.fetch_json("TDD/tdd_mockfiles/testTrainer.json")
 
 
 

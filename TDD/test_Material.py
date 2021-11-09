@@ -17,9 +17,9 @@ def mocked_requests_get(*args, **kwargs):
         def json(self):
             return self.json_data
 
-    if args[0] == "backend-api/tdd_mockfiles/testMaterials.json":
+    if args[0] == "TDD/tdd_mockfiles/testMaterials.json":
         return MockResponse({"message": "Successfully retrieved all materials"}, 200)
-    elif args[0] == "backend-api/tdd_mockfiles/testMaterial.json":
+    elif args[0] == "TDD/tdd_mockfiles/testMaterial.json":
         return MockResponse({"message": "Successfully retrieved material based on chapterID"}, 200)
 
     return MockResponse(None, 404)
@@ -56,14 +56,14 @@ class test_Material(unittest.TestCase):
 
     @patch('requests.get', side_effect=mocked_requests_get)
     def test_get_all_materials(self, mock_get):
-        if 'backend-api' not in os.getcwd():
-            os.chdir("./backend-api")
+        if 'TDD' not in os.getcwd():
+            os.chdir("./TDD")
 
         mymaterial = test_Material()
         try:
             json_data, code = mymaterial.fetch_json("tdd_mockfiles/testMaterials.json")
         except:
-            json_data, code = mymaterial.fetch_json("backend-api/tdd_mockfiles/testMaterials.json")
+            json_data, code = mymaterial.fetch_json("TDD/tdd_mockfiles/testMaterials.json")
 
         check_data = {
             "material": [
@@ -94,14 +94,14 @@ class test_Material(unittest.TestCase):
 
     @patch('requests.get', side_effect=mocked_requests_get)
     def test_get_specific_material(self, mock_get):
-        if 'backend-api' not in os.getcwd():
-            os.chdir("./backend-api")
+        if 'TDD' not in os.getcwd():
+            os.chdir("./TDD")
 
         mymaterial = test_Material()
         try:
             json_data, code = mymaterial.fetch_json("tdd_mockfiles/testMaterial.json")
         except:
-            json_data, code = mymaterial.fetch_json("backend-api/tdd_mockfiles/testMaterial.json")
+            json_data, code = mymaterial.fetch_json("TDD/tdd_mockfiles/testMaterial.json")
 
         check_data = [
             {

@@ -17,9 +17,9 @@ def mocked_requests_get(*args, **kwargs):
         def json(self):
             return self.json_data
 
-    if args[0] == 'backend-api/tdd_mockfiles/testClasses.json':
+    if args[0] == 'TDD/tdd_mockfiles/testClasses.json':
         return MockResponse({"message": "All classes have been retrieved!"}, 200)
-    elif args[0] == 'backend-api/tdd_mockfiles/testClass.json':
+    elif args[0] == 'TDD/tdd_mockfiles/testClass.json':
         return MockResponse({"message": "A specific class has been retrieved!"}, 200)
 
     return MockResponse({"Message": "There are no classes."}, 404)
@@ -59,15 +59,15 @@ class test_Class(unittest.TestCase):
     @patch('requests.get', side_effect=mocked_requests_get)
     def test_class(self, mock_get):
 
-        if 'backend-api' not in os.getcwd():
-            os.chdir("./backend-api")
+        if 'TDD' not in os.getcwd():
+            os.chdir("./TDD")
 
         aclass = test_Class()
 
         try:
             json_data, code = aclass.fetch_json('tdd_mockfiles/testClass.json')
         except:
-            json_data, code = aclass.fetch_json('backend-api/tdd_mockfiles/testClass.json')
+            json_data, code = aclass.fetch_json('TDD/tdd_mockfiles/testClass.json')
 
         check_data = {
             "classes": [
@@ -91,15 +91,15 @@ class test_Class(unittest.TestCase):
     @patch('requests.get', side_effect=mocked_requests_get)
     def test_get_classes(self, mock_get):
 
-        if 'backend-api' not in os.getcwd():
-            os.chdir("./backend-api")
+        if 'TDD' not in os.getcwd():
+            os.chdir("./TDD")
 
         aclass = test_Class()
         
         try:
             json_data, code = aclass.fetch_json('tdd_mockfiles/testClasses.json')
         except:
-            json_data, code = aclass.fetch_json('backend-api/tdd_mockfiles/testClasses.json')
+            json_data, code = aclass.fetch_json('TDD/tdd_mockfiles/testClasses.json')
 
         check_data = {
             "classes": [
