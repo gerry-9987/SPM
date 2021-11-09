@@ -1,5 +1,7 @@
-var get_course_url = "http://127.0.0.1:5003/course"
-var get_classes_taken = "http://127.0.0.1:5007/take_class"
+const base_url ="http://ec2-54-205-2-225.compute-1.amazonaws.com"
+
+var get_course_url = `${base_url}:5003/course`
+var get_classes_taken = `${base_url}:5007/take_class`
 var studentID = 1
 
 var app = new Vue({

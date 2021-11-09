@@ -1,4 +1,6 @@
-var URL = 'http://127.0.0.1:5003'
+const base_url ="http://ec2-54-205-2-225.compute-1.amazonaws.com"
+
+var course_url = `${base_url}:5003/course`
 
 var app = new Vue({
     el: "#app ",
@@ -36,8 +38,8 @@ var app = new Vue({
                 students: ''
             });
 
-            console.log(URL)
-            fetch(`${URL}/course`, {
+            console.log(course_url)
+            fetch(course_url, {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"
