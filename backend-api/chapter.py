@@ -1,3 +1,4 @@
+import os
 from os import cpu_count, error
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
@@ -5,11 +6,16 @@ from flask_cors import CORS
 
 from sqlalchemy import and_
 
+import decouple
+from decouple import config
+
+db_password = config("DB_PASSWORD")
+
 from dbModel import *
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/spm_proj'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:' + db_password + '@spm-g8t9-db.cdlmqct6kw9s.us-east-1.rds.amazonaws.com:3306/spm_proj'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle': 299}
 
