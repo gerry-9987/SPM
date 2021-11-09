@@ -50,8 +50,8 @@ Vue.component('learner-toolbar', {
                         
 
                         <ul class="nav nav-pills">
-                            <li class="nav-item"><a href="/spm/frontend" class="nav-link">Home</a></li>
-                            <li class="nav-item"><a href="cataloguePage" class="nav-link">Courses</a></li>
+                            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                            <li class="nav-item"><a href="cataloguePage.html" class="nav-link">Courses</a></li>
                         </ul>
                     </header>
                 </div>`
