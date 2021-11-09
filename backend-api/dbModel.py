@@ -20,11 +20,11 @@ CORS(app)
 class Chapter(db.Model):
 
 
-    __tablename__ = 'chapter'
+    __tablename__ = 'CHAPTER'
     chapterID = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     chapterName = db.Column(db.VARCHAR(255), nullable=False)
     chapterDetails = db.Column(db.VARCHAR(255), nullable=False)
-    quizID = db.Column(db.Integer(), db.ForeignKey('quiz.quizID'), nullable=False)
+    quizID = db.Column(db.Integer(), db.ForeignKey('QUIZ.quizID'), nullable=False)
 
     def __init__(self, chapterID, chapterName, chapterDetails, quizID):
         self.chapterID = chapterID
@@ -52,17 +52,17 @@ class Chapter(db.Model):
 class Class(db.Model):
 
 
-    __tablename__ = 'class'
+    __tablename__ = 'CLASS'
     classID = db.Column(db.Integer(), primary_key=True, nullable=False)
-    courseID = db.Column(db.Integer(), db.ForeignKey('course.courseID'), primary_key=True, nullable=False)
+    courseID = db.Column(db.Integer(), db.ForeignKey('COURSE.courseID'), primary_key=True, nullable=False)
     startDate = db.Column(db.VARCHAR(255), nullable=False)
     endDate = db.Column(db.VARCHAR(255), nullable=False)
     startTime = db.Column(db.VARCHAR(255), nullable=False)
     endTime = db.Column(db.VARCHAR(255), nullable=False)
     classSize = db.Column(db.Integer(), nullable=False)
     trainerName = db.Column(db.VARCHAR(255), nullable=False)
-    staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), nullable=False)
-    quizID = db.Column(db.Integer(), db.ForeignKey('quiz.quizID'), nullable=False)
+    staffID = db.Column(db.Integer(), db.ForeignKey('STAFF.staffID'), nullable=False)
+    quizID = db.Column(db.Integer(), db.ForeignKey('QUIZ.quizID'), nullable=False)
 
     __table_args__ = (
         db.PrimaryKeyConstraint(
@@ -108,11 +108,11 @@ class Class(db.Model):
 class ClassChapter(db.Model):
 
 
-    __tablename__ = 'class_chapter'
-    courseID = db.Column(db.Integer(), db.ForeignKey('class.courseID'), primary_key=True, nullable=False)
-    classID = db.Column(db.Integer(), db.ForeignKey('class.classID'), primary_key=True, nullable=False)
-    chapterID = db.Column(db.Integer(), db.ForeignKey('chapter.chapterID'), primary_key=True, autoincrement=True)
-    quizID = db.Column(db.Integer(), db.ForeignKey('quiz.quizID'), primary_key=True, autoincrement=True)
+    __tablename__ = 'CLASS_CHAPTER'
+    courseID = db.Column(db.Integer(), db.ForeignKey('CLASS.courseID'), primary_key=True, nullable=False)
+    classID = db.Column(db.Integer(), db.ForeignKey('CLASS.classID'), primary_key=True, nullable=False)
+    chapterID = db.Column(db.Integer(), db.ForeignKey('CHAPTER.chapterID'), primary_key=True, autoincrement=True)
+    quizID = db.Column(db.Integer(), db.ForeignKey('QUIZ.quizID'), primary_key=True, autoincrement=True)
 
     def __init__(self, courseID, classID, chapterID, quizID):
         self.courseID = courseID
@@ -140,7 +140,7 @@ class ClassChapter(db.Model):
 
 class Course(db.Model):
 
-    __tablename__ = 'course'
+    __tablename__ = 'COURSE'
     courseID = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     courseName = db.Column(db.VARCHAR(255), nullable=False)
     courseCategory = db.Column(db.VARCHAR(255), nullable=False)
@@ -190,8 +190,8 @@ class Course(db.Model):
 class Learner(db.Model):
 
 
-    __tablename__ = 'learner'
-    staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), primary_key=True, autoincrement=False)
+    __tablename__ = 'LEARNER'
+    staffID = db.Column(db.Integer(), db.ForeignKey('STAFF.staffID'), primary_key=True, autoincrement=False)
     numberOfClassesPassed = db.Column(db.Integer(), nullable=False)
 
     def __init__(self, staffID, numberOfClassesPassed):
@@ -217,15 +217,15 @@ class Learner(db.Model):
 class Material(db.Model):
 
 
-    __tablename__ = 'material'
+    __tablename__ = 'MATERIAL'
     materialID = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     materialName = db.Column(db.VARCHAR(255), nullable=False)
     materialType = db.Column(db.VARCHAR(255), nullable=False)
     materialLink = db.Column(db.VARCHAR(255), nullable=False)
     materialLinkBody = db.Column(db.VARCHAR(255), nullable=False)
-    chapterID = db.Column(db.Integer(), db.ForeignKey('chapter.chapterID'), nullable=False)
-    classID = db.Column(db.Integer(), db.ForeignKey('class.classID'), nullable=False)
-    courseID = db.Column(db.Integer(), db.ForeignKey('class.courseID'), nullable=False)
+    chapterID = db.Column(db.Integer(), db.ForeignKey('CHAPTER.chapterID'), nullable=False)
+    classID = db.Column(db.Integer(), db.ForeignKey('CLASS.classID'), nullable=False)
+    courseID = db.Column(db.Integer(), db.ForeignKey('CLASS.courseID'), nullable=False)
 
 
     def __init__(self, materialID, materialName, materialType, materialLink, materialLinkBody, chapterID, classID, courseID):
@@ -262,7 +262,7 @@ class Material(db.Model):
 class Quiz(db.Model):
 
 
-    __tablename__ = 'quiz'
+    __tablename__ = 'QUIZ'
     quizID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
     startDate = db.Column(db.VARCHAR(255), nullable=False)
     endDate = db.Column(db.VARCHAR(255), nullable=False)
@@ -320,9 +320,9 @@ class Quiz(db.Model):
 class LearnerQuiz(db.Model):
 
 
-    __tablename__ = 'learner_quiz'
-    quizID = db.Column(db.Integer(), db.ForeignKey('quiz.quizID'), primary_key=True, autoincrement=False)
-    staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), primary_key=True, autoincrement=False)
+    __tablename__ = 'LEARNER_QUIZ'
+    quizID = db.Column(db.Integer(), db.ForeignKey('QUIZ.quizID'), primary_key=True, autoincrement=False)
+    staffID = db.Column(db.Integer(), db.ForeignKey('STAFF.staffID'), primary_key=True, autoincrement=False)
     quizScore = db.Column(db.Integer(), autoincrement=False)
 
     __table_args__ = (
@@ -356,7 +356,7 @@ class LearnerQuiz(db.Model):
 class Staff(db.Model):
 
 
-    __tablename__ = 'staff'
+    __tablename__ = 'STAFF'
     staffID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
     staffUsername = db.Column(db.VARCHAR(255), nullable=False)
     staffName = db.Column(db.VARCHAR(255), nullable=False)
@@ -389,10 +389,10 @@ class Staff(db.Model):
 class Take_Class(db.Model):
 
 
-    __tablename__ = 'take_class'
-    staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), primary_key=True, nullable=False, autoincrement=False)
-    courseID = db.Column(db.Integer(), db.ForeignKey('class.courseID'), primary_key=True, nullable=False, autoincrement=False)
-    classID = db.Column(db.Integer(), db.ForeignKey('class.classID'), primary_key=True, nullable=False, autoincrement=False)
+    __tablename__ = 'TAKE_CLASS'
+    staffID = db.Column(db.Integer(), db.ForeignKey('STAFF.staffID'), primary_key=True, nullable=False, autoincrement=False)
+    courseID = db.Column(db.Integer(), db.ForeignKey('CLASS.courseID'), primary_key=True, nullable=False, autoincrement=False)
+    classID = db.Column(db.Integer(), db.ForeignKey('CLASS.classID'), primary_key=True, nullable=False, autoincrement=False)
     courseName = db.Column(db.VARCHAR(255), nullable=False)
     # courseID = db.Column(db.Integer(), primary_key=True, nullable=False)
 
@@ -400,9 +400,9 @@ class Take_Class(db.Model):
         PrimaryKeyConstraint(
             staffID, courseID, classID,
             ),
-        ForeignKeyConstraint(["staffID"], ['staff.staffID']),
+        ForeignKeyConstraint(["staffID"], ['STAFF.staffID']),
         ForeignKeyConstraint(["courseID", "classID"],
-            ['class.courseID','class.classID']),
+            ['CLASS.courseID','CLASS.classID']),
     )
 
     def __init__(self, staffID, courseID, courseName, classID):
@@ -430,8 +430,8 @@ class Take_Class(db.Model):
 class Trainer(db.Model):
 
 
-    __tablename__ = 'trainer'
-    staffID = db.Column(db.Integer(), db.ForeignKey('staff.staffID'), primary_key=True, autoincrement=False)
+    __tablename__ = 'TRAINER'
+    staffID = db.Column(db.Integer(), db.ForeignKey('STAFF.staffID'), primary_key=True, autoincrement=False)
     numberOfClasses = db.Column(db.Integer(), nullable=False)
 
     def __init__(self, staffID, numberOfClasses):
