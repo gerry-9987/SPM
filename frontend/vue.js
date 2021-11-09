@@ -24,10 +24,10 @@ Vue.component('admin-toolbar', {
                     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
 
                         <ul class="nav nav-pills">
-                            <li class="nav-item"><a href="/spm/frontend" class="nav-link">Home</a></li>
-                            <li class="nav-item"><a href="createCourse" class="nav-link">Course</a></li>
-                            <li class="nav-item"><a href="createQuiz" class="nav-link">Quiz</a></li>
-                            <li class="nav-item"><a href="assignLearners" class="nav-link">Assign</a></li>
+                            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                            <li class="nav-item"><a href="createCourse.html" class="nav-link">Course</a></li>
+                            <li class="nav-item"><a href="createQuiz.html" class="nav-link">Quiz</a></li>
+                            <li class="nav-item"><a href="assignLearners.html" class="nav-link">Assign</a></li>
                         </ul>
                     </header>
                 </div>`
