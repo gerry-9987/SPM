@@ -2,8 +2,10 @@
 const learnerID = 1
     // var classID = 1
     // var courseID = 1
-var detailsURL = `http://127.0.0.1:5011/all/${learnerID}`
+const base_url = "http://ec2-54-205-2-225.compute-1.amazonaws.com"
 
+var detailsURL = `${base_url}:5011/all`
+var findquizURL = `${base_url}:5001/find_quizzes`
 // Extracting from URLSearchParams
 // var courseID = 2
 const queryString = window.location.search;
@@ -57,7 +59,7 @@ var app = new Vue({
                 'classID': this.classID
             });
 
-            fetch(`http://127.0.0.1:5001/find_quizzes`, {
+            fetch(findquizURL, {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"
@@ -92,7 +94,7 @@ var app = new Vue({
                 'classID': classID
             });
 
-            fetch(`http://127.0.0.1:5011/all`, {
+            fetch(detailsURL, {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"

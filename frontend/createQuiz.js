@@ -1,7 +1,9 @@
 // Varoables quizID = courseID + classID + chapterID
 var quizID = 1010
 console.log(quizID)
-var quizURL = `http://127.0.0.1:5008`
+
+const base_url = "http://ec2-54-205-2-225.compute-1.amazonaws.com"
+var quizURL = `${base_url}:5008/quiz/create`
     // var gradedQuizURL = `http://127.0.0.1:5009`
 
 var app = new Vue({
@@ -47,7 +49,7 @@ var app = new Vue({
 
             console.log(jsonData)
 
-            fetch(`${quizURL}/quiz/create`, {
+            fetch(quizURL, {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"

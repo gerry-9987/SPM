@@ -4,12 +4,15 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const courseID = parseInt(urlParams.get('courseID'))
 
+const base_url = "http://ec2-54-205-2-225.compute-1.amazonaws.com"
+
 // API end points
-var classDetailsURL = `http://127.0.0.1:5002/classes/${courseID}`
-var courseDetailsURL = `http://127.0.0.1:5003/course/${courseID}`
-var courseURL = 'http://127.0.0.1:5003'
-var takeClassURL = 'http://127.0.0.1:5007'
-var chapterDetailsURL = `http://127.0.0.1:5000/chapter/course/${courseID}`
+var classDetailsURL = `${base_url}:5002/classes/${courseID}`
+var courseDetailsURL = `${base_url}:5003/course/${courseID}`
+var courseURL = `${base_url}:5003`
+var takeClassURL = `${base_url}:5007`
+var signupCourse2URL = `${base_url}:5007/take_class`
+var chapterDetailsURL = `${base_url}:5000/chapter/course/${courseID}`
 var studentID = 1
     // let cors = require('cors')
     // app.use(cors())
@@ -52,8 +55,6 @@ var app = new Vue({
                 "courseName": this.courseName,
                 "classID": this.selectedClass
             });
-            var signupCourse2URL = 'http://127.0.0.1:5007/take_class'
-            console.log(signupCourse2URL)
 
             fetch(signupCourse2URL, {
                     method: "POST",
@@ -281,7 +282,7 @@ var app = new Vue({
                 })
         },
         testFunc: function() {
-            fetch('http://127.0.0.1:5007/take_class')
+            fetch(signupCourse2URL)
                 .then(response => response.json())
                 .then(data => {
                     result = data.data;

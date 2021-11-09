@@ -4,10 +4,13 @@ console.log(now)
 console.log(start)
 const classID = 1
 const quizID = 1
-var quizURL = `http://127.0.0.1:5008/quiz/${quizID}`
-var questionsURL = `http://127.0.0.1:5008/quiz/${quizID}/questions`
-var allquizURL = `http://127.0.0.1:5008/quiz`
-var learnerquizURL = `http://127.0.0.1:5010/learnerquiz`;
+const base_url = "http://ec2-54-205-2-225.compute-1.amazonaws.com"
+
+
+var quizURL = `${base_url}:5008/quiz/${quizID}`
+var questionsURL = `${base_url}:5008/quiz/${quizID}/questions`
+var allquizURL = `${base_url}:5008/quiz`
+var learnerquizURL = `${base_url}:5010/learnerquiz`;
 var app = new Vue({
     el: "#app ",
     data: {
