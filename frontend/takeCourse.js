@@ -44,7 +44,7 @@ var app = new Vue({
     },
     methods: {
         redirectQuizPage: function(quizID) {
-            window.location.href = `takeQuiz?quizID=${quizID}`;
+            window.location.href = `takeQuiz.html?quizID=${quizID}`;
         },
         updateFinish: function() {
             console.log(this.finish.length)

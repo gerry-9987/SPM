@@ -55,10 +55,10 @@ var app = new Vue({
                 });
         },
         redirectProductPage: function(courseID) {
-            window.location.href = `productPage?courseID=${courseID}`;
+            window.location.href = `productPage.html?courseID=${courseID}`;
         },
         redirectTakeCoursePage: function(courseID, classID) {
-            window.location.href = `takeCourse?courseID=${courseID}&classID=${classID}`;
+            window.location.href = `takeCourse.html?courseID=${courseID}&classID=${classID}`;
         },
         scrolldown: function() {
             return window.scrollTo(0, document.body.scrollHeight);
