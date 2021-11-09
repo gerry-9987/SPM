@@ -30,7 +30,7 @@
                 <!-- start of enrolled courses col -->
                 <div class="col-md-3" v-for="class_taken in classes_taken" v-if='class_taken.staffID == 1 '>
                     <div class="card">
-                        <img src="../images/course.jpg" class="card-img-top" alt="...">
+                        <img src="images/course.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h6 class="card-text font-weight-bold">{{class_taken.courseName}}</h6>
                             <button @click="redirectTakeCoursePage(class_taken.courseID, class_taken.classID)" class="btn btn-success px-5 mt-3 btn-block">View Course</button>
@@ -52,7 +52,7 @@
                     <div class="row">
                         <div class="col-md-3" v-for="course in courses" v-if='course.courseCategory == category'>
                             <div class="card">
-                                <img src="../images/course.jpg" class="card-img-top" alt="...">
+                                <img src="images/course.jpg" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h6 class="card-text font-weight-bold"> {{course.courseName}}</h6> <br>
                                     <h6 class="font-weight-bold">Prerequisites</h7>: {{ course.prereqCourses }} <br>
