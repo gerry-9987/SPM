@@ -10,7 +10,7 @@ from decouple import config
 db_url=config("DB_URL")
 db_password = config("DB_PASSWORD")
 
-from dbModel import *
+from dbModel import Chapter, ClassChapter, Class
 
 app = Flask(__name__)
 

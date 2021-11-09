@@ -2,7 +2,7 @@ from os import error
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from dbModel import *
+from dbModel import Quiz
 import decouple
 from decouple import config
 
