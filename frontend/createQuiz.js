@@ -17,9 +17,9 @@ var app = new Vue({
         passingScore: 0,
         lastQuizNum:0,
     },
-    created: function() {
-        this.getLastQuizID()
-    },
+    // created: function() {
+    //     this.getLastQuizID()
+    // },
     methods: {
         addQuestion: function() {
             console.log("addQuestion")
@@ -28,33 +28,57 @@ var app = new Vue({
         },
         createQuiz: function() {
             console.log("Adding quiz...")
-
-            var tempStartDate = Date(this.quizStart).toString()
-            var tempDateArray = tempStartDate.split(" ")
-            var startDate = tempDateArray[2] + " " + tempDateArray[1] + " " + tempDateArray[3]
-            var tempEndDate = Date(this.quizEnd).toString()
-            var tempEDateArray = tempEndDate.split(" ")
-            var endDate = tempEDateArray[2] + " " + tempEDateArray[1] + " " + tempEDateArray[3]
-
-
-            let jsonData = JSON.stringify({
-                'quizID': this.lastQuizNum+1,
-                'startDate': startDate,
-                'endDate': endDate,
-                'questions': this.quizQuestions.join(", "),
-                'answers': this.quizAnswers.join(", "),
-                'duration': this.quizDuration,
-                'passingScore': this.passingScore
-            });
-
-            console.log(jsonData)
-
-            fetch(quizURL, {
-                    method: "POST",
-                    headers: {
-                        "Content-type": "application/json"
-                    },
-                    body: jsonData
+            fetch(quizURLAll)
+            .then(response => response.json())
+            .then(data => {
+                result = data.data;
+                console.log(result);
+                // 3 cases
+                switch (data.code) {
+                    case 200:
+                        console.log(result)
+                        var quizIDList = result.quiz
+                        for (var quizID of quizIDList) {
+                            console.log(quizID.quizID)
+                            this.lastQuizNum = quizID.quizID
+                        }
+                        this.lastQuizNum += 1
+                        console.log(this.lastQuizNum)
+                        break;
+                    case 500:
+                        console.log('failure')
+                        break;
+                    default:
+                        throw `${data.code}: ${data.message}`;
+                }
+                console.log("new quiz ID is here")
+                console.log(this.lastQuizNum)
+                var tempStartDate = Date(this.quizStart).toString()
+                var tempDateArray = tempStartDate.split(" ")
+                var startDate = tempDateArray[2] + " " + tempDateArray[1] + " " + tempDateArray[3]
+                var tempEndDate = Date(this.quizEnd).toString()
+                var tempEDateArray = tempEndDate.split(" ")
+                var endDate = tempEDateArray[2] + " " + tempEDateArray[1] + " " + tempEDateArray[3]
+    
+    
+                let jsonData = JSON.stringify({
+                    'quizID': this.lastQuizNum+1,
+                    'startDate': startDate,
+                    'endDate': endDate,
+                    'questions': this.quizQuestions.join(", "),
+                    'answers': this.quizAnswers.join(", "),
+                    'duration': this.quizDuration,
+                    'passingScore': this.passingScore
+                });
+    
+                console.log(jsonData)
+    
+                fetch(quizURL, {
+                        method: "POST",
+                        headers: {
+                            "Content-type": "application/json"
+                        },
+                        body: jsonData
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -80,31 +104,88 @@ var app = new Vue({
                             throw `${data.code}: ${data.message}`;
                     }
                 })
-        },
-        getLastQuizID: function(){
-            fetch(quizURLAll)
-            .then(response => response.json())
-            .then(data => {
-                result = data.data;
-                console.log(result);
-                // 3 cases
-                switch (data.code) {
-                    case 200:
-                        console.log(result)
-                        var quizIDList = result.quiz
-                        for (var quizID of quizIDList) {
-                            console.log(quizID.quizID)
-                            this.lastQuizNum = quizID.quizID
-                        }
-                        break;
-                    case 500:
-                        console.log('failure')
-                        break;
-                    default:
-                        throw `${data.code}: ${data.message}`;
-                }
             })
-        }
+            // console.log("new quiz ID is here")
+            // console.log(this.lastQuizNum)
+            // var tempStartDate = Date(this.quizStart).toString()
+            // var tempDateArray = tempStartDate.split(" ")
+            // var startDate = tempDateArray[2] + " " + tempDateArray[1] + " " + tempDateArray[3]
+            // var tempEndDate = Date(this.quizEnd).toString()
+            // var tempEDateArray = tempEndDate.split(" ")
+            // var endDate = tempEDateArray[2] + " " + tempEDateArray[1] + " " + tempEDateArray[3]
+
+
+            // let jsonData = JSON.stringify({
+            //     'quizID': this.lastQuizNum+1,
+            //     'startDate': startDate,
+            //     'endDate': endDate,
+            //     'questions': this.quizQuestions.join(", "),
+            //     'answers': this.quizAnswers.join(", "),
+            //     'duration': this.quizDuration,
+            //     'passingScore': this.passingScore
+            // });
+
+            // console.log(jsonData)
+
+            // fetch(quizURL, {
+            //         method: "POST",
+            //         headers: {
+            //             "Content-type": "application/json"
+            //         },
+            //         body: jsonData
+            //     })
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         result = data.data;
+            //         console.log(result);
+            //         // 3 cases
+            //         switch (data.code) {
+            //             case 200:
+            //                 console.log('success')
+            //                 alert('Successfully added quiz!')
+            //                     //                 if (this.quizIsGraded == 'graded') {
+            //                     //                     this.addGradedQuiz()
+            //                     //                 } else {
+            //                     //                     alert("Scuessfully added quiz!");
+            //                     //                 }
+            //                 break;
+            //             case 500:
+            //                 alert("Failed to add quiz!");
+            //                 console.log('failure')
+            //                 break;
+            //             default:
+            //                 alert("Failed to add quiz :(");
+            //                 throw `${data.code}: ${data.message}`;
+            //         }
+            //     })
+        },
+        // getLastQuizID: function(){
+        //     console.log("getting last quizID")
+        //     fetch(quizURLAll)
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         result = data.data;
+        //         console.log(result);
+        //         // 3 cases
+        //         switch (data.code) {
+        //             case 200:
+        //                 console.log(result)
+        //                 var quizIDList = result.quiz
+        //                 for (var quizID of quizIDList) {
+        //                     console.log(quizID.quizID)
+        //                     this.lastQuizNum = quizID.quizID
+        //                 }
+        //                 this.lastQuizNum += 1
+        //                 console.log(this.lastQuizNum)
+        //                 break;
+        //             case 500:
+        //                 console.log('failure')
+        //                 break;
+        //             default:
+        //                 throw `${data.code}: ${data.message}`;
+        //         }
+        //     })
+        // }
         // addGradedQuiz: function() {
 
         //     let jsonData = JSON.stringify({
