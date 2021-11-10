@@ -1,9 +1,6 @@
-// Varoables quizID = courseID + classID + chapterID
-var quizID = 1010
-console.log(quizID)
-
 const base_url = "http://ec2-54-205-2-225.compute-1.amazonaws.com"
 var quizURL = `${base_url}:5008/quiz/create`
+var quizURLAll = `${base_url}:5008/quiz`
     // var gradedQuizURL = `http://127.0.0.1:5009`
 
 var app = new Vue({
@@ -17,7 +14,11 @@ var app = new Vue({
         quizAnswers: [],
         numQuestions: 1,
         quizDuration: 1,
-        passingScore: 0
+        passingScore: 0,
+        lastQuizNum:0,
+    },
+    created: function() {
+        this.getLastQuizID()
     },
     methods: {
         addQuestion: function() {
@@ -26,7 +27,6 @@ var app = new Vue({
             window.scrollTo(0, document.body.scrollHeight);
         },
         createQuiz: function() {
-
             console.log("Adding quiz...")
 
             var tempStartDate = Date(this.quizStart).toString()
@@ -38,7 +38,7 @@ var app = new Vue({
 
 
             let jsonData = JSON.stringify({
-                'quizID': quizID,
+                'quizID': this.lastQuizNum+1,
                 'startDate': startDate,
                 'endDate': endDate,
                 'questions': this.quizQuestions.join(", "),
@@ -81,6 +81,30 @@ var app = new Vue({
                     }
                 })
         },
+        getLastQuizID: function(){
+            fetch(quizURLAll)
+            .then(response => response.json())
+            .then(data => {
+                result = data.data;
+                console.log(result);
+                // 3 cases
+                switch (data.code) {
+                    case 200:
+                        console.log(result)
+                        var quizIDList = result.quiz
+                        for (var quizID of quizIDList) {
+                            console.log(quizID.quizID)
+                            this.lastQuizNum = quizID.quizID
+                        }
+                        break;
+                    case 500:
+                        console.log('failure')
+                        break;
+                    default:
+                        throw `${data.code}: ${data.message}`;
+                }
+            })
+        }
         // addGradedQuiz: function() {
 
         //     let jsonData = JSON.stringify({
@@ -116,7 +140,8 @@ var app = new Vue({
         //         })
 
         // }
-    }
+    },
+
 });
 
 $(document).ready(function() {
