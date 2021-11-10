@@ -6,21 +6,20 @@ name: Run Integration
 
 on:
   push:
-    branches: [ master ]
+#     branches: [ master ]
      
   pull_request:
-    branches: [ master ]
+#     branches: [ master ]
     
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     env:
       DB_DATABASE: spm_proj
       DB_USER: root
-      DB_HOST: localhost
-      DB_PASSWORD: root
+      DB_PASSWORD: ''
 
     # defaults:
     #   run:
@@ -52,12 +51,8 @@ jobs:
       - name: Set up MySQL
         run: |
           sudo /etc/init.d/mysql start
-          sudo mysql -e "SELECT host, user, password FROM mysql.user;" -u root
+          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
 
-#         run: |
-#             sudo /etc/init.d/mysql start
-#             mysql -e 'CREATE DATABASE spm_proj;' -uroot -proot
-#             mysql -e 'SHOW DATABASES;' -uroot -p''
       - name: Test with unittest
         run: |
           python -m unittest backend-api/test_Chapter_Integration.py
