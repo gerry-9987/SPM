@@ -50,6 +50,7 @@ jobs:
 #         with: mysql:5.7 
       - name: Set up MySQL
         run: |
+          services mysql start
           sudo mysql -u root
           use mysql;
           update user set plugin='' where User='root';
