@@ -1,0 +1,15 @@
+{
+    "code": 200,
+    "data": [
+        {
+            "chapterID": 1,
+            "classID": 1,
+            "courseID": 1,
+            "materialID": 1,
+            "materialLink": "https://cseweb.ucsd.edu/classes/sp15/cse190-c/reports/sp15/048.pdf",
+            "materialLinkBody": "Predicting if income exceeds $50,000 per year based on 1994 US Census Data with\nSimple Classification Techniques",
+            "materialName": "Census Income",
+            "materialType": "document"
+        }
+    ]
+}

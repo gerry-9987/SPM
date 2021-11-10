@@ -1,0 +1,13 @@
+{
+    "code": 200,
+    "data": {
+        "classes_taken": [
+        {
+            "classID": 1,
+            "courseID": 1,
+            "courseName": "IBM 101",
+            "staffID": 1
+        }
+        ]
+        }
+    }

@@ -1,0 +1,77 @@
+
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Run Integration
+
+on:
+  push:
+    branches: [ master ]
+     
+  pull_request:
+    branches: [ master ]
+    
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+#     env:
+#       DB_DATABASE: spm_proj
+#       DB_USER: root
+#       DB_PASSWORD: 'my_password'
+
+    defaults:
+      run:
+        working-directory: ./TDD
+    
+#     services: 
+#       mysql: 
+#         image: mysql:5.7
+#         env:
+#             MYSQL_ALLOW_EMPTY_PASSWORD: yes
+#             MYSQL_DATABASE: spm_proj
+#         ports:
+#             - 3306
+      
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ../requirements.txt
+#       - name: Start SQL
+#         uses: ./spm_proj.sql
+#         with: mysql:5.7 
+#       - name: Set up MySQL
+#         run: |
+#           mysqld --skip-grant-tables
+#           mysql -u root mysql 
+#           UPDATE user SET Password=PASSWORD('my_password') where USER='root'
+#           FLUSH PRIVILEGES
+#           /etc/init.d/mysql restart
+#         run: |
+#           sudo /etc/init.d/mysql start
+#           mysql -e 'CREATE DATABASE spm_proj' -uroot -p
+
+      - name: Test with unittest
+        run: |
+          python -m unittest test_Chapter_Integration.py
+          python -m unittest test_Class_Integration.py
+          python -m unittest test_Learner_Integration.py
+          python -m unittest test_Material_Integration.py
+          python -m unittest test_Quiz_Integration.py
+          python -m unittest test_Staff_Integration.py
+          python -m unittest test_Trainer_Integration.py
+          python -m unittest test_Course_Integration.py
+#         env:
+#           DB_PORT: ${{ job.services.mysql.ports[3306] }}
+
+#           mysql -e "CREATE USER 'spm'@'localhost';"
+#           mysql -e "GRANT CREATE, DROP, INSERT, UPDATE, DELETE, SELECT ON spm_proj.* TO 'spm'@'localhost';"
+#           mysql -e "CREATE DATABASE spm_proj;"
+#           mysql -e "SHOW DATABASES;"

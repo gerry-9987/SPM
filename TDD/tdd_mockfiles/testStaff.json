@@ -1,0 +1,9 @@
+{
+    "code": 200,
+    "data": {
+      "department": "Learner",
+      "staffID": 1,
+      "staffName": "Geraldine",
+      "staffUsername": "gerry"
+    }
+  }

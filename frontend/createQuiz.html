@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+
+    <title>LMS</title>
+</head>
+
+<body>
+
+    <!-- navbar -->
+    <div id='nav-bar'>
+        <nav-bar></nav-bar>
+    </div>
+    <!-- Tools box -->
+    <div id='admin-toolbar'>
+        <admin-toolbar></admin-toolbar>
+    </div>
+
+
+    <!-- Manage Course -->
+    <div class="container-fluid section-wrapper" id="app">
+        <h2>Create Quiz</h2>
+        <!-- start of form -->
+        <form class="mt-3" id="app">
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <div class="form-group">
+                        <label class="control-label" for="date">Start Date</label>
+                        <input class="form-control" id="date" name="date" type="date" v-model="quizStart">
+                    </div>
+                </div>
+                <div class="form-group col-6">
+                    <div class="form-group">
+                        <label class="control-label" for="date">End Date</label>
+                        <input class="form-control" id="date" name="date" type="date" v-model="quizEnd">
+                    </div>
+                </div>
+            </div>
+            <div class="form-check">
+                <div class="form-check form-check-inline ">
+                    <input class="form-check-input" type="radio" id="quizGraded" value="graded" v-model="quizIsGraded">
+                    <label class="form-check-label" for='quizGraded'>Graded</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="quizUngraded" value="ungraded" v-model="quizIsGraded">
+                    <label class="form-check-label" for='quizUngraded'>Ungraded</label>
+                </div>
+                <div class="form-group mt-2" v-if="quizIsGraded=='graded'">
+                    <label class="control-label" for="passingScore">Passing Score</label>
+                    <input class="form-control" id="passingScore" name="passingScore" placeholder="Please enter passing score" type="number" v-model="passingScore">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="quizDuration">Duration (mins)</label>
+                    <input class="form-control" id="quizDuration" name="quizDuration" placeholder="Please enter quiz duration" type="number" v-model="quizDuration">
+                </div>
+            </div>
+            <!-- Set True/False Question-->
+            <div class="border border-grey rounded mt-2">
+                <div class="form-check p-4">
+                    <div class="form-group" v-for="num in numQuestions">
+                        <label class="font-weight-bold">Question {{num}} </label>
+                        <input type="text" class="form-control mb-2" :id="'question-'+num" v-model="quizQuestions[num-1]" placeholder="Please enter question here">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" :name="'graded-'+num" :id="'graded-'+num+'true'" v-model="quizAnswers[num-1]" value="True">
+                            <label class="form-check-label" :for="'graded-'+num+'true'">
+                                        True
+                                    </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" :name="'graded-'+num" :id="'graded-'+num+'false'" v-model="quizAnswers[num-1]" value="False">
+                            <label class="form-check-label" :for="'graded-'+num+'false'">
+                                        False
+                                    </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <button @click='addQuestion()' class="btn btn-primary px-5 mt-3">Add Another Question</button>
+        <button @click='createQuiz()' class="btn btn-success px-5 mt-3">Create Quiz</button>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
+    <script src="createQuiz.js" async defer></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="vue.js"></script>
