@@ -60,14 +60,14 @@ jobs:
 
       - name: Test with unittest
         run: |
-          python -m unittest backend-api/test_Chapter_Integration.py
-          python -m unittest backend-api/test_Class_Integration.py
-          python -m unittest backend-api/test_Learner_Integration.py
-          python -m unittest backend-api/test_Material_Integration.py
-          python -m unittest backend-api/test_Quiz_Integration.py
-          python -m unittest backend-api/test_Staff_Integration.py
-          python -m unittest backend-api/test_Trainer_Integration.py
-#          python -m unittest backend-api/test_Course_Integration.py
+          python -m unittest test_Chapter_Integration.py
+          python -m unittest test_Class_Integration.py
+          python -m unittest test_Learner_Integration.py
+          python -m unittest test_Material_Integration.py
+          python -m unittest test_Quiz_Integration.py
+          python -m unittest test_Staff_Integration.py
+          python -m unittest test_Trainer_Integration.py
+          python -m unittest test_Course_Integration.py
 #         env:
 #           DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
