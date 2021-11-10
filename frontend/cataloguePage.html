@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <title>LMS</title>
+</head>
+
+<body>
+    <!-- navbar -->
+    <div id='nav-bar'>
+        <nav-bar></nav-bar>
+    </div>
+    <!-- Tools box -->
+    <div id='learner-toolbar'>
+        <learner-toolbar></learner-toolbar>
+    </div>
+
+    <div id="app">
+        <!-- Enrolled courses -->
+        <div class="container-fluid section-wrapper">
+            <h2>Enrolled Courses</h2>
+            <div class="row">
+                <!-- start of enrolled courses col -->
+                <div class="col-md-3" v-for="class_taken in classes_taken" v-if='class_taken.staffID == 1 '>
+                    <div class="card">
+                        <img src="images/course.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h6 class="card-text font-weight-bold">{{class_taken.courseName}}</h6>
+                            <button @click="redirectTakeCoursePage(class_taken.courseID, class_taken.classID)" class="btn btn-success px-5 mt-3 btn-block">View Course</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Course Catalogue -->
+        <div class="container-fluid section-wrapper">
+            <h2>Course Catalogue</h2>
+            <nav class="nav nav-pills flex-column flex-md-row mb-2">
+                <a class="nav-link" :href="'#'+courseCategories.slice(0,1)" data-toggle="tab"> {{ courseCategories[0] }} </a>
+                <a class="nav-link" :href="'#'+category" data-toggle="tab" v-for="category in courseCategories.slice(1)">{{category}}</a>
+            </nav>
+            <div class="tab-content">
+                <div class="tab-pane" :id="category" v-for='category in courseCategories'>
+                    <!-- START -->
+                    <div class="row">
+                        <div class="col-md-3" v-for="course in courses" v-if='course.courseCategory == category'>
+                            <div class="card">
+                                <img src="images/course.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h6 class="card-text font-weight-bold"> {{course.courseName}}</h6> <br>
+                                    <h6 class="font-weight-bold">Prerequisites</h7>: {{ course.prereqCourses }} <br>
+                                        <i> {{course.courseDetails}} </i>
+                                        <button @click=' redirectProductPage(course.courseID) ' class="btn btn-success px-5 mt-3 btn-block">View Product</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
+    <script src='cataloguePage.js'></script>
+    <script src='vue.js'>
+    </script>
+</body>
+
+</html>

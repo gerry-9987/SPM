@@ -1,0 +1,15 @@
+{
+    "code": 200, 
+    "data": {
+      "trainers": [
+        {
+          "numberOfClasses": 10, 
+          "staffID": 3
+        }, 
+        {
+          "numberOfClasses": 8, 
+          "staffID": 4
+        }
+      ]
+    }
+  }

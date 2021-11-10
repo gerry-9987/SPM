@@ -1,0 +1,40 @@
+{
+    "code": 200,
+    "data": {
+        "classes": [
+            {
+                "classID": 1,
+                "classSize": 4,
+                "courseID": 1,
+                "endDate": "03 Feb 2021",
+                "endTime": "23:30:00",
+                "staffID": 3,
+                "startDate": "01 Jan 2021",
+                "startTime": "22:30:00",
+                "trainerName": "Haoyue"
+            },
+            {
+                "classID": 2,
+                "classSize": 4,
+                "courseID": 1,
+                "endDate": "03 Feb 2021",
+                "endTime": "01:30:00",
+                "staffID": 3,
+                "startDate": "01 Jan 2021",
+                "startTime": "12:30:00",
+                "trainerName": "Haoyue"
+            },
+            {
+                "classID": 3,
+                "classSize": 4,
+                "courseID": 2,
+                "endDate": "07 May 2021",
+                "endTime": "02:30:00",
+                "staffID": 3,
+                "startDate": "03 Feb 2021",
+                "startTime": "01:30:00",
+                "trainerName": "Haoyue"
+            }
+    ]
+    }
+    }

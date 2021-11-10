@@ -1,0 +1,100 @@
+{
+    "code": 200,
+    "data": [
+        {
+            "chapters": [
+                {
+                    "chapterDetails": "A cat is running away",
+                    "chapterID": 1,
+                    "chapterName": "CAT",
+                    "materials": [
+                        {
+                            "chapterID": 1,
+                            "materialID": 1,
+                            "materialLink": "https://cseweb.ucsd.edu/classes/sp15/cse190-c/reports/sp15/048.pdf",
+                            "materialLinkBody": "Predicting if income exceeds $50,000 per year based on 1994 US Census Data with\nSimple Classification Techniques",
+                            "materialName": "Census Income",
+                            "materialType": "document"
+                        },
+                        {
+                            "chapterID": 1,
+                            "materialID": 2,
+                            "materialLink": "https://www.google.com/",
+                            "materialLinkBody": "You can learn more about google",
+                            "materialName": "About google",
+                            "materialType": "link"
+                        },
+                        {
+                            "chapterID": 1,
+                            "materialID": 4,
+                            "materialLink": "https://www.youtube.com/embed/yfoY53QXEnI",
+                            "materialLinkBody": "We will be looking at styles, selectors, declarations, etc. We will build a CSS cheat sheet that you can keep as a resource and we will also create a basic website layout. ",
+                            "materialName": "CSS Crash Course For Absolute Beginners",
+                            "materialType": "video"
+                        }
+                    ],
+                    "quizID": 1
+                },
+                {
+                    "chapterDetails": "A dog is running away",
+                    "chapterID": 2,
+                    "chapterName": "DOG",
+                    "materials": [
+                        {
+                            "chapterID": 2,
+                            "materialID": 3,
+                            "materialLink": "https://www.youtube.com/embed/mFFXuXjVgkU",
+                            "materialLinkBody": "Everything you need to know to get started",
+                            "materialName": "Github Actions CI/CD",
+                            "materialType": "video"
+                        }
+                    ],
+                    "quizID": 2
+                }
+            ],
+            "classID": 1,
+            "classSize": 4,
+            "courseCategory": "IBM",
+            "courseDetails": "Learn about introductory IBM terminologies",
+            "courseID": 1,
+            "courseName": "IBM 101",
+            "endDate": "03 Feb 2021",
+            "endTime": "23:30:00",
+            "noOfClasses": 2,
+            "prereqCourses": "None",
+            "quizID": 1,
+            "staffID": 3,
+            "startDate": "01 Jan 2021",
+            "startTime": "22:30:00",
+            "students": "1,2",
+            "trainerName": "Haoyue"
+        },
+        {
+            "chapters": [
+                {
+                    "chapterDetails": "yay zhongli",
+                    "chapterID": 8,
+                    "chapterName": "zhongli",
+                    "materials": [],
+                    "quizID": 8
+                }
+            ],
+            "classID": 7,
+            "classSize": 4,
+            "courseCategory": "HP",
+            "courseDetails": "Understand the basics of HP",
+            "courseID": 3,
+            "courseName": "HP 101",
+            "endDate": "07 May 2021",
+            "endTime": "02:30:00",
+            "noOfClasses": 1,
+            "prereqCourses": "None",
+            "quizID": 7,
+            "staffID": 4,
+            "startDate": "04 Mar 2021",
+            "startTime": "01:30:00",
+            "students": "1",
+            "trainerName": "Jewel"
+        }
+    ]
+}
