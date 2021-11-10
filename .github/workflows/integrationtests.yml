@@ -16,24 +16,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      DB_DATABASE: spm_proj
-      DB_USER: root
-      DB_PASSWORD: 'my_password'
+#     env:
+#       DB_DATABASE: spm_proj
+#       DB_USER: root
+#       DB_PASSWORD: 'my_password'
 
     # defaults:
     #   run:
     #     working-directory: ./backend-api
     
-#     services: 
-#       mysql: 
-#         image: mysql:5.7
-#         env:
-#           DB_DATABASE: spm_proj
-#           DB_USER: '' 
-#           DB_PASSWORD: ''
-#         ports:
-#             - 3306
+    services: 
+      mysql: 
+        image: mysql:5.7
+        env:
+            MYSQL_ALLOW_EMPTY_PASSWORD: yes
+            MYSQL_DATABASE: spm_proj
+        ports:
+            - 3306
       
     steps:
       - uses: actions/checkout@v2
@@ -49,21 +48,15 @@ jobs:
 #         uses: ./spm_proj.sql
 #         with: mysql:5.7 
       - name: Set up MySQL
-        run: |
-          sudo /etc/init.d/mysql start
-          sudo mysql -u root
-          use mysql;
-          update user set plugin='' where User='root';
-          flush privileges;
 #         run: |
 #           mysqld --skip-grant-tables
 #           mysql -u root mysql 
 #           UPDATE user SET Password=PASSWORD('my_password') where USER='root'
 #           FLUSH PRIVILEGES
 #           /etc/init.d/mysql restart
-#         run: |
-#           sudo /etc/init.d/mysql start
-#           mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e 'CREATE DATABASE spm_proj' -uroot -p
 
       - name: Test with unittest
         run: |
