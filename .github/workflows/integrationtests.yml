@@ -49,11 +49,11 @@ jobs:
 #         uses: ./spm_proj.sql
 #         with: mysql:5.7 
       - name: Set up MySQL
-          run:|
-            sudo mysql -u root
-            use mysql;
-            update user set plugin='' where User='root';
-            flush privileges;
+        run: |
+          sudo mysql -u root
+          use mysql;
+          update user set plugin='' where User='root';
+          flush privileges;
 #         run: |
 #           mysqld --skip-grant-tables
 #           mysql -u root mysql 
