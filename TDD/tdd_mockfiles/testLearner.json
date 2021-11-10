@@ -1,31 +1,7 @@
 {
-    "code": 200, 
+    "code": 200,
     "data": {
-      "learners": [
-        {
-          "numberOfClassesPassed": 1, 
-          "staffID": 1
-        }, 
-        {
-          "numberOfClassesPassed": 1, 
-          "staffID": 2
-        }, 
-        {
-          "numberOfClassesPassed": 1, 
-          "staffID": 6
-        }, 
-        {
-          "numberOfClassesPassed": 1, 
-          "staffID": 7
-        }, 
-        {
-          "numberOfClassesPassed": 1, 
-          "staffID": 8
-        }, 
-        {
-          "numberOfClassesPassed": 1, 
-          "staffID": 9
-        }
-      ]
+      "numberOfClassesPassed": 1,
+      "staffID": 1
     }
-  }
+}

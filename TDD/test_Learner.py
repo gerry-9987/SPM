@@ -15,9 +15,10 @@ def mocked_requests_get(*args, **kwargs):
         def json(self):
             return self.json_data
 
-    if args[0] == "TDD/tdd_mockfiles/testLearner.json":
+    if args[0] == "TDD/tdd_mockfiles/testLearners.json":
         return MockResponse({"message": "Successfully retrieved all learner"}, 200)
-
+    elif args[0] == "tdd_mockfiles/testLearners.json":
+            return MockResponse({"message": "Successfully retrieved learner"}, 200)
     return MockResponse(None, 404)
 
 class test_Learner(unittest.TestCase):
@@ -50,9 +51,9 @@ class test_Learner(unittest.TestCase):
 
         learner = test_Learner()
         try:
-            json_data, code = learner.fetch_json("tdd_mockfiles/testLearner.json")
+            json_data, code = learner.fetch_json("tdd_mockfiles/testLearners.json")
         except:
-            json_data, code = learner.fetch_json("TDD/tdd_mockfiles/testLearner.json")
+            json_data, code = learner.fetch_json("TDD/tdd_mockfiles/testLearners.json")
 
 
 
@@ -87,6 +88,22 @@ class test_Learner(unittest.TestCase):
         self.assertEqual(code, 200)
         self.assertEqual(json_data, check_data)
 
+    @patch('requests.get', side_effect=mocked_requests_get)
+    def test_get_specific_learner(self, mock_get):
+        if 'TDD' not in os.getcwd():
+            os.chdir("./TDD")
+
+        learner = test_Learner()
+        try:
+            json_data, code = learner.fetch_json("tdd_mockfiles/testLearner.json")
+        except:
+            json_data, code = learner.fetch_json("TDD/tdd_mockfiles/testLearner.json")
+        check_data = {
+            "numberOfClassesPassed": 1,
+            "staffID": 1
+                }
+        self.assertEqual(code, 200)
+        self.assertEqual(json_data, check_data)
 
 if __name__ == "__main__":
     unittest.main()

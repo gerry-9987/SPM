@@ -1,67 +1,9 @@
 {
-    "code": 200, 
+    "code": 200,
     "data": {
-      "staff": [
-        {
-          "department": "Learner", 
-          "staffID": 1, 
-          "staffName": "Geraldine", 
-          "staffUsername": "gerry"
-        }, 
-        {
-          "department": "Learner", 
-          "staffID": 2, 
-          "staffName": "Ley Yi", 
-          "staffUsername": "ly"
-        }, 
-        {
-          "department": "Trainer", 
-          "staffID": 3, 
-          "staffName": "Haoyue", 
-          "staffUsername": "gellybear"
-        }, 
-        {
-          "department": "Trainer", 
-          "staffID": 4, 
-          "staffName": "Jewel", 
-          "staffUsername": "jewel"
-        }, 
-        {
-          "department": "Administrator", 
-          "staffID": 5, 
-          "staffName": "Wesley", 
-          "staffUsername": "wesley"
-        }, 
-        {
-          "department": "Learner", 
-          "staffID": 6, 
-          "staffName": "AAAAA", 
-          "staffUsername": "AAA"
-        }, 
-        {
-          "department": "Learner", 
-          "staffID": 7, 
-          "staffName": "BBBBB", 
-          "staffUsername": "BBB"
-        }, 
-        {
-          "department": "Learner", 
-          "staffID": 8, 
-          "staffName": "CCCCCC", 
-          "staffUsername": "CCC"
-        }, 
-        {
-          "department": "Learner", 
-          "staffID": 9, 
-          "staffName": "DDDDDDD", 
-          "staffUsername": "DDD"
-        }, 
-        {
-          "department": "Administrator", 
-          "staffID": 10, 
-          "staffName": "EEEEEE", 
-          "staffUsername": "EEE"
-        }
-      ]
+      "department": "Learner",
+      "staffID": 1,
+      "staffName": "Geraldine",
+      "staffUsername": "gerry"
     }
-}
+  }

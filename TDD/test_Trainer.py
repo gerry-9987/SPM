@@ -16,9 +16,10 @@ def mocked_requests_get(*args, **kwargs):
         def json(self):
             return self.json_data
 
-    if args[0] == "TDD/tdd_mockfiles/testTrainer.json":
+    if args[0] == "TDD/tdd_mockfiles/testTrainers.json":
         return MockResponse({"message": "Successfully retrieved all trainer"}, 200)
-
+    elif args[0] == "tdd_mockfiles/testTrainer.json":
+            return MockResponse({"message": "Successfully retrieved trainer"}, 200)
     return MockResponse(None, 404)
 
 class test_Trainer(unittest.TestCase):
@@ -52,9 +53,9 @@ class test_Trainer(unittest.TestCase):
 
         trainer = test_Trainer()
         try:
-            json_data, code = trainer.fetch_json("tdd_mockfiles/testTrainer.json")
+            json_data, code = trainer.fetch_json("tdd_mockfiles/testTrainers.json")
         except:
-            json_data, code = trainer.fetch_json("TDD/tdd_mockfiles/testTrainer.json")
+            json_data, code = trainer.fetch_json("TDD/tdd_mockfiles/testTrainers.json")
 
 
 
@@ -73,6 +74,22 @@ class test_Trainer(unittest.TestCase):
         self.assertEqual(code, 200)
         self.assertEqual(json_data, check_data)
 
+    @patch('requests.get', side_effect=mocked_requests_get)
+    def test_get_specific_trainer(self, mock_get):
+        if 'TDD' not in os.getcwd():
+            os.chdir("./TDD")
+
+        trainer = test_Trainer()
+        try:
+            json_data, code = trainer.fetch_json("tdd_mockfiles/testTrainer.json")
+        except:
+            json_data, code = trainer.fetch_json("TDD/tdd_mockfiles/testTrainer.json")
+        check_data = {
+            "numberOfClasses": 10,
+            "staffID": 3  
+                }
+        self.assertEqual(code, 200)
+        self.assertEqual(json_data, check_data)
 
 if __name__ == "__main__":
     unittest.main()

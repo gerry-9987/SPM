@@ -16,9 +16,10 @@ def mocked_requests_get(*args, **kwargs):
         def json(self):
             return self.json_data
 
-    if args[0] == "TDD/tdd_mockfiles/testStaff.json":
-        return MockResponse({"message": "Successfully retrieved all staff"}, 200)
-
+    if args[0] == "TDD/tdd_mockfiles/testStaffs.json":
+        return MockResponse({"message": "Successfully retrieved all staffs"}, 200)
+    elif args[0] == "tdd_mockfiles/testStaff.json":
+          return MockResponse({"message": "Successfully retrieved staff"}, 200)
     return MockResponse(None, 404)
 class test_Staff(unittest.TestCase):
     def setUp(self):
@@ -50,13 +51,11 @@ class test_Staff(unittest.TestCase):
         if 'TDD' not in os.getcwd():
             os.chdir("./TDD")
 
-        staff = test_Staff()
+        staffs = test_Staff()
         try:
-            json_data, code = staff.fetch_json("tdd_mockfiles/testStaff.json")
+            json_data, code = staffs.fetch_json("tdd_mockfiles/testStaffs.json")
         except:
-            json_data, code = staff.fetch_json("TDD/tdd_mockfiles/testStaff.json")
-
-
+            json_data, code = staffs.fetch_json("TDD/tdd_mockfiles/testStaffs.json")
 
         check_data = {
        "staff": [
@@ -125,6 +124,24 @@ class test_Staff(unittest.TestCase):
         self.assertEqual(code, 200)
         self.assertEqual(json_data, check_data)
 
+    @patch('requests.get', side_effect=mocked_requests_get)
+    def test_get_specific_staff(self, mock_get):
+        if 'TDD' not in os.getcwd():
+            os.chdir("./TDD")
+
+        staff = test_Staff()
+        try:
+            json_data, code = staff.fetch_json("tdd_mockfiles/testStaff.json")
+        except:
+            json_data, code = staff.fetch_json("TDD/tdd_mockfiles/testStaff.json")
+        check_data = {
+            "department": "Learner",
+            "staffID": 1,
+            "staffName": "Geraldine",
+            "staffUsername": "gerry"
+        }
+        self.assertEqual(code, 200)
+        self.assertEqual(json_data, check_data)
 
 if __name__ == "__main__":
     unittest.main()

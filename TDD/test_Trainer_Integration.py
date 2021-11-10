@@ -18,7 +18,7 @@ class TestingApp(unittest.TestCase):
         db.session.remove()
         db.drop_all()
 
-class StaffTestCase(TestingApp):
+class TrainerTestCase(TestingApp):
 
     def test_get_all_trainer(self):
         trainer_endpoint = "/trainer"
