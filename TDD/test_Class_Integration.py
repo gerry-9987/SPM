@@ -1,4 +1,4 @@
-# Class class Integration Test led by Tey Haoyue (refer to Class Unit Test, Take_Class Unit Test too)
+# Class class Integration Test led by Tey Haoyue (refer to Class Unit Test, Take_Class Unit Test, Class Take_Class Integration Test too)
 import unittest
 from cclass import app, db
 from textwrap import wrap
