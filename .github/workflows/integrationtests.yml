@@ -19,7 +19,7 @@ jobs:
     env:
       DB_DATABASE: spm_proj
       DB_USER: root
-      DB_PASSWORD: ''
+      DB_PASSWORD: 'my_password'
 
     # defaults:
     #   run:
@@ -50,8 +50,14 @@ jobs:
 #         with: mysql:5.7 
       - name: Set up MySQL
         run: |
-          sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
+          mysqld --skip-grant-tables
+          mysql -u root mysql
+          UPDATE user SET Password=PASSWORD('my_password') where USER='root'
+          FLUSH PRIVILEGES
+          /etc/init.d/mysql restart
+#         run: |
+#           sudo /etc/init.d/mysql start
+#           mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
 
       - name: Test with unittest
         run: |
