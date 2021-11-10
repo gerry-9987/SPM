@@ -21,18 +21,18 @@ jobs:
 #       DB_USER: root
 #       DB_PASSWORD: 'my_password'
 
-    # defaults:
-    #   run:
-    #     working-directory: ./backend-api
+    defaults:
+      run:
+        working-directory: ./backend-api
     
-    services: 
-      mysql: 
-        image: mysql:5.7
-        env:
-            MYSQL_ALLOW_EMPTY_PASSWORD: yes
-            MYSQL_DATABASE: spm_proj
-        ports:
-            - 3306
+#     services: 
+#       mysql: 
+#         image: mysql:5.7
+#         env:
+#             MYSQL_ALLOW_EMPTY_PASSWORD: yes
+#             MYSQL_DATABASE: spm_proj
+#         ports:
+#             - 3306
       
     steps:
       - uses: actions/checkout@v2
@@ -47,16 +47,16 @@ jobs:
 #       - name: Start SQL
 #         uses: ./spm_proj.sql
 #         with: mysql:5.7 
-      - name: Set up MySQL
+#       - name: Set up MySQL
 #         run: |
 #           mysqld --skip-grant-tables
 #           mysql -u root mysql 
 #           UPDATE user SET Password=PASSWORD('my_password') where USER='root'
 #           FLUSH PRIVILEGES
 #           /etc/init.d/mysql restart
-        run: |
-          sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE spm_proj' -uroot -p
+#         run: |
+#           sudo /etc/init.d/mysql start
+#           mysql -e 'CREATE DATABASE spm_proj' -uroot -p
 
       - name: Test with unittest
         run: |
