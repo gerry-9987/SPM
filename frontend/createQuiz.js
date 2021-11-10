@@ -42,8 +42,6 @@ var app = new Vue({
                             console.log(quizID.quizID)
                             this.lastQuizNum = quizID.quizID
                         }
-                        this.lastQuizNum += 1
-                        console.log(this.lastQuizNum)
                         break;
                     case 500:
                         console.log('failure')
@@ -70,9 +68,9 @@ var app = new Vue({
                     'duration': this.quizDuration,
                     'passingScore': this.passingScore
                 });
-    
+
                 console.log(jsonData)
-    
+
                 fetch(quizURL, {
                         method: "POST",
                         headers: {
