@@ -267,7 +267,7 @@ class Quiz(db.Model):
 
 
     __tablename__ = 'QUIZ'
-    quizID = db.Column(db.Integer(), primary_key=True, autoincrement=False)
+    quizID = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     startDate = db.Column(db.VARCHAR(255), nullable=False)
     endDate = db.Column(db.VARCHAR(255), nullable=False)
     questions = db.Column(db.VARCHAR(255), nullable=False)

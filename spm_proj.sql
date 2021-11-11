@@ -31,7 +31,7 @@ CREATE TABLE COURSE
 DROP TABLE IF EXISTS QUIZ;
 CREATE TABLE QUIZ
 (
-    quizID int(11) NOT NULL,
+    quizID int(11) NOT NULL AUTO_INCREMENT,
     startDate varchar(255) NOT NULL,
     endDate varchar(255) NOT NULL,
     questions varchar(255) NOT NULL,
