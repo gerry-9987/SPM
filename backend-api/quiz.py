@@ -105,7 +105,7 @@ def get_answers(quizID):
 def add_quiz():
 
     try:
-        # quizID = request.json.get("quizID")
+        quizID = request.json.get("quizID")
         startDate = request.json.get("startDate")
         
         endDate = request.json.get("endDate")
@@ -122,9 +122,9 @@ def add_quiz():
                     },
                     "message": "Missing parameters for the quiz."
                 }
-            ), 500 
+            ), 500
 
-    quiz = Quiz(startDate=startDate, endDate=endDate, questions=questions, answers=answers, duration=duration, passingScore=passingScore)
+    quiz = Quiz(quizID=quizID, startDate=startDate, endDate=endDate, questions=questions, answers=answers, duration=duration, passingScore=passingScore)
 
 
     try:
