@@ -27,30 +27,6 @@ var app = new Vue({
             window.scrollTo(0, document.body.scrollHeight);
         },
         createQuiz: function() {
-            console.log("Adding quiz...")
-            fetch(quizURLAll)
-            .then(response => response.json())
-            .then(data => {
-                result = data.data;
-                console.log(result);
-                // 3 cases
-                switch (data.code) {
-                    case 200:
-                        console.log(result)
-                        var quizIDList = result.quiz
-                        for (var quizID of quizIDList) {
-                            console.log(quizID.quizID)
-                            this.lastQuizNum = quizID.quizID
-                        }
-                        break;
-                    case 500:
-                        console.log('failure')
-                        break;
-                    default:
-                        throw `${data.code}: ${data.message}`;
-                }
-                console.log("new quiz ID is here")
-                console.log(this.lastQuizNum)
                 var tempStartDate = Date(this.quizStart).toString()
                 var tempDateArray = tempStartDate.split(" ")
                 var startDate = tempDateArray[2] + " " + tempDateArray[1] + " " + tempDateArray[3]
@@ -58,9 +34,7 @@ var app = new Vue({
                 var tempEDateArray = tempEndDate.split(" ")
                 var endDate = tempEDateArray[2] + " " + tempEDateArray[1] + " " + tempEDateArray[3]
     
-    
                 let jsonData = JSON.stringify({
-                    'quizID': this.lastQuizNum+1,
                     'startDate': startDate,
                     'endDate': endDate,
                     'questions': this.quizQuestions.join(", "),
