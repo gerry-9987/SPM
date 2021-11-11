@@ -4,11 +4,15 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
 from dbModel import *
+import decouple
+from decouple import config
 
+db_url=config("DB_URL")
+db_password = config("DB_PASSWORD")
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/spm_proj'
-# app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:' + db_password + db_url
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle': 299}
 
@@ -149,4 +153,4 @@ def add_quiz():
 
 
 if __name__ == '__main__':
-    app.run(port=5008, debug=True)
+    app.run(host='0.0.0.0', port=5008, debug=True)
