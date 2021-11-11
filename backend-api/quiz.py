@@ -2,16 +2,13 @@ from os import error
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from dbModel import Quiz
-import decouple
-from decouple import config
 
-db_url=config("DB_URL")
-db_password = config("DB_PASSWORD")
+from dbModel import *
+
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:' + db_password + db_url
-
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/spm_proj'
+# app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle': 299}
 
@@ -108,7 +105,7 @@ def get_answers(quizID):
 def add_quiz():
 
     try:
-        quizID = request.json.get("quizID")
+        # quizID = request.json.get("quizID")
         startDate = request.json.get("startDate")
         
         endDate = request.json.get("endDate")
@@ -127,10 +124,10 @@ def add_quiz():
                 }
             ), 500 
 
-    quiz = Quiz(quizID=quizID, startDate=startDate, endDate=endDate, questions=questions, answers=answers, duration=duration, passingScore=passingScore)
-    findquiz = Quiz.query.filter(Quiz.quizID==quizID).first()
+    quiz = Quiz(startDate=startDate, endDate=endDate, questions=questions, answers=answers, duration=duration, passingScore=passingScore)
 
-    if not findquiz:
+
+    try:
         db.session.add(quiz)
         db.session.commit()
         return jsonify(
@@ -140,7 +137,7 @@ def add_quiz():
             }
         ), 200
 
-    else:
+    except:
         print('Failed to push quiz to database')
         return jsonify(
             {
@@ -152,4 +149,4 @@ def add_quiz():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5008, debug=True)
+    app.run(port=5008, debug=True)
